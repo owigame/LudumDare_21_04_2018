@@ -11,6 +11,7 @@ public class GunScript : MonoBehaviour {
     public UnityEvent<Operator, int> HitEvent;
     public Operator opp;
     public LayerMask _mask;
+    public Transform pointer;
 
     [Header("UI")]
     public Text _operatorText;
@@ -18,13 +19,15 @@ public class GunScript : MonoBehaviour {
     VRTK_ControllerEvents _VRTK_ControllerEvents;
 
     RaycastHit hit;
+    GameObject lastHit;
 
     private void Shoot () {
-        if (Physics.Raycast (transform.position, transform.forward, out hit, Mathf.Infinity, _mask)) {
+        if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
-            if (hit.transform.tag == "Enemy") {
+            if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
+                lastHit = hit.transform.gameObject;
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
-                if (HitEvent != null) HitEvent.Invoke (opp, _zombie.Value);
+                Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
             }
         } else {

@@ -17,8 +17,6 @@ public class Player : MonoBehaviour {
     public GunScript _leftHand;
     public GunScript _rightHand;
 
-    public int RequiredScore;
-
 
     void Awake () {
         _player = this;
