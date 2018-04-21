@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
     public int RequiredScore;
 
     void Awake () {
-        _player = this;
+        _player = this; 
 	}
 
     
