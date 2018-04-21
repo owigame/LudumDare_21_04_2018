@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PuzzleTotal : MonoBehaviour {
 
-	int total;
+	public int total;
 	void Start () {
 		Scoring score = FindObjectOfType<Scoring> ();
-		score.RequiredReached.AddListener (TotalPuzzle);
+		score.RequiredReached.AddListener (IncTotal);
 	}
-	void TotalPuzzle () {
+	void IncTotal () {
 		total++;
 	}
+
 }

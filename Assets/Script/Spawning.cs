@@ -23,11 +23,6 @@ public class Spawning : MonoBehaviour {
         }
     }
 
-    public void SpondAmountRemoveOne()
-    {
-        EnemySpawnAmount--;
-    }
-
     void SpawnEnemy () {
 
         // set random rotation
@@ -37,8 +32,8 @@ public class Spawning : MonoBehaviour {
         EnemySpawnAmount++;
 
         //spawn enemy
-       Zombie zomzom =  Instantiate (SpawnOBJ[Random.Range (0, SpawnOBJ.Count)], SpawnPosition.transform.position, Quaternion.identity).GetComponent<Zombie>();
-        zomzom.IDie.AddListener(SpondAmountRemoveOne);
+        Instantiate (SpawnOBJ[Random.Range (0, SpawnOBJ.Count)], SpawnPosition.transform.position, Quaternion.identity);
+
     }
 
 }
