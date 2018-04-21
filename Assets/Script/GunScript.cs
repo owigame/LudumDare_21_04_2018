@@ -102,7 +102,7 @@ public class GunScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "")
+        if(other.tag == "Reload")
         {
             CurrentAmmo = 16;
         }
