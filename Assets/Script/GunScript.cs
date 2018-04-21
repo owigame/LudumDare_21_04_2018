@@ -13,6 +13,8 @@ public class GunScript : MonoBehaviour {
     public LayerMask _mask;
     public Transform pointer;
 
+    public int CurrentAmmo;
+
     [Header("UI")]
     public Text _operatorText;
 
@@ -33,7 +35,10 @@ public class GunScript : MonoBehaviour {
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
         }
+        CurrentAmmo--;
     }
+
+
 
     private void Awake () {
         if (GetComponent<VRTK_ControllerEvents>() == null)
@@ -89,7 +94,18 @@ public class GunScript : MonoBehaviour {
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
         //Shoot
         Debug.Log("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
-        Shoot();
+        if(CurrentAmmo >0)
+        {
+            Shoot();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "")
+        {
+            CurrentAmmo = 16;
+        }
     }
 
 }
