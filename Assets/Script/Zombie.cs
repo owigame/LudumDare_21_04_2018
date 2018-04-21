@@ -18,8 +18,7 @@ public class Zombie : MonoBehaviour {
 
     public void RombieDie()
     {
-
-
+        IDie.Invoke();
         Destroy(gameObject);
     }
 
