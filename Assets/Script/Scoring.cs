@@ -1,30 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Scoring : MonoBehaviour {
+public class Scoring : MonoBehaviour
+{
 
-    public float TotalScore;
-
-	void Start () {
-
+    public int CurrentScore;
+    public UnityEvent RequiredReached;
+	void Start ()
+    {
+        ResetRequiredScore();
         GunScript[] AllGuns = FindObjectsOfType<GunScript>();
         foreach (var gun in AllGuns)
         {
             gun.HitEvent.AddListener(UpdateScore);
         }
 	}
-
+    void ResetRequiredScore()
+    {
+        Player._player.RequiredScore = Mathf.RoundToInt(Random.Range(99, 999));
+    }
     void UpdateScore(Operator Operator, int value)
     {
         switch (Operator)
         {
             case Operator.plus:
-                TotalScore += value;
+                CurrentScore += value;
                 break;
             case Operator.minus:
-                TotalScore -= value;
+                CurrentScore -= value;
                 break;
+        }
+        if (CurrentScore == Player._player.RequiredScore)
+        {
+            RequiredReached.Invoke();
+            ResetRequiredScore();
         }
     }
 }
