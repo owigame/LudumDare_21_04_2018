@@ -16,7 +16,7 @@ public class Zombie : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, Player._player.transform.position, step); 
 	}
 
-    public void RombieDie()
+    public void ZombieDie()
     {
         IDie.Invoke();
         Destroy(gameObject);
