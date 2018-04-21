@@ -24,5 +24,7 @@ public class GunScript : MonoBehaviour
 public enum Operator
 {
     plus,
-    minus
+    minus,
+    multiply,
+    divide
 }
