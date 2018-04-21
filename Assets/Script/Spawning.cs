@@ -14,6 +14,11 @@ public class Spawning : MonoBehaviour
     void SpawnEnemy()
     {
 
+        Vector3 SpaRot = transform.eulerAngles;
+        SpaRot.z = Random.Range(0.0f, 360.0f);
+        transform.eulerAngles = SpaRot;
+
+        Instantiate(SpawnOBJ, SpawnPosition.transform);
     }
 	
 }
