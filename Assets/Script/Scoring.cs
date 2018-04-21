@@ -5,9 +5,23 @@ using UnityEngine.Events;
 
 public class Scoring : MonoBehaviour {
 
-    public int CurrentScore;
-    [HideInInspector]
+    public delegate void ScoreEvents(int _score = 0);
+    public static ScoreEvents onScoreUpdated;
+    public static ScoreEvents onCurrentValueUpdated;
+
+    public static Scoring _scoring;
+
+    public int score; //Overall Score
+    public int currentValue; //Dynamic value
+    public int targetValue; //Value needed to increase score
+
     public UnityEvent RequiredReached;
+
+    private void Awake()
+    {
+        _scoring = this;
+    }
+
     void Start () {
         ResetRequiredScore ();
         GunScript[] AllGuns = FindObjectsOfType<GunScript> ();
@@ -16,20 +30,30 @@ public class Scoring : MonoBehaviour {
         }
     }
     void ResetRequiredScore () {
-        Player._player.RequiredScore = Mathf.RoundToInt (Random.Range (99, 999));
+        Scoring._scoring.targetValue = Mathf.RoundToInt (Random.Range (99, 999));
     }
-    void UpdateScore (Operator Operator, int value) {
+    public void UpdateScore (Operator Operator, int value) {
         switch (Operator) {
             case Operator.plus:
-                CurrentScore += value;
+                currentValue += value;
                 break;
             case Operator.minus:
-                CurrentScore -= value;
+                currentValue -= value;
+                break;
+            case Operator.multiply:
+                currentValue *= value;
+                break;
+            case Operator.divide:
+                currentValue /= value;
                 break;
         }
-        if (CurrentScore == Player._player.RequiredScore) {
+        if (currentValue == targetValue) {
             RequiredReached.Invoke ();
             ResetRequiredScore ();
+            onScoreUpdated(score++);
+        } else
+        {
+            onCurrentValueUpdated(currentValue);
         }
     }
 }

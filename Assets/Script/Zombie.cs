@@ -10,8 +10,9 @@ public class Zombie : MonoBehaviour {
     
     public void Die()
     {
+        gameObject.layer = 0;
         Debug.Log("Zombie killed");
-        Destroy(gameObject);
+        Destroy(gameObject); //TEMP
     }
  	
 	void Update ()
