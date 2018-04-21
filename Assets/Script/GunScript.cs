@@ -5,20 +5,26 @@ using System.Collections;
 public class GunScript : MonoBehaviour
 {
     public UnityEvent<Operator, int> HitEvent;
-    // Use this for initialization
-    void Start()
+    public Operator opp;
+    //int raycastLayerMask = ;
+
+    RaycastHit hit;
+
+    private void Shoot()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (Physics.Raycast(transform.position, transform.forward, Mathf.Infinity))
+        {
+            if (hit.transform.tag == "enemy")
+            {
+                HitEvent.Invoke(opp, GetComponent<Zombie>().Value);
+            }
+        }
     }
 }
 public enum Operator
 {
     plus,
-    minus
+    minus,
+    multiply,
+    divide
 }
