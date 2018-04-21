@@ -32,7 +32,9 @@ public class Spawning : MonoBehaviour {
         EnemySpawnAmount++;
 
         //spawn enemy
-        Instantiate (SpawnOBJ[Random.Range (0, SpawnOBJ.Count)], SpawnPosition.transform.position, Quaternion.identity);
+        int _random = Random.Range(0, SpawnOBJ.Count);
+        Instantiate (SpawnOBJ[_random], SpawnPosition.transform.position, Quaternion.identity);
+        Debug.Log(_random + " spawned");
 
     }
 
