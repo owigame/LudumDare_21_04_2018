@@ -100,12 +100,10 @@ public class GunScript : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Reload()
     {
-        if(other.tag == "Reload")
-        {
-            CurrentAmmo = 16;
-        }
+        Debug.Log("Reloading");
+        CurrentAmmo = 16;
     }
 
 }

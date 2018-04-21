@@ -1,23 +1,23 @@
 fileFormatVersion: 2
-guid: 47b0f4a89fa471a47b527703582be516
-timeCreated: 1524337019
+guid: 15206076a06534e4398b804fbf9ee5f7
+timeCreated: 1524346176
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Sphere
+    100002: ScorePanels
     100004: Sphere_001
     400000: //RootNode
-    400002: Sphere
+    400002: ScorePanels
     400004: Sphere_001
     2100000: unnamed
-    2300000: Sphere
+    2300000: ScorePanels
     2300002: Sphere_001
-    3300000: Sphere
+    3300000: ScorePanels
     3300002: Sphere_001
-    4300000: Sphere_001
-    4300002: Sphere
+    4300000: ScorePanels
+    4300002: Sphere_001
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
@@ -50,7 +50,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 5
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -75,7 +75,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -91,10 +91,10 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - TeleportIgnore
   - ExcludeTeleport
+  - Reload
+  - Gun
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - 
   - 
   - Enemies
-  - 
-  - 
+  - Trigger
+  - Gun
   - 
   - 
   - 
