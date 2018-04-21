@@ -12,6 +12,9 @@ public class GunScript : MonoBehaviour {
     public Operator opp;
     public LayerMask _mask;
     public Transform pointer;
+    private AudioSource AudioSource;
+    public AudioClip clip;
+    public GameObject Trails;
 
     public int CurrentAmmo;
 
@@ -31,11 +34,13 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
                 Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
+                StartCoroutine(Trails.GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
         }
         CurrentAmmo--;
+        AudioSource.PlayOneShot(clip);
     }
 
 
@@ -51,7 +56,7 @@ public class GunScript : MonoBehaviour {
     }
 
     void Start () {
-        
+        AudioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable () {
