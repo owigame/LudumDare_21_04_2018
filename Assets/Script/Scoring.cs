@@ -8,6 +8,7 @@ public class Scoring : MonoBehaviour {
     public delegate void ScoreEvents(int _score = 0);
     public static ScoreEvents onScoreUpdated;
     public static ScoreEvents onCurrentValueUpdated;
+    public static ScoreEvents onTargetValueUpdated;
 
     public static Scoring _scoring;
 
@@ -30,7 +31,8 @@ public class Scoring : MonoBehaviour {
         }
     }
     void ResetRequiredScore () {
-        Scoring._scoring.targetValue = Mathf.RoundToInt (Random.Range (99, 999));
+        targetValue = Mathf.RoundToInt (Random.Range (99, 999));
+        onTargetValueUpdated(targetValue);
     }
     public void UpdateScore (Operator Operator, int value) {
         switch (Operator) {

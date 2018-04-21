@@ -7,7 +7,7 @@ public class UIFetchScore : MonoBehaviour {
 
     public enum scoreTypes
     {
-        score, currentValue
+        score, currentValue, targetValue
     }
 
     public scoreTypes _scoreType;
@@ -17,12 +17,14 @@ public class UIFetchScore : MonoBehaviour {
     {
         if (_scoreType == scoreTypes.score) Scoring.onScoreUpdated += ValueUpdated;
         if (_scoreType == scoreTypes.currentValue) Scoring.onCurrentValueUpdated += ValueUpdated;
+        if (_scoreType == scoreTypes.currentValue) Scoring.onTargetValueUpdated += ValueUpdated;
     }
 
     private void OnDisable()
     {
         if (_scoreType == scoreTypes.score) Scoring.onScoreUpdated -= ValueUpdated;
         if (_scoreType == scoreTypes.currentValue) Scoring.onCurrentValueUpdated -= ValueUpdated;
+        if (_scoreType == scoreTypes.currentValue) Scoring.onTargetValueUpdated -= ValueUpdated;
     }
 
     void ValueUpdated(int _value)
