@@ -6,13 +6,12 @@ public class Zombie : MonoBehaviour {
 
     public int Value;
 
-    public Transform Target;
     public float speed;
     
  	
 	void Update ()
     {
         float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, Target.position, step);
+        transform.position = Vector3.MoveTowards(transform.position, Player._Player.transform.position, step);
 	}
 }
