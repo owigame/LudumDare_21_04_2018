@@ -15,8 +15,16 @@ public class Scoring : MonoBehaviour {
         }
 	}
 
-    void UpdateScore(Operator OP, int VAL)
+    void UpdateScore(Operator Operator, int value)
     {
-        
+        switch (Operator)
+        {
+            case Operator.plus:
+                TotalScore += value;
+                break;
+            case Operator.minus:
+                TotalScore -= value;
+                break;
+        }
     }
 }

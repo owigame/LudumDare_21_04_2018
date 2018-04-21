@@ -19,6 +19,6 @@ public class GunScript : MonoBehaviour
 }
 public enum Operator
 {
-plus,
-minus
+    plus,
+    minus
 }
