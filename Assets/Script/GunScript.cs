@@ -10,13 +10,13 @@ public class GunScript : MonoBehaviour
 
     RaycastHit hit;
 
-    void Shoot()
+    private void Shoot()
     {
         if (Physics.Raycast(transform.position, transform.forward, Mathf.Infinity))
         {
             if (hit.transform.tag == "enemy")
             {
-                HitEvent.Invoke(opp,GetComponent<Zombie>.value)
+                HitEvent.Invoke(opp, GetComponent<Zombie>().Value);
             }
         }
     }
