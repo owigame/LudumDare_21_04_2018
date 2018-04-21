@@ -1,43 +1,39 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Spawning : MonoBehaviour
-{
+public class Spawning : MonoBehaviour {
     //Bennet
 
-    
     public GameObject SpawnPosition;
-    public GameObject SpawnOBJ;
-    public int EnemySpawnAmount,SpawnEveryxSeconds=2;
+    public List<GameObject> SpawnOBJ = new List<GameObject> ();
+    public int EnemySpawnAmount, SpawnEveryxSeconds = 2;
     private float TimeSinceLastSpawn;
 
-
-    private void Start()
-    {
+    private void Start () {
         EnemySpawnAmount = 0;
-        SpawnEnemy();
+        SpawnEnemy ();
     }
 
-    private void Update()
-    {
+    private void Update () {
         TimeSinceLastSpawn += Time.deltaTime;
-        if (TimeSinceLastSpawn> SpawnEveryxSeconds)
-        {
-            SpawnEnemy();
+        if (TimeSinceLastSpawn > SpawnEveryxSeconds) {
+            SpawnEnemy ();
             TimeSinceLastSpawn = 0.0f;
         }
     }
 
-    void SpawnEnemy()
-    {
-        
+    void SpawnEnemy () {
+
         // set random rotation
         Vector3 SpaRot = transform.eulerAngles;
-        SpaRot.y = Random.Range(0.0f, 360.0f);
+        SpaRot.y = Random.Range (0.0f, 360.0f);
         transform.eulerAngles = SpaRot;
         EnemySpawnAmount++;
+
         //spawn enemy
-        Instantiate(SpawnOBJ,SpawnPosition.transform.position,Quaternion.identity);
-        
+        Instantiate (SpawnOBJ[Random.Range (0, SpawnOBJ.Count)], SpawnPosition.transform.position, Quaternion.identity);
+
     }
-	
+
 }
