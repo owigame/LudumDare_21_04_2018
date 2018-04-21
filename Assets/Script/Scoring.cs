@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Scoring : MonoBehaviour {
 
     public int CurrentScore;
+    [HideInInspector]
     public UnityEvent RequiredReached;
     void Start () {
         ResetRequiredScore ();
