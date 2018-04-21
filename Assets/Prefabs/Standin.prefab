@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33222990254779866}
   - component: {fileID: 65631414307225096}
   - component: {fileID: 23135708321869000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 65820009630278440}
   - component: {fileID: 114874118879932196}
   - component: {fileID: 54320006401937910}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Standin
   m_TagString: Enemy
   m_Icon: {fileID: 0}

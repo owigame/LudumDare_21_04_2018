@@ -1,25 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Zombie : MonoBehaviour {
 
     public int Value;
 
     public float speed;
-    public UnityEvent IDie;
+    
+    public void Die()
+    {
+        Debug.Log("Zombie killed");
+        Destroy(gameObject);
+    }
  	
 	void Update ()
     {
         float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, Player._player.transform.position, step); 
+        if (Player._player != null){
+            transform.position = Vector3.MoveTowards(transform.position, Player._player.transform.position, step); 
+        }
 	}
-
-    public void ZombieDie()
-    {
-        IDie.Invoke();
-        Destroy(gameObject);
-    }
-
 }
