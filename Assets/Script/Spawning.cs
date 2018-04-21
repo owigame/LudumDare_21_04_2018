@@ -27,6 +27,11 @@ public class Spawning : MonoBehaviour
         }
     }
 
+    void SubtractAmountOfZomZoms()
+    {
+        EnemySpawnAmount--;
+    }
+
     void SpawnEnemy()
     {
         
@@ -36,8 +41,8 @@ public class Spawning : MonoBehaviour
         transform.eulerAngles = SpaRot;
         EnemySpawnAmount++;
         //spawn enemy
-        Instantiate(SpawnOBJ,SpawnPosition.transform.position,Quaternion.identity);
-        
+        Zombie  zomzom = Instantiate(SpawnOBJ,SpawnPosition.transform.position,Quaternion.identity).GetComponent<Zombie>();
+        zomzom.IDie.AddListener(SubtractAmountOfZomZoms);
     }
 	
 }
