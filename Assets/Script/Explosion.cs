@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : MonoBehaviour {
+public class Explosion : MonoBehaviour
+{
 
     public float radius = 50.0F;
     //public float power = 100.0F;
-    
+    private Vector3 explosionPos;
+    public GameObject ExplosionPrefabEffect;
+
     public void Explode(Vector3 explosionPosition)
     {
-        Vector3 explosionPos = explosionPosition;
+        explosionPos = explosionPosition;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
 
         Debug.Log(colliders.Length);
@@ -22,14 +25,6 @@ public class Explosion : MonoBehaviour {
             }
         }
 
-        StartCoroutine(Flash());
-    }
-
-    IEnumerator Flash()
-    {
-        // = transform.GetChild(0);
-        transform.GetChild(0).gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        transform.GetChild(0).gameObject.SetActive(false);
+        Instantiate(ExplosionPrefabEffect, explosionPos, Quaternion.identity);
     }
 }

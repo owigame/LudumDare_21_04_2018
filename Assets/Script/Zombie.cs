@@ -14,16 +14,17 @@ public class Zombie : MonoBehaviour {
 
     public void Die()
     {
+        StartCoroutine(DoDie());
+        
+    }
+
+    IEnumerator DoDie()
+    {
         gameObject.layer = 0;
         Debug.Log("Zombie killed");
         //Destroy(gameObject); //TEMP
         gameObject.SetActive(false);
-
-        if (Value == 0)
-        {
-            explosion = new Explosion();
-            explosion.Explode(transform.position);
-        }
+        yield return null;
     }
  	
 	void Update ()
