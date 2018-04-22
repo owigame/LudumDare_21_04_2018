@@ -36,6 +36,7 @@ public class GunScript : MonoBehaviour {
 
     [Header("Rotary")]
     public CircularDriveModded _CircularDriveModded;
+    public bool gripPressed = false;
 
     private void Shoot () {
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
@@ -88,7 +89,10 @@ public class GunScript : MonoBehaviour {
     }
 
     void Update () {
-
+        if (gripPressed)
+        {
+            if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed();
+        }
     }
 
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
@@ -192,13 +196,18 @@ public class GunScript : MonoBehaviour {
 
     void GripPressed(object sender, ControllerInteractionEventArgs _args)
     {
+        gripPressed = true;
         //Get position of controller relative to watch center
         //Rotate around watch center
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed();
+        Debug.Log("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
 
     }
 
     void GripReleased(object sender, ControllerInteractionEventArgs _args)
     {
+        gripPressed = false;
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased();
         //Submit multiplier
     }
 }

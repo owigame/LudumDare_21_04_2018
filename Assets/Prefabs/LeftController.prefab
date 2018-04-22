@@ -639,7 +639,7 @@ Transform:
   m_GameObject: {fileID: 1615979655946838}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.0585, z: -0.0784}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 4124450490648446}
   - {fileID: 4319851513989542}
@@ -1704,7 +1704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcc3a9c496015d4e83f9d067665e816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHand: 0
+  playerHand: 1
   opp: 0
   _mask:
     serializedVersion: 2
@@ -1715,6 +1715,7 @@ MonoBehaviour:
   Trail: {fileID: 1335755978058318, guid: d0a160b95d48e3a45b7dd629ce3e708b, type: 2}
   CurrentAmmo: 16
   _operatorText: {fileID: 114760428836062210}
+  _CircularDriveModded: {fileID: 0}
 --- !u!114 &114934661499896700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2123,7 +2124,7 @@ RectTransform:
   m_GameObject: {fileID: 1008110025037728}
   m_LocalRotation: {x: 0.03405282, y: 0.06412621, z: 0.98915565, w: 0.12766945}
   m_LocalPosition: {x: 0, y: 0, z: -0.047090024}
-  m_LocalScale: {x: 0.00014496341, y: 0.00014496339, z: 0.00014496331}
+  m_LocalScale: {x: -0.0001449634, y: 0.00014496339, z: 0.00014496331}
   m_Children:
   - {fileID: 224127148878168582}
   - {fileID: 224017304268193346}

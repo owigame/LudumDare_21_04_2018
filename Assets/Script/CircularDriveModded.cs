@@ -267,20 +267,30 @@ public class CircularDriveModded : MonoBehaviour
 	}
 
     //MODDED ***********************************************************
-    public void HandGripPressed(ControllerInteractionEventHandler _args)
+    public void HandGripPressed()
     {
-        // Trigger was just pressed
-        lastHandProjected = ComputeToTransformProjected(_rightHand.transform);
+        if (driving == false)
+        {
+            // Trigger was just pressed
+            lastHandProjected = ComputeToTransformProjected(_rightHand.transform);
+            driving = true;
+            ComputeAngle();
+            UpdateAll();
+        } else
+        {
+            ComputeAngle();
+            UpdateAll();
+        }
+    }
 
-        driving = true;
-
-        ComputeAngle();
-        UpdateAll();
+    public void HandGripReleased()
+    {
+        driving = false;
     }
 
 
-	//-------------------------------------------------
-	private Vector3 ComputeToTransformProjected( Transform xForm )
+    //-------------------------------------------------
+    private Vector3 ComputeToTransformProjected( Transform xForm )
 	{
 		Vector3 toTransform = ( xForm.position - transform.position ).normalized;
 		Vector3 toTransformProjected = new Vector3( 0.0f, 0.0f, 0.0f );
