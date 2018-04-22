@@ -12,13 +12,10 @@ public class GunScript : MonoBehaviour {
     public Operator opp;
     public LayerMask _mask;
     public Transform pointer;
-<<<<<<< HEAD
     public Animator _anim;
-=======
     private AudioSource AudioSource;
     public AudioClip clip;
     public GameObject Trails;
->>>>>>> 8c85e2215b2a247d4223ead0136cf91d8ca167c3
 
     public int CurrentAmmo;
 
