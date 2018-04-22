@@ -10,12 +10,19 @@ public class Zombie : MonoBehaviour {
 
     public bool imExploding;
 
+    Explosion explosion;
 
     public void Die()
     {
         gameObject.layer = 0;
         Debug.Log("Zombie killed");
         Destroy(gameObject); //TEMP
+
+        if (Value == 0)
+        {
+            explosion = new Explosion();
+            explosion.Explode(transform.position);
+        }
     }
  	
 	void Update ()
