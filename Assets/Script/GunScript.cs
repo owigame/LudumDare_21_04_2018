@@ -23,6 +23,8 @@ public class GunScript : MonoBehaviour {
     public AudioClip clip;
     public GameObject Trail;
     private GameObjectPool TrailsPool;
+    public GameObject otherController;
+    public int ShootVibrations =10,DurationToVibrate =10;
 
 
     public int CurrentAmmo;
@@ -57,6 +59,7 @@ public class GunScript : MonoBehaviour {
             StartCoroutine(BulletTrail(pointer.position + pointer.forward * 100));
         }
         CurrentAmmo--;
+        StartCoroutine(VibateOverFrames(DurationToVibrate));
     }
 
 
@@ -99,7 +102,12 @@ public class GunScript : MonoBehaviour {
         {
             _CircularDriveModded.HandGripPressed();
             rotaryValue = _linearMapping.value;
-            Scoring._scoring.UpdateMultiplier(Mathf.Clamp(Mathf.FloorToInt(rotaryValue*10),1,9));
+            int _multiplier = Mathf.Clamp(Mathf.FloorToInt(rotaryValue * 10), 1, 9);
+            if (Scoring._scoring.multiplier != _multiplier)
+            {
+                Scoring._scoring.UpdateMultiplier(_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
+            }
         }
     }
 
@@ -107,10 +115,18 @@ public class GunScript : MonoBehaviour {
         float _X = _args.touchpadAxis.x;
         float _Y = _args.touchpadAxis.y;
         if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
+            if (opp == Operator.minus)
+            {
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), 0.1f);
+            }
             opp = Operator.plus;
             _operatorText.text = "+";
         }
         if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
+            if (opp == Operator.plus)
+            {
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), 0.1f);
+            }
             opp = Operator.minus;
             _operatorText.text = "-";
         }
@@ -239,5 +255,13 @@ public class GunScript : MonoBehaviour {
 
         yield return new WaitForSeconds(0.0125f);
         Destroy(trail);
+    }
+    IEnumerator VibateOverFrames(int FrameDuration)
+    {
+        for (int i = 0; i < FrameDuration; i++)
+        {
+            VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), ShootVibrations);
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
