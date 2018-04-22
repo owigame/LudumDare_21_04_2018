@@ -12,6 +12,8 @@ class GameObjectPool
     public GameObjectPool(GameObject baseObject)
     {
         BaseGameObject = baseObject;
+        Active = new List<GameObject>();
+        InActive = new List<GameObject>();
     }
     public GameObject GetObject()
     {

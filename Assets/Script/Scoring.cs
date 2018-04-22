@@ -5,10 +5,11 @@ using UnityEngine.Events;
 
 public class Scoring : MonoBehaviour {
 
-    public delegate void ScoreEvents(int _score = 0);
+    public delegate void ScoreEvents(int _score = 0, string _suffix = "");
     public static ScoreEvents onScoreUpdated;
     public static ScoreEvents onCurrentValueUpdated;
     public static ScoreEvents onTargetValueUpdated;
+    public static ScoreEvents onMultiplierUpdated;
 
     public static Scoring _scoring;
 
@@ -16,7 +17,7 @@ public class Scoring : MonoBehaviour {
     public int currentValue; //Dynamic value
     public int targetValue; //Value needed to increase score
     public int highestScore;
-    public int Multiplier;
+    public int multiplier;
 
     public UnityEvent RequiredReached;
 
@@ -42,10 +43,10 @@ public class Scoring : MonoBehaviour {
     public void UpdateScore (Operator Operator, int value) {
         switch (Operator) {
             case Operator.plus:
-                currentValue += value*Multiplier;
+                currentValue += value*multiplier;
                 break;
             case Operator.minus:
-                currentValue -= value*Multiplier;
+                currentValue -= value*multiplier;
                 break;
             case Operator.multiply:
                 currentValue *= value;
@@ -78,5 +79,11 @@ public class Scoring : MonoBehaviour {
             //Display end round
         }
         if (onScoreUpdated != null) onScoreUpdated(score);
+    }
+
+    public void UpdateMultiplier(int _mulitplier)
+    {
+        multiplier = _mulitplier;
+        onMultiplierUpdated(_mulitplier, "x");
     }
 }
