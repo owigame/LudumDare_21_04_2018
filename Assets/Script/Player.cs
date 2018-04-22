@@ -17,11 +17,16 @@ public class Player : MonoBehaviour {
     public GunScript _leftHand;
     public GunScript _rightHand;
 
+    public ClipSet Clips_Plus;
+    public ClipSet Clips_Minus;
+    public ClipSet Clips_Mul;
+    public ClipSet Clips_Div;
 
     void Awake () {
         _player = this;
     }
-
-    
-
+}
+public class ClipSet
+{
+    public AudioClip WeaponFire,Reload,ClipEmpty;
 }
