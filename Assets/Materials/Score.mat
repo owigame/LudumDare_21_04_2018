@@ -80,7 +80,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Alpha: 0.973
-    - _Brightness: 1.25
+    - _Brightness: 3.21
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -101,10 +101,10 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RimFallness: 0.5
-    - _RimPower: 1.16
+    - _RimPower: 0.94
     - _RimStrength: 1
-    - _ScanSpeed: -1.58
-    - _ScanTiling: 8.23
+    - _ScanSpeed: -0.55
+    - _ScanTiling: 0.63
     - _Scanline: 0
     - _ScanlineSpeed: 0.05
     - _ScanlineTiling: 5.9

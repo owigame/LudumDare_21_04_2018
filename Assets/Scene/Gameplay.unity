@@ -494,16 +494,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198503356389259092, guid: c18d38dcc192ba4429352126b1a3a288,
-        type: 2}
-      propertyPath: simulationSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198503356389259092, guid: c18d38dcc192ba4429352126b1a3a288,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1052998632
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c18d38dcc192ba4429352126b1a3a288, type: 2}
   m_IsPrefabParent: 0
@@ -1194,6 +1184,7 @@ MonoBehaviour:
   pointer: {fileID: 1998143793}
   _anim: {fileID: 1962360544}
   clip: {fileID: 0}
+  Trail: {fileID: 0}
   Trails: {fileID: 0}
   CurrentAmmo: 16
   _operatorText: {fileID: 1365970222}
@@ -1919,6 +1910,7 @@ MonoBehaviour:
   pointer: {fileID: 614570541}
   _anim: {fileID: 842708796}
   clip: {fileID: 0}
+  Trail: {fileID: 0}
   Trails: {fileID: 0}
   CurrentAmmo: 16
   _operatorText: {fileID: 1442327327}
