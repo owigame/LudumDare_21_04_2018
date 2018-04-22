@@ -27,7 +27,7 @@ public class Explosion : MonoBehaviour {
 
     IEnumerator Flash()
     {
-         = transform.GetChild(0);
+        // = transform.GetChild(0);
         transform.GetChild(0).gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         transform.GetChild(0).gameObject.SetActive(false);
