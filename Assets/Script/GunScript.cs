@@ -14,6 +14,7 @@ public class GunScript : MonoBehaviour {
     public Transform pointer;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Animator _anim;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -31,6 +32,10 @@ public class GunScript : MonoBehaviour {
 =======
 =======
 >>>>>>> parent of 1878907... Score Panel visuals
+=======
+    public Animator _anim;
+=======
+>>>>>>> parent of 1878907... Score Panel visuals
     private AudioSource AudioSource;
     public AudioClip clip;
     public GameObject Trail;
@@ -38,8 +43,11 @@ public class GunScript : MonoBehaviour {
 
     public GameObject Trails;
 >>>>>>> 8c85e2215b2a247d4223ead0136cf91d8ca167c3
+<<<<<<< HEAD
 =======
 >>>>>>> parent of cf5b656... gun sounsds + trails
+=======
+>>>>>>> parent of 1878907... Score Panel visuals
 
     public int CurrentAmmo;
 
