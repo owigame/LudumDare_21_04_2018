@@ -94,22 +94,22 @@ public class GunScript : MonoBehaviour {
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
         float _X = _args.touchpadAxis.x;
         float _Y = _args.touchpadAxis.y;
-        if (_X > 0 && Mathf.Abs (_Y) < 0.3f) {
+        if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
             opp = Operator.plus;
             _operatorText.text = "+";
         }
-        if (_X < 0 && Mathf.Abs (_Y) < 0.3f) {
+        if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
             opp = Operator.minus;
             _operatorText.text = "-";
         }
-        if (_Y > 0 && Mathf.Abs (_X) < 0.3f) {
-            opp = Operator.multiply;
-            _operatorText.text = "*";
-        }
-        if (_Y < 0 && Mathf.Abs (_X) < 0.3f) {
-            opp = Operator.divide;
-            _operatorText.text = "/";
-        }
+        //if (_Y > 0 && Mathf.Abs (_X) < 0.3f) {
+        //    opp = Operator.multiply;
+        //    _operatorText.text = "*";
+        //}
+        //if (_Y < 0 && Mathf.Abs (_X) < 0.3f) {
+        //    opp = Operator.divide;
+        //    _operatorText.text = "/";
+        //}
         if (OnOppChanged != null) OnOppChanged(opp);
         Debug.Log ("Operator Submit " + opp + (playerHand == 1 ? "Right Hand" : "Left Hand"));
     }
