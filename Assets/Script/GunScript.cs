@@ -12,17 +12,23 @@ public class GunScript : MonoBehaviour {
     public Operator opp;
     public LayerMask _mask;
     public Transform pointer;
+<<<<<<< HEAD
     public Animator _anim;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
 >>>>>>> aab420d4149cbfd6a68de7ff9161d75d7733081c
+=======
+=======
+>>>>>>> parent of 1878907... Score Panel visuals
     private AudioSource AudioSource;
     public AudioClip clip;
     public GameObject Trail;
     private GameObjectPool TrailsPool;
 
     public GameObject Trails;
+>>>>>>> 8c85e2215b2a247d4223ead0136cf91d8ca167c3
 
     public int CurrentAmmo;
 
