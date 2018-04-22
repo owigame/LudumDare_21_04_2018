@@ -13,8 +13,15 @@ public class GunScript : MonoBehaviour {
     public LayerMask _mask;
     public Transform pointer;
     public Animator _anim;
+<<<<<<< HEAD
+=======
+
+>>>>>>> aab420d4149cbfd6a68de7ff9161d75d7733081c
     private AudioSource AudioSource;
     public AudioClip clip;
+    public GameObject Trail;
+    private GameObjectPool TrailsPool;
+
     public GameObject Trails;
 
     public int CurrentAmmo;
@@ -35,7 +42,7 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
                 Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
-                StartCoroutine(Trails.GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
+                StartCoroutine(TrailsPool.GetObject().GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
@@ -61,7 +68,7 @@ public class GunScript : MonoBehaviour {
     }
 
     private void OnEnable () {
-        _VRTK_ControllerEvents.TouchpadReleased += new ControllerInteractionEventHandler (OperatorChange);
+        _VRTK_ControllerEvents.TouchpadTouchEnd += new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
         // _VRTK_e.TouchpadReleased += OperatorChange;
         // _VRTK_e.TriggerClicked += Shoot;
