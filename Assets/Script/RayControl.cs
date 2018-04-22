@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RayControl : MonoBehaviour {
 
-    public IEnumerator FireRay(float FrameDuration,Vector3 start,Vector3 destination)
+    IEnumerator FireRay(float FrameDuration,Vector3 start,Vector3 destination)
     {
         for (int i = 0; i < FrameDuration; i++)
         {
