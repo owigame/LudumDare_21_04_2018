@@ -16,9 +16,13 @@ public class GunScript : MonoBehaviour {
     public Animator _anim;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> aab420d4149cbfd6a68de7ff9161d75d7733081c
+=======
+=======
+>>>>>>> parent of 1878907... Score Panel visuals
 =======
 =======
 >>>>>>> parent of 1878907... Score Panel visuals

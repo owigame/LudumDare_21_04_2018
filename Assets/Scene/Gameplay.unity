@@ -1369,10 +1369,13 @@ MonoBehaviour:
 <<<<<<< HEAD
   _anim: {fileID: 1962360544}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> aab420d4149cbfd6a68de7ff9161d75d7733081c
   clip: {fileID: 0}
   Trails: {fileID: 0}
+=======
+>>>>>>> parent of 1878907... Score Panel visuals
 =======
 >>>>>>> parent of 1878907... Score Panel visuals
   CurrentAmmo: 16
@@ -1873,6 +1876,129 @@ MeshCollider:
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
 --- !u!1 &1235246485
+<<<<<<< HEAD
+=======
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: 15206076a06534e4398b804fbf9ee5f7, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1235246486}
+  - component: {fileID: 1235246488}
+  - component: {fileID: 1235246487}
+  m_Layer: 0
+  m_Name: Sphere_001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1235246486
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: 15206076a06534e4398b804fbf9ee5f7, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1235246485}
+  m_LocalRotation: {x: -0.00000009415696, y: 0.7071068, z: 0.7071067, w: 0.00000009415697}
+  m_LocalPosition: {x: 0, y: -30.800003, z: 5}
+  m_LocalScale: {x: 49.381283, y: 49.381268, z: 86.53861}
+  m_Children: []
+  m_Father: {fileID: 1408289615}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1235246487
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300002, guid: 15206076a06534e4398b804fbf9ee5f7,
+    type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1235246485}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 8b6c370d7bd02cf4492be893f09684bf, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1235246488
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300002, guid: 15206076a06534e4398b804fbf9ee5f7,
+    type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1235246485}
+  m_Mesh: {fileID: 4300002, guid: 15206076a06534e4398b804fbf9ee5f7, type: 3}
+--- !u!1 &1247835146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 15206076a06534e4398b804fbf9ee5f7, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1247835147}
+  - component: {fileID: 1247835148}
+  m_Layer: 0
+  m_Name: ScorePanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1247835147
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 15206076a06534e4398b804fbf9ee5f7, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1247835146}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 150, z: 140.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1408289615}
+  m_Father: {fileID: 902965607}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1247835148
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1247835146}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7c815e851b7966b4fa7c2cc3eb349c19, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!1 &1258903782
+>>>>>>> parent of 1878907... Score Panel visuals
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100004, guid: 15206076a06534e4398b804fbf9ee5f7, type: 3}
@@ -2244,10 +2370,13 @@ MonoBehaviour:
 <<<<<<< HEAD
   _anim: {fileID: 842708796}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> aab420d4149cbfd6a68de7ff9161d75d7733081c
   clip: {fileID: 0}
   Trails: {fileID: 0}
+=======
+>>>>>>> parent of 1878907... Score Panel visuals
 =======
 >>>>>>> parent of 1878907... Score Panel visuals
   CurrentAmmo: 16
@@ -2945,6 +3074,7 @@ Prefab:
   m_IsPrefabParent: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &1705735394
 Prefab:
   m_ObjectHideFlags: 0
@@ -3083,6 +3213,8 @@ MeshFilter:
   m_GameObject: {fileID: 1710728992}
   m_Mesh: {fileID: 4300000, guid: d819a4b3579d3c9498ada2f522472147, type: 3}
 >>>>>>> aab420d4149cbfd6a68de7ff9161d75d7733081c
+=======
+>>>>>>> parent of 1878907... Score Panel visuals
 =======
 >>>>>>> parent of 1878907... Score Panel visuals
 --- !u!1 &1732285524
@@ -3572,10 +3704,14 @@ Animator:
     type: 3}
   m_PrefabInternal: {fileID: 11455093}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1962839348
 =======
 --- !u!1 &1998143792
 >>>>>>> aab420d4149cbfd6a68de7ff9161d75d7733081c
+=======
+--- !u!1 &1998143792
+>>>>>>> parent of 1878907... Score Panel visuals
 =======
 --- !u!1 &1998143792
 >>>>>>> parent of 1878907... Score Panel visuals
