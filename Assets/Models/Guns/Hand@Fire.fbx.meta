@@ -56,6 +56,9 @@ ModelImporter:
     400046: Hand_Root_Bone
     400048: VRplayerHand
     2100000: Hand
+    2100002: Hand_MAT
+    2100004: RoundScreen_MAT
+    2100006: SquareScreen_MAT
     4300000: VRplayerHand
     7400000: Hand_Fire
     9500000: //RootNode

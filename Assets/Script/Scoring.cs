@@ -15,6 +15,7 @@ public class Scoring : MonoBehaviour {
     public int score; //Overall Score
     public int currentValue; //Dynamic value
     public int targetValue; //Value needed to increase score
+    public int highestScore;
 
     public UnityEvent RequiredReached;
 
@@ -52,10 +53,26 @@ public class Scoring : MonoBehaviour {
         if (currentValue == targetValue) {
             RequiredReached.Invoke ();
             ResetRequiredScore ();
-            onScoreUpdated(score++);
+            score++;
+            highestScore = score > highestScore ? score : highestScore;
+            onScoreUpdated(score);
         } else
         {
             onCurrentValueUpdated(currentValue);
         }
+    }
+    public void TakeDamage()
+    {
+        if (score > 1)
+        {
+            //Do damage FX
+            score--;
+        } else
+        {
+            Debug.Log("END ROUND");
+            Time.timeScale = 0;
+            //Display end round
+        }
+        onScoreUpdated(score);
     }
 }

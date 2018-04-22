@@ -44,6 +44,9 @@ ModelImporter:
     400034: Hand_Root_Bone
     400036: VRplayerHand
     2100000: Hand
+    2100002: Hand_MAT
+    2100004: RoundScreen_MAT
+    2100006: SquareScreen_MAT
     4300000: VRplayerHand
     7400000: Hand_Idle
     9500000: //RootNode
@@ -53,7 +56,7 @@ ModelImporter:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

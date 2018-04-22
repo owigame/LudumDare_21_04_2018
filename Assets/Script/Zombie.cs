@@ -22,4 +22,14 @@ public class Zombie : MonoBehaviour {
             transform.position = Vector3.MoveTowards(transform.position, Player._player.transform.position, step); 
         }
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag=="Player")
+        {
+            Destroy(gameObject);
+            Scoring._scoring.TakeDamage();
+        }
+    }
+
 }
