@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GunScript : MonoBehaviour {
 
     public delegate void OppEvents(Operator _opp);
-    public static OppEvents OnOppChanged;
+    public OppEvents OnOppChanged;
 
     public static GunScript _GunScript;
 
@@ -33,6 +33,10 @@ public class GunScript : MonoBehaviour {
 
     RaycastHit hit;
     GameObject lastHit;
+
+    [Header("Rotary")]
+    public CircularDriveModded _CircularDriveModded;
+    public bool gripPressed = false;
 
     private void Shoot () {
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
@@ -72,37 +76,44 @@ public class GunScript : MonoBehaviour {
         _VRTK_ControllerEvents.TouchpadAxisChanged += new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
         _VRTK_ControllerEvents.TriggerAxisChanged += new ControllerInteractionEventHandler (GunTrigger);
+        _VRTK_ControllerEvents.GripPressed += new ControllerInteractionEventHandler (GripPressed);
+        _VRTK_ControllerEvents.GripReleased += new ControllerInteractionEventHandler (GripReleased);
     }
 
     private void OnDisable () {
         _VRTK_ControllerEvents.TouchpadAxisChanged -= new ControllerInteractionEventHandler(OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler(Shoot);
         _VRTK_ControllerEvents.TriggerAxisChanged -= new ControllerInteractionEventHandler (GunTrigger);
+        _VRTK_ControllerEvents.GripPressed -= new ControllerInteractionEventHandler (GripPressed);
+        _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
     }
 
     void Update () {
-
+        if (gripPressed)
+        {
+            if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed();
+        }
     }
 
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
         float _X = _args.touchpadAxis.x;
         float _Y = _args.touchpadAxis.y;
-        if (_X > 0 && Mathf.Abs (_Y) < 0.3f) {
+        if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
             opp = Operator.plus;
             _operatorText.text = "+";
         }
-        if (_X < 0 && Mathf.Abs (_Y) < 0.3f) {
+        if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
             opp = Operator.minus;
             _operatorText.text = "-";
         }
-        if (_Y > 0 && Mathf.Abs (_X) < 0.3f) {
-            opp = Operator.multiply;
-            _operatorText.text = "*";
-        }
-        if (_Y < 0 && Mathf.Abs (_X) < 0.3f) {
-            opp = Operator.divide;
-            _operatorText.text = "/";
-        }
+        //if (_Y > 0 && Mathf.Abs (_X) < 0.3f) {
+        //    opp = Operator.multiply;
+        //    _operatorText.text = "*";
+        //}
+        //if (_Y < 0 && Mathf.Abs (_X) < 0.3f) {
+        //    opp = Operator.divide;
+        //    _operatorText.text = "/";
+        //}
         if (OnOppChanged != null) OnOppChanged(opp);
         Debug.Log ("Operator Submit " + opp + (playerHand == 1 ? "Right Hand" : "Left Hand"));
     }
@@ -179,7 +190,24 @@ public class GunScript : MonoBehaviour {
 
     void GunTrigger(object sender, ControllerInteractionEventArgs _args)
     {
-        _anim.Play("Trigger", 1, _args.buttonPressure);
+        Debug.Log("Trigger: " + _args.buttonPressure);
+        _anim.Play("Trigger", -1, _args.buttonPressure);
     }
 
+    void GripPressed(object sender, ControllerInteractionEventArgs _args)
+    {
+        gripPressed = true;
+        //Get position of controller relative to watch center
+        //Rotate around watch center
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed();
+        Debug.Log("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
+
+    }
+
+    void GripReleased(object sender, ControllerInteractionEventArgs _args)
+    {
+        gripPressed = false;
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased();
+        //Submit multiplier
+    }
 }

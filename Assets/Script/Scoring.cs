@@ -16,6 +16,7 @@ public class Scoring : MonoBehaviour {
     public int currentValue; //Dynamic value
     public int targetValue; //Value needed to increase score
     public int highestScore;
+    public int Multiplier;
 
     public UnityEvent RequiredReached;
 
@@ -41,10 +42,10 @@ public class Scoring : MonoBehaviour {
     public void UpdateScore (Operator Operator, int value) {
         switch (Operator) {
             case Operator.plus:
-                currentValue += value;
+                currentValue += value*Multiplier;
                 break;
             case Operator.minus:
-                currentValue -= value;
+                currentValue -= value*Multiplier;
                 break;
             case Operator.multiply:
                 currentValue *= value;
