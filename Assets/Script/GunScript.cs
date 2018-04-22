@@ -12,42 +12,13 @@ public class GunScript : MonoBehaviour {
     public Operator opp;
     public LayerMask _mask;
     public Transform pointer;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public Animator _anim;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> aab420d4149cbfd6a68de7ff9161d75d7733081c
-=======
-=======
->>>>>>> parent of 1878907... Score Panel visuals
-=======
-=======
->>>>>>> parent of 1878907... Score Panel visuals
-=======
-=======
->>>>>>> parent of 1878907... Score Panel visuals
-=======
-    public Animator _anim;
-=======
->>>>>>> parent of 1878907... Score Panel visuals
     private AudioSource AudioSource;
     public AudioClip clip;
     public GameObject Trail;
     private GameObjectPool TrailsPool;
 
     public GameObject Trails;
->>>>>>> 8c85e2215b2a247d4223ead0136cf91d8ca167c3
-<<<<<<< HEAD
-=======
->>>>>>> parent of cf5b656... gun sounsds + trails
-=======
->>>>>>> parent of 1878907... Score Panel visuals
 
     public int CurrentAmmo;
 
@@ -67,10 +38,7 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
                 Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
-<<<<<<< HEAD
                 StartCoroutine(TrailsPool.GetObject().GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
-=======
->>>>>>> parent of cf5b656... gun sounsds + trails
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
