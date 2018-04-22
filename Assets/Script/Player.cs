@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
         _player = this;
     }
 }
+[System.Serializable]
 public class ClipSet
 {
     public AudioClip WeaponFire,Reload,ClipEmpty;

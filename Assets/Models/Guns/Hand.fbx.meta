@@ -51,7 +51,22 @@ ModelImporter:
     7400000: Hand_Idle
     9500000: //RootNode
     13700000: VRplayerHand
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hand_MAT
+    second: {fileID: 2100000, guid: bfdd85a39c5a69741b6151d6ed80045c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RoundScreen_MAT
+    second: {fileID: 2100000, guid: 5f89a15b40731c44b8b70edabbd276c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SquareScreen_MAT
+    second: {fileID: 2100000, guid: d0cb5fcc3f5d6c04c94dbf51e7d588e2, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

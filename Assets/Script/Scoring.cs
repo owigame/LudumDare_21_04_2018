@@ -30,10 +30,13 @@ public class Scoring : MonoBehaviour {
         foreach (var gun in AllGuns) {
             if (gun.HitEvent != null) gun.HitEvent.AddListener (UpdateScore);
         }
+        if (onScoreUpdated != null) onScoreUpdated(score);
+        if (onCurrentValueUpdated != null) onCurrentValueUpdated(currentValue);
+        if (onTargetValueUpdated != null) onTargetValueUpdated(targetValue);
     }
     void ResetRequiredScore () {
         targetValue = Mathf.RoundToInt (Random.Range (99, 999));
-        onTargetValueUpdated(targetValue);
+        if (onTargetValueUpdated != null) onTargetValueUpdated(targetValue);
     }
     public void UpdateScore (Operator Operator, int value) {
         switch (Operator) {
@@ -55,10 +58,10 @@ public class Scoring : MonoBehaviour {
             ResetRequiredScore ();
             score++;
             highestScore = score > highestScore ? score : highestScore;
-            onScoreUpdated(score);
+            if (onScoreUpdated != null) onScoreUpdated(score);
         } else
         {
-            onCurrentValueUpdated(currentValue);
+            if (onCurrentValueUpdated != null) onCurrentValueUpdated(currentValue);
         }
     }
     public void TakeDamage()
@@ -73,6 +76,6 @@ public class Scoring : MonoBehaviour {
             Time.timeScale = 0;
             //Display end round
         }
-        onScoreUpdated(score);
+        if (onScoreUpdated != null) onScoreUpdated(score);
     }
 }

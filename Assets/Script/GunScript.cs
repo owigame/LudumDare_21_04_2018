@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class GunScript : MonoBehaviour {
 
+    public delegate void OppEvents(Operator _opp);
+    public static OppEvents OnOppChanged;
+
+    public static GunScript _GunScript;
+
     [Header("Setup")]
     public int playerHand = 0; // 0 Left | 1 Right
     public UnityEvent<Operator, int> HitEvent;
@@ -30,7 +35,6 @@ public class GunScript : MonoBehaviour {
     GameObject lastHit;
 
     private void Shoot () {
-        _audioSource.PlayOneShot(clip);
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
             if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
@@ -49,6 +53,7 @@ public class GunScript : MonoBehaviour {
 
 
     private void Awake () {
+        _GunScript = this;
         _audioSource = GetComponent<AudioSource>();
         if (GetComponent<VRTK_ControllerEvents>() == null)
         {
@@ -60,7 +65,7 @@ public class GunScript : MonoBehaviour {
     }
 
     void Start () {
-        
+        if (OnOppChanged != null) OnOppChanged(opp);
     }
 
     private void OnEnable () {
@@ -80,22 +85,23 @@ public class GunScript : MonoBehaviour {
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
         float _X = _args.touchpadAxis.x;
         float _Y = _args.touchpadAxis.y;
-        if (_X > 0 && Mathf.Abs (_Y) < 0.2f) {
+        if (_X > 0 && Mathf.Abs (_Y) < 0.3f) {
             opp = Operator.plus;
             _operatorText.text = "+";
         }
-        if (_X < 0 && Mathf.Abs (_Y) < 0.2f) {
+        if (_X < 0 && Mathf.Abs (_Y) < 0.3f) {
             opp = Operator.minus;
             _operatorText.text = "-";
         }
-        if (_Y > 0 && Mathf.Abs (_X) < 0.2f) {
+        if (_Y > 0 && Mathf.Abs (_X) < 0.3f) {
             opp = Operator.multiply;
             _operatorText.text = "*";
         }
-        if (_Y < 0 && Mathf.Abs (_X) < 0.2f) {
+        if (_Y < 0 && Mathf.Abs (_X) < 0.3f) {
             opp = Operator.divide;
             _operatorText.text = "/";
         }
+        if (OnOppChanged != null) OnOppChanged(opp);
         Debug.Log ("Operator Submit " + opp + (playerHand == 1 ? "Right Hand" : "Left Hand"));
     }
 
@@ -106,6 +112,43 @@ public class GunScript : MonoBehaviour {
         if(CurrentAmmo >0)
         {
             Shoot();
+            //_audioSource.PlayOneShot(clip);
+            switch (opp)
+            {
+                case Operator.plus:
+                    _audioSource.PlayOneShot(Player._player.Clips_Plus.WeaponFire);
+                    break;
+                case Operator.minus:
+                    _audioSource.PlayOneShot(Player._player.Clips_Minus.WeaponFire);
+                    break;
+                case Operator.multiply:
+                    _audioSource.PlayOneShot(Player._player.Clips_Mul.WeaponFire);
+                    break;
+                case Operator.divide:
+                    _audioSource.PlayOneShot(Player._player.Clips_Div.WeaponFire);
+                    break;
+                default:
+                    break;
+            }
+        } else
+        {
+            switch (opp)
+            {
+                case Operator.plus:
+                    _audioSource.PlayOneShot(Player._player.Clips_Plus.ClipEmpty);
+                    break;
+                case Operator.minus:
+                    _audioSource.PlayOneShot(Player._player.Clips_Minus.ClipEmpty);
+                    break;
+                case Operator.multiply:
+                    _audioSource.PlayOneShot(Player._player.Clips_Mul.ClipEmpty);
+                    break;
+                case Operator.divide:
+                    _audioSource.PlayOneShot(Player._player.Clips_Div.ClipEmpty);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -113,6 +156,23 @@ public class GunScript : MonoBehaviour {
     {
         Debug.Log("Reloading");
         CurrentAmmo = 16;
+        switch (opp)
+        {
+            case Operator.plus:
+                _audioSource.PlayOneShot(Player._player.Clips_Plus.Reload);
+                break;
+            case Operator.minus:
+                _audioSource.PlayOneShot(Player._player.Clips_Minus.Reload);
+                break;
+            case Operator.multiply:
+                _audioSource.PlayOneShot(Player._player.Clips_Mul.Reload);
+                break;
+            case Operator.divide:
+                _audioSource.PlayOneShot(Player._player.Clips_Div.Reload);
+                break;
+            default:
+                break;
+        }
     }
 
 }
