@@ -269,6 +269,16 @@ public class CircularDriveModded : MonoBehaviour
     //MODDED ***********************************************************
     public void HandGripPressed()
     {
+        worldPlaneNormal = new Vector3(0.0f, 0.0f, 0.0f);
+        worldPlaneNormal[(int)axisOfRotation] = 1.0f;
+
+        localPlaneNormal = worldPlaneNormal;
+
+        if (transform.parent)
+        {
+            worldPlaneNormal = transform.parent.localToWorldMatrix.MultiplyVector(worldPlaneNormal).normalized;
+        }
+
         if (driving == false)
         {
             // Trigger was just pressed

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using VRTK;
 using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 
 public class GunScript : MonoBehaviour {
 
@@ -37,6 +38,8 @@ public class GunScript : MonoBehaviour {
     [Header("Rotary")]
     public CircularDriveModded _CircularDriveModded;
     public bool gripPressed = false;
+    public LinearMapping _linearMapping;
+    public float rotaryValue;
 
     private void Shoot () {
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
@@ -46,10 +49,12 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
                 Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
-                StartCoroutine(TrailsPool.GetObject().GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
+                StartCoroutine(BulletTrail(hit.transform.position));
             }
-        } else {
+        } else
+        {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
+            StartCoroutine(BulletTrail(pointer.position + pointer.forward * 100));
         }
         CurrentAmmo--;
     }
@@ -70,6 +75,7 @@ public class GunScript : MonoBehaviour {
 
     void Start () {
         if (OnOppChanged != null) OnOppChanged(opp);
+        TrailsPool = new GameObjectPool(Trail);
     }
 
     private void OnEnable () {
@@ -89,9 +95,11 @@ public class GunScript : MonoBehaviour {
     }
 
     void Update () {
-        if (gripPressed)
+        if (gripPressed && _CircularDriveModded != null)
         {
-            if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed();
+            _CircularDriveModded.HandGripPressed();
+            rotaryValue = _linearMapping.value;
+            Scoring._scoring.UpdateMultiplier(Mathf.Clamp(Mathf.FloorToInt(rotaryValue*10),1,9));
         }
     }
 
@@ -209,5 +217,27 @@ public class GunScript : MonoBehaviour {
         gripPressed = false;
         if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased();
         //Submit multiplier
+    }
+
+    IEnumerator BulletTrail(Vector3 _Dest)
+    {
+        Vector3 _Origin = pointer.position;
+
+        GameObject trail = Instantiate(Trail, _Origin, Quaternion.identity) as GameObject;
+        trail.transform.position = _Origin;
+
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0);
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.25f);
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.5f);
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.75f);
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 1);
+
+        yield return new WaitForSeconds(0.0125f);
+        Destroy(trail);
     }
 }

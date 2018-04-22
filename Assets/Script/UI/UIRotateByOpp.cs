@@ -21,20 +21,20 @@ public class UIRotateByOpp : MonoBehaviour {
     {
         switch (_opp)
         {
-            case Operator.multiply:
+            case Operator.plus:
                 _CircleSegment.localEulerAngles = new Vector3(_CircleSegment.localEulerAngles.x, _CircleSegment.localEulerAngles.y, 0);
                 break;
-            case Operator.divide:
+            case Operator.minus:
                 _CircleSegment.localEulerAngles = new Vector3(_CircleSegment.localEulerAngles.x, _CircleSegment.localEulerAngles.y, 180);
                 break;
-            case Operator.minus:
-                _CircleSegment.localEulerAngles = new Vector3(_CircleSegment.localEulerAngles.x, _CircleSegment.localEulerAngles.y, 90);
-                break;
-            case Operator.plus:
-                _CircleSegment.localEulerAngles = new Vector3(_CircleSegment.localEulerAngles.x, _CircleSegment.localEulerAngles.y, -90);
-                break;
-            default:
-                break;
+            //case Operator.minus:
+            //    _CircleSegment.localEulerAngles = new Vector3(_CircleSegment.localEulerAngles.x, _CircleSegment.localEulerAngles.y, 90);
+            //    break;
+            //case Operator.plus:
+            //    _CircleSegment.localEulerAngles = new Vector3(_CircleSegment.localEulerAngles.x, _CircleSegment.localEulerAngles.y, -90);
+            //    break;
+            //default:
+            //    break;
         }
     }
 

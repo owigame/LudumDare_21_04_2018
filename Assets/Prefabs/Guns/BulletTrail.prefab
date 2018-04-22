@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4915814923136794}
   - component: {fileID: 96724155546876488}
+  - component: {fileID: 114670213776718600}
   m_Layer: 0
   m_Name: BulletTrail
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1335755978058318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -110.430244, y: 9.4, z: 12.57}
+  m_LocalPosition: {x: -1.5732893, y: 0.0010374784, z: -1.5053393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,19 +85,19 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0
+        value: 0.05883789
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.05625458
-        value: 0.16326237
+        time: 0.11738892
+        value: 0.08484745
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 0
+        value: 0.019622803
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -105,7 +106,7 @@ TrailRenderer:
       m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
+      key0: {r: 1, g: 0, b: 0, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -139,3 +140,14 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114670213776718600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335755978058318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2cc40a8c20db9489cec022d4179e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
