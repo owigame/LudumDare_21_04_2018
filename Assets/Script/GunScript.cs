@@ -87,7 +87,7 @@ public class GunScript : MonoBehaviour {
     }
 
     private void OnEnable () {
-        _VRTK_ControllerEvents.TouchpadTouchEnd += new ControllerInteractionEventHandler (OperatorChange);
+        _VRTK_ControllerEvents.TouchpadReleased += new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
         // _VRTK_e.TouchpadReleased += OperatorChange;
         // _VRTK_e.TriggerClicked += Shoot;
