@@ -12,8 +12,13 @@ public class GunScript : MonoBehaviour {
     public Operator opp;
     public LayerMask _mask;
     public Transform pointer;
+    public Animator _anim;
+
     private AudioSource AudioSource;
     public AudioClip clip;
+    public GameObject Trail;
+    private GameObjectPool TrailsPool;
+
     public GameObject Trails;
 
     public int CurrentAmmo;
@@ -34,7 +39,7 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
                 Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
-                StartCoroutine(Trails.GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
+                StartCoroutine(TrailsPool.GetObject().GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
@@ -98,6 +103,7 @@ public class GunScript : MonoBehaviour {
 
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
         //Shoot
+        _anim.SetTrigger("Shoot");
         Debug.Log("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
         if(CurrentAmmo >0)
         {
