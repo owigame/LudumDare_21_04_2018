@@ -14,7 +14,8 @@ public class GunScript : MonoBehaviour {
     public Transform pointer;
     private AudioSource AudioSource;
     public AudioClip clip;
-    public GameObject Trails;
+    public GameObject Trail;
+    private GameObjectPool TrailsPool;
 
     public int CurrentAmmo;
 
@@ -34,7 +35,7 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
                 Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
-                StartCoroutine(Trails.GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
+                StartCoroutine(TrailsPool.GetObject().GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
