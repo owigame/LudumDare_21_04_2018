@@ -12,9 +12,12 @@ public class GunScript : MonoBehaviour {
     public Operator opp;
     public LayerMask _mask;
     public Transform pointer;
-    private AudioSource AudioSource;
+    public Animator _anim;
+    private AudioSource _audioSource;
     public AudioClip clip;
-    public GameObject Trails;
+    public GameObject Trail;
+    private GameObjectPool TrailsPool;
+
 
     public int CurrentAmmo;
 
@@ -27,6 +30,7 @@ public class GunScript : MonoBehaviour {
     GameObject lastHit;
 
     private void Shoot () {
+        _audioSource.PlayOneShot(clip);
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
             if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
@@ -34,18 +38,18 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
                 Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
-                StartCoroutine(Trails.GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
+                StartCoroutine(TrailsPool.GetObject().GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
         }
         CurrentAmmo--;
-        AudioSource.PlayOneShot(clip);
     }
 
 
 
     private void Awake () {
+        _audioSource = GetComponent<AudioSource>();
         if (GetComponent<VRTK_ControllerEvents>() == null)
         {
             VRTK_Logger.Error(VRTK_Logger.GetCommonMessage(VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
@@ -56,18 +60,17 @@ public class GunScript : MonoBehaviour {
     }
 
     void Start () {
-        AudioSource = GetComponent<AudioSource>();
+        
     }
 
     private void OnEnable () {
-        _VRTK_ControllerEvents.TouchpadReleased += new ControllerInteractionEventHandler (OperatorChange);
+        _VRTK_ControllerEvents.TouchpadAxisChanged += new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
-        // _VRTK_e.TouchpadReleased += OperatorChange;
-        // _VRTK_e.TriggerClicked += Shoot;
     }
 
     private void OnDisable () {
-
+        _VRTK_ControllerEvents.TouchpadAxisChanged -= new ControllerInteractionEventHandler(OperatorChange);
+        _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler(Shoot);
     }
 
     void Update () {
@@ -98,6 +101,7 @@ public class GunScript : MonoBehaviour {
 
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
         //Shoot
+        _anim.SetTrigger("Shoot");
         Debug.Log("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
         if(CurrentAmmo >0)
         {
