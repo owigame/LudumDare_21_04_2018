@@ -940,6 +940,21 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114837607822745440, guid: 8d867631b1b1eab46bf840e4fcd8c731,
+        type: 2}
+      propertyPath: otherController
+      value: 
+      objectReference: {fileID: 1210818520}
+    - target: {fileID: 114837607822745440, guid: 8d867631b1b1eab46bf840e4fcd8c731,
+        type: 2}
+      propertyPath: DurationToVibrate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114837607822745440, guid: 8d867631b1b1eab46bf840e4fcd8c731,
+        type: 2}
+      propertyPath: ShootVibrations
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
   m_IsPrefabParent: 0
@@ -2570,6 +2585,11 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114837607822745440, guid: 8d867631b1b1eab46bf840e4fcd8c731,
+        type: 2}
+      propertyPath: otherController
+      value: 
+      objectReference: {fileID: 1351653587}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
   m_IsPrefabParent: 0

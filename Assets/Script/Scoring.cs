@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using VRTK;
 
 public class Scoring : MonoBehaviour {
 
@@ -81,9 +82,9 @@ public class Scoring : MonoBehaviour {
         if (onScoreUpdated != null) onScoreUpdated(score);
     }
 
-    public void UpdateMultiplier(int _mulitplier)
+    public void UpdateMultiplier(int _multiplier)
     {
-        multiplier = _mulitplier;
-        onMultiplierUpdated(_mulitplier, "x");
+        multiplier = _multiplier;
+        onMultiplierUpdated(_multiplier, "x");
     }
 }
