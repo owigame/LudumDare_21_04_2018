@@ -12,6 +12,7 @@ public class GunScript : MonoBehaviour {
     public Operator opp;
     public LayerMask _mask;
     public Transform pointer;
+    public Animator _anim;
 
     public int CurrentAmmo;
 
@@ -93,6 +94,7 @@ public class GunScript : MonoBehaviour {
 
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
         //Shoot
+        _anim.SetTrigger("Shoot");
         Debug.Log("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
         if(CurrentAmmo >0)
         {
