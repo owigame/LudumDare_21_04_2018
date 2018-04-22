@@ -7,7 +7,10 @@ public class Zombie : MonoBehaviour {
     public int Value;
 
     public float speed;
-    
+
+    public bool imExploding;
+
+
     public void Die()
     {
         gameObject.layer = 0;
@@ -18,8 +21,8 @@ public class Zombie : MonoBehaviour {
 	void Update ()
     {
         float step = speed * Time.deltaTime;
-        if (Player._player != null){
-            transform.position = Vector3.MoveTowards(transform.position, Player._player.transform.position, step); 
+        if (Player._player != null && !imExploding){
+            transform.position = Vector3.MoveTowards(transform.position, Player._player.playerObject.transform.position, step); 
         }
 	}
 
