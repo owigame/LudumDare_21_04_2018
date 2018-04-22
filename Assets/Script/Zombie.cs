@@ -16,7 +16,8 @@ public class Zombie : MonoBehaviour {
     {
         gameObject.layer = 0;
         Debug.Log("Zombie killed");
-        Destroy(gameObject); //TEMP
+        //Destroy(gameObject); //TEMP
+        gameObject.SetActive(false);
 
         if (Value == 0)
         {
