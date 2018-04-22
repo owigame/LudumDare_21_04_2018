@@ -71,11 +71,13 @@ public class GunScript : MonoBehaviour {
     private void OnEnable () {
         _VRTK_ControllerEvents.TouchpadAxisChanged += new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
+        _VRTK_ControllerEvents.TriggerAxisChanged += new ControllerInteractionEventHandler (GunTrigger);
     }
 
     private void OnDisable () {
         _VRTK_ControllerEvents.TouchpadAxisChanged -= new ControllerInteractionEventHandler(OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler(Shoot);
+        _VRTK_ControllerEvents.TriggerAxisChanged -= new ControllerInteractionEventHandler (GunTrigger);
     }
 
     void Update () {
@@ -173,6 +175,11 @@ public class GunScript : MonoBehaviour {
             default:
                 break;
         }
+    }
+
+    void GunTrigger(object sender, ControllerInteractionEventArgs _args)
+    {
+        _anim.Play("Trigger", 1, _args.buttonPressure);
     }
 
 }
