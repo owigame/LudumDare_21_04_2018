@@ -14,7 +14,7 @@ public class System_Timing : MonoBehaviour {
 
     public void TimeOut()
     {
-
+        //GAME OVER
     }
 
     public IEnumerator ResetTime(float FrameDuration)

@@ -17,14 +17,14 @@ public class UIFetchScore : MonoBehaviour {
     {
         if (_scoreType == scoreTypes.score) Scoring.onScoreUpdated += ValueUpdated;
         if (_scoreType == scoreTypes.currentValue) Scoring.onCurrentValueUpdated += ValueUpdated;
-        if (_scoreType == scoreTypes.currentValue) Scoring.onTargetValueUpdated += ValueUpdated;
+        if (_scoreType == scoreTypes.targetValue) Scoring.onTargetValueUpdated += ValueUpdated;
     }
 
     private void OnDisable()
     {
         if (_scoreType == scoreTypes.score) Scoring.onScoreUpdated -= ValueUpdated;
         if (_scoreType == scoreTypes.currentValue) Scoring.onCurrentValueUpdated -= ValueUpdated;
-        if (_scoreType == scoreTypes.currentValue) Scoring.onTargetValueUpdated -= ValueUpdated;
+        if (_scoreType == scoreTypes.targetValue) Scoring.onTargetValueUpdated -= ValueUpdated;
     }
 
     void ValueUpdated(int _value)

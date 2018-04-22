@@ -9,12 +9,12 @@ public class UIRotateByOpp : MonoBehaviour {
 
     private void OnEnable()
     {
-        GunScript.OnOppChanged += RotateSegment;
+        GetComponent<GunScript>().OnOppChanged += RotateSegment;
     }
 
     private void OnDisable()
     {
-        GunScript.OnOppChanged -= RotateSegment;
+        GetComponent<GunScript>().OnOppChanged -= RotateSegment;
     }
 
     void RotateSegment(Operator _opp)
