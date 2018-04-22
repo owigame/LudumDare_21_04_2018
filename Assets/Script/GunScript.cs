@@ -12,10 +12,18 @@ public class GunScript : MonoBehaviour {
     public Operator opp;
     public LayerMask _mask;
     public Transform pointer;
+<<<<<<< HEAD
+    public Animator _anim;
+=======
     private AudioSource AudioSource;
     public AudioClip clip;
+<<<<<<< HEAD
     public GameObject Trail;
     private GameObjectPool TrailsPool;
+=======
+    public GameObject Trails;
+>>>>>>> 8c85e2215b2a247d4223ead0136cf91d8ca167c3
+>>>>>>> 063bd5f4c1a879b20df242b69cc84228d44e365a
 
     public int CurrentAmmo;
 
@@ -99,6 +107,7 @@ public class GunScript : MonoBehaviour {
 
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
         //Shoot
+        _anim.SetTrigger("Shoot");
         Debug.Log("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
         if(CurrentAmmo >0)
         {
