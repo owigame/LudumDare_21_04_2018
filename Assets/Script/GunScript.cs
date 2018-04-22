@@ -13,12 +13,11 @@ public class GunScript : MonoBehaviour {
     public LayerMask _mask;
     public Transform pointer;
     public Animator _anim;
-    private AudioSource AudioSource;
+    private AudioSource _audioSource;
     public AudioClip clip;
     public GameObject Trail;
     private GameObjectPool TrailsPool;
 
-    public GameObject Trails;
 
     public int CurrentAmmo;
 
@@ -31,6 +30,7 @@ public class GunScript : MonoBehaviour {
     GameObject lastHit;
 
     private void Shoot () {
+        _audioSource.PlayOneShot(clip);
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
             if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
@@ -49,6 +49,7 @@ public class GunScript : MonoBehaviour {
 
 
     private void Awake () {
+        _audioSource = GetComponent<AudioSource>();
         if (GetComponent<VRTK_ControllerEvents>() == null)
         {
             VRTK_Logger.Error(VRTK_Logger.GetCommonMessage(VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
@@ -65,12 +66,11 @@ public class GunScript : MonoBehaviour {
     private void OnEnable () {
         _VRTK_ControllerEvents.TouchpadAxisChanged += new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
-        // _VRTK_e.TouchpadReleased += OperatorChange;
-        // _VRTK_e.TriggerClicked += Shoot;
     }
 
     private void OnDisable () {
-
+        _VRTK_ControllerEvents.TouchpadAxisChanged -= new ControllerInteractionEventHandler(OperatorChange);
+        _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler(Shoot);
     }
 
     void Update () {
