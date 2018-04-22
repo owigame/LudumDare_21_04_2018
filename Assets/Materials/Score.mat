@@ -101,7 +101,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RimFallness: 0.5
-    - _RimPower: 0.94
+    - _RimPower: 0.1
     - _RimStrength: 1
     - _ScanSpeed: -0.55
     - _ScanTiling: 0.63
