@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
 
     public static Player _player;
 
+    public GameObject playerObject;
+
     [Header("Hand References")]
     public GunScript _leftHand;
     public GunScript _rightHand;
@@ -24,8 +26,10 @@ public class Player : MonoBehaviour {
 
     void Awake () {
         _player = this;
+
     }
 }
+[System.Serializable]
 public class ClipSet
 {
     public AudioClip WeaponFire,Reload,ClipEmpty;

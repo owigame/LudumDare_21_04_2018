@@ -7,19 +7,29 @@ public class Zombie : MonoBehaviour {
     public int Value;
 
     public float speed;
-    
+
+    public bool imExploding;
+
+    Explosion explosion;
+
     public void Die()
     {
         gameObject.layer = 0;
         Debug.Log("Zombie killed");
         Destroy(gameObject); //TEMP
+
+        if (Value == 0)
+        {
+            explosion = new Explosion();
+            explosion.Explode(transform.position);
+        }
     }
  	
 	void Update ()
     {
         float step = speed * Time.deltaTime;
-        if (Player._player != null){
-            transform.position = Vector3.MoveTowards(transform.position, Player._player.transform.position, step); 
+        if (Player._player != null && !imExploding){
+            transform.position = Vector3.MoveTowards(transform.position, Player._player.playerObject.transform.position, step); 
         }
 	}
 

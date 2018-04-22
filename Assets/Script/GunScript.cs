@@ -3,8 +3,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using VRTK;
 using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 
 public class GunScript : MonoBehaviour {
+
+    public delegate void OppEvents(Operator _opp);
+    public OppEvents OnOppChanged;
+
+    public static GunScript _GunScript;
 
     [Header("Setup")]
     public int playerHand = 0; // 0 Left | 1 Right
@@ -17,6 +23,8 @@ public class GunScript : MonoBehaviour {
     public AudioClip clip;
     public GameObject Trail;
     private GameObjectPool TrailsPool;
+    public GameObject otherController;
+    public int ShootVibrations =10,DurationToVibrate =10;
 
 
     public int CurrentAmmo;
@@ -29,8 +37,13 @@ public class GunScript : MonoBehaviour {
     RaycastHit hit;
     GameObject lastHit;
 
+    [Header("Rotary")]
+    public CircularDriveModded _CircularDriveModded;
+    public bool gripPressed = false;
+    public LinearMapping _linearMapping;
+    public float rotaryValue;
+
     private void Shoot () {
-        _audioSource.PlayOneShot(clip);
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
             if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
@@ -38,17 +51,21 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie>();
                 Scoring._scoring.UpdateScore(opp, _zombie.Value);
                 _zombie.Die();
-                StartCoroutine(TrailsPool.GetObject().GetComponent<RayControl>().FireRay(15, pointer.position, hit.transform.position));
+                StartCoroutine(BulletTrail(hit.transform.position));
             }
-        } else {
+        } else
+        {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
+            StartCoroutine(BulletTrail(pointer.position + pointer.forward * 100));
         }
         CurrentAmmo--;
+        StartCoroutine(VibateOverFrames(DurationToVibrate));
     }
 
 
 
     private void Awake () {
+        _GunScript = this;
         _audioSource = GetComponent<AudioSource>();
         if (GetComponent<VRTK_ControllerEvents>() == null)
         {
@@ -60,42 +77,68 @@ public class GunScript : MonoBehaviour {
     }
 
     void Start () {
-        
+        if (OnOppChanged != null) OnOppChanged(opp);
+        TrailsPool = new GameObjectPool(Trail);
     }
 
     private void OnEnable () {
         _VRTK_ControllerEvents.TouchpadAxisChanged += new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
+        _VRTK_ControllerEvents.TriggerAxisChanged += new ControllerInteractionEventHandler (GunTrigger);
+        _VRTK_ControllerEvents.GripPressed += new ControllerInteractionEventHandler (GripPressed);
+        _VRTK_ControllerEvents.GripReleased += new ControllerInteractionEventHandler (GripReleased);
     }
 
     private void OnDisable () {
         _VRTK_ControllerEvents.TouchpadAxisChanged -= new ControllerInteractionEventHandler(OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler(Shoot);
+        _VRTK_ControllerEvents.TriggerAxisChanged -= new ControllerInteractionEventHandler (GunTrigger);
+        _VRTK_ControllerEvents.GripPressed -= new ControllerInteractionEventHandler (GripPressed);
+        _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
     }
 
     void Update () {
-
+        if (gripPressed && _CircularDriveModded != null)
+        {
+            _CircularDriveModded.HandGripPressed();
+            rotaryValue = _linearMapping.value;
+            int _multiplier = Mathf.Clamp(Mathf.FloorToInt(rotaryValue * 10), 1, 9);
+            if (Scoring._scoring.multiplier != _multiplier)
+            {
+                Scoring._scoring.UpdateMultiplier(_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
+            }
+        }
     }
 
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
         float _X = _args.touchpadAxis.x;
         float _Y = _args.touchpadAxis.y;
-        if (_X > 0 && Mathf.Abs (_Y) < 0.2f) {
+        if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
+            if (opp == Operator.minus)
+            {
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), 0.1f);
+            }
             opp = Operator.plus;
             _operatorText.text = "+";
         }
-        if (_X < 0 && Mathf.Abs (_Y) < 0.2f) {
+        if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
+            if (opp == Operator.plus)
+            {
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), 0.1f);
+            }
             opp = Operator.minus;
             _operatorText.text = "-";
         }
-        if (_Y > 0 && Mathf.Abs (_X) < 0.2f) {
-            opp = Operator.multiply;
-            _operatorText.text = "*";
-        }
-        if (_Y < 0 && Mathf.Abs (_X) < 0.2f) {
-            opp = Operator.divide;
-            _operatorText.text = "/";
-        }
+        //if (_Y > 0 && Mathf.Abs (_X) < 0.3f) {
+        //    opp = Operator.multiply;
+        //    _operatorText.text = "*";
+        //}
+        //if (_Y < 0 && Mathf.Abs (_X) < 0.3f) {
+        //    opp = Operator.divide;
+        //    _operatorText.text = "/";
+        //}
+        if (OnOppChanged != null) OnOppChanged(opp);
         Debug.Log ("Operator Submit " + opp + (playerHand == 1 ? "Right Hand" : "Left Hand"));
     }
 
@@ -106,6 +149,43 @@ public class GunScript : MonoBehaviour {
         if(CurrentAmmo >0)
         {
             Shoot();
+            //_audioSource.PlayOneShot(clip);
+            switch (opp)
+            {
+                case Operator.plus:
+                    _audioSource.PlayOneShot(Player._player.Clips_Plus.WeaponFire);
+                    break;
+                case Operator.minus:
+                    _audioSource.PlayOneShot(Player._player.Clips_Minus.WeaponFire);
+                    break;
+                case Operator.multiply:
+                    _audioSource.PlayOneShot(Player._player.Clips_Mul.WeaponFire);
+                    break;
+                case Operator.divide:
+                    _audioSource.PlayOneShot(Player._player.Clips_Div.WeaponFire);
+                    break;
+                default:
+                    break;
+            }
+        } else
+        {
+            switch (opp)
+            {
+                case Operator.plus:
+                    _audioSource.PlayOneShot(Player._player.Clips_Plus.ClipEmpty);
+                    break;
+                case Operator.minus:
+                    _audioSource.PlayOneShot(Player._player.Clips_Minus.ClipEmpty);
+                    break;
+                case Operator.multiply:
+                    _audioSource.PlayOneShot(Player._player.Clips_Mul.ClipEmpty);
+                    break;
+                case Operator.divide:
+                    _audioSource.PlayOneShot(Player._player.Clips_Div.ClipEmpty);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -113,6 +193,75 @@ public class GunScript : MonoBehaviour {
     {
         Debug.Log("Reloading");
         CurrentAmmo = 16;
+        switch (opp)
+        {
+            case Operator.plus:
+                _audioSource.PlayOneShot(Player._player.Clips_Plus.Reload);
+                break;
+            case Operator.minus:
+                _audioSource.PlayOneShot(Player._player.Clips_Minus.Reload);
+                break;
+            case Operator.multiply:
+                _audioSource.PlayOneShot(Player._player.Clips_Mul.Reload);
+                break;
+            case Operator.divide:
+                _audioSource.PlayOneShot(Player._player.Clips_Div.Reload);
+                break;
+            default:
+                break;
+        }
     }
 
+    void GunTrigger(object sender, ControllerInteractionEventArgs _args)
+    {
+        Debug.Log("Trigger: " + _args.buttonPressure);
+        _anim.Play("Trigger", -1, _args.buttonPressure);
+    }
+
+    void GripPressed(object sender, ControllerInteractionEventArgs _args)
+    {
+        gripPressed = true;
+        //Get position of controller relative to watch center
+        //Rotate around watch center
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed();
+        Debug.Log("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
+
+    }
+
+    void GripReleased(object sender, ControllerInteractionEventArgs _args)
+    {
+        gripPressed = false;
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased();
+        //Submit multiplier
+    }
+
+    IEnumerator BulletTrail(Vector3 _Dest)
+    {
+        Vector3 _Origin = pointer.position;
+
+        GameObject trail = Instantiate(Trail, _Origin, Quaternion.identity) as GameObject;
+        trail.transform.position = _Origin;
+
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0);
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.25f);
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.5f);
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.75f);
+        yield return 0;
+        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 1);
+
+        yield return new WaitForSeconds(0.0125f);
+        Destroy(trail);
+    }
+    IEnumerator VibateOverFrames(int FrameDuration)
+    {
+        for (int i = 0; i < FrameDuration; i++)
+        {
+            VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), ShootVibrations);
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }

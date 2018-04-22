@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using VRTK;
 
 public class Scoring : MonoBehaviour {
 
-    public delegate void ScoreEvents(int _score = 0);
+    public delegate void ScoreEvents(int _score = 0, string _suffix = "");
     public static ScoreEvents onScoreUpdated;
     public static ScoreEvents onCurrentValueUpdated;
     public static ScoreEvents onTargetValueUpdated;
+    public static ScoreEvents onMultiplierUpdated;
 
     public static Scoring _scoring;
 
@@ -16,6 +18,7 @@ public class Scoring : MonoBehaviour {
     public int currentValue; //Dynamic value
     public int targetValue; //Value needed to increase score
     public int highestScore;
+    public int multiplier;
 
     public UnityEvent RequiredReached;
 
@@ -30,18 +33,21 @@ public class Scoring : MonoBehaviour {
         foreach (var gun in AllGuns) {
             if (gun.HitEvent != null) gun.HitEvent.AddListener (UpdateScore);
         }
+        if (onScoreUpdated != null) onScoreUpdated(score);
+        if (onCurrentValueUpdated != null) onCurrentValueUpdated(currentValue);
+        if (onTargetValueUpdated != null) onTargetValueUpdated(targetValue);
     }
     void ResetRequiredScore () {
         targetValue = Mathf.RoundToInt (Random.Range (99, 999));
-        onTargetValueUpdated(targetValue);
+        if (onTargetValueUpdated != null) onTargetValueUpdated(targetValue);
     }
     public void UpdateScore (Operator Operator, int value) {
         switch (Operator) {
             case Operator.plus:
-                currentValue += value;
+                currentValue += value*multiplier;
                 break;
             case Operator.minus:
-                currentValue -= value;
+                currentValue -= value*multiplier;
                 break;
             case Operator.multiply:
                 currentValue *= value;
@@ -55,10 +61,10 @@ public class Scoring : MonoBehaviour {
             ResetRequiredScore ();
             score++;
             highestScore = score > highestScore ? score : highestScore;
-            onScoreUpdated(score);
+            if (onScoreUpdated != null) onScoreUpdated(score);
         } else
         {
-            onCurrentValueUpdated(currentValue);
+            if (onCurrentValueUpdated != null) onCurrentValueUpdated(currentValue);
         }
     }
     public void TakeDamage()
@@ -73,6 +79,12 @@ public class Scoring : MonoBehaviour {
             Time.timeScale = 0;
             //Display end round
         }
-        onScoreUpdated(score);
+        if (onScoreUpdated != null) onScoreUpdated(score);
+    }
+
+    public void UpdateMultiplier(int _multiplier)
+    {
+        multiplier = _multiplier;
+        onMultiplierUpdated(_multiplier, "x");
     }
 }
