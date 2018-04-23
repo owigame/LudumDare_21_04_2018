@@ -15,7 +15,27 @@ ModelImporter:
     7400000: Default Take
     9500000: //RootNode
     13700000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gem
+    second: {fileID: 2100000, guid: 508fff03d600d454b9af80cf9c6613d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun
+    second: {fileID: 2100000, guid: 82adcfbbbe7fd7a448bb80cc87a8a3dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GunMetal
+    second: {fileID: 2100000, guid: 37d0a127b2dbe924087d40b832db11e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Rocks
+    second: {fileID: 2100000, guid: fe8ee25ea95ae3944a617efa57e3f5d6, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
