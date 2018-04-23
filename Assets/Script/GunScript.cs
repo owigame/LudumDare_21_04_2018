@@ -176,7 +176,8 @@ public class GunScript : MonoBehaviour {
         //Shoot
         _anim.SetTrigger ("Shoot");
         Debug.Log ("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
-        if (CurrentAmmo > 0) {
+        if (CurrentAmmo > 0) 
+        {
             Shoot ();
             //_audioSource.PlayOneShot(clip);
             float fPich = Random.Range (0.85f, 1f);
@@ -270,7 +271,7 @@ public class GunScript : MonoBehaviour {
         float CurrentRotation = transform.forward.y,rotAmo;
         rotAmo = CurrentRotation - StartRotGripped;
 
-        if(rotAmo >= 10)
+        if(rotAmo >= -17.5)
         {
             StartRotGripped = CurrentRotation;
             int _multiplier = Scoring._scoring.multiplier++;
@@ -286,7 +287,7 @@ public class GunScript : MonoBehaviour {
                 _multiplier = 1;
             }
         }
-        if (rotAmo <= -10)
+        if (rotAmo <= 17.5)
         {
             StartRotGripped = CurrentRotation;
             int _multiplier = Scoring._scoring.multiplier--;
