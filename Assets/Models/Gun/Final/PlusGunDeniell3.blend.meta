@@ -8,9 +8,11 @@ ModelImporter:
     100000: AddGun
     100002: //RootNode
     100004: Proxy_Gun
+    100006: AddGun_001
     400000: AddGun
     400002: //RootNode
     400004: Proxy_Gun
+    400006: AddGun_001
     2100000: GunMetal
     2100002: Gem
     2100004: Gun
@@ -19,10 +21,12 @@ ModelImporter:
     3300000: Proxy_Gun
     4300000: AddGun
     4300002: Proxy_Gun
+    4300004: AddGun_001
     7400000: Default Take
     9500000: //RootNode
     13700000: AddGun
     13700002: //RootNode
+    13700004: AddGun_001
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -39,6 +43,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: GunMetal
     second: {fileID: 2100000, guid: 37d0a127b2dbe924087d40b832db11e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GunRocks
+    second: {fileID: 2100000, guid: af3d8388c8351d74abb97f622ff0f0f8, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
