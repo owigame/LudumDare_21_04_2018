@@ -14,6 +14,12 @@ public class Explosion : MonoBehaviour
 
         for (int i = 0; i < colliders.Length; i++)
         {
+            Debug.Log(colliders[i].tag);
+            Debug.Log(colliders[i].transform.parent.tag);
+            Debug.Log(colliders[i].transform.parent.parent.tag);
+            Debug.Log(colliders[i].transform.parent.parent.parent.tag);
+
+
             if (colliders[i].tag == "Enemy")
             {
                 colliders[i].GetComponent<Zombie>().Die();
