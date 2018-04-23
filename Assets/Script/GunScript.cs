@@ -71,7 +71,7 @@ public class GunScript : MonoBehaviour {
             VRTK_Logger.Error (VRTK_Logger.GetCommonMessage (VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
             return;
         }
-        HitParticle = GetComponent<Particle System>();
+        //HitParticle = GetComponent<Particle System>();
         _VRTK_ControllerEvents = GetComponent<VRTK_ControllerEvents> ();
     }
 
