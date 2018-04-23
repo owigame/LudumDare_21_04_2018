@@ -42,11 +42,14 @@ public class Zombie : MonoBehaviour {
         // yield return null;
 
         yield return new WaitForSeconds (2);
+        
         Vector3 targetLoc = transform.position + (Vector3.down * 5);
         while ((transform.position - targetLoc).magnitude > 0.01f){
-            Vector3.Lerp (transform.position, targetLoc, Time.deltaTime);
+            transform.Translate(-Vector3.up * speed * Time.deltaTime);
+            Debug.Log("In Will Loop");
             yield return null;
         }
+
         Destroy(gameObject); //TEMP
 
     }
