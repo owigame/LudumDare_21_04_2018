@@ -15,6 +15,7 @@ public class Zombie : MonoBehaviour {
     NavMeshAgent _agent;
     Animator _anim;
     Rigidbody _rBody;
+    
 
     private void Start () {
         _agent = GetComponent<NavMeshAgent> ();
@@ -23,6 +24,7 @@ public class Zombie : MonoBehaviour {
         _agent.destination = Player._player.transform.position;
         _agent.speed = speed * 2;
         _anim.speed = speed * 2;
+        
     }
 
     public void Die () {
@@ -41,7 +43,7 @@ public class Zombie : MonoBehaviour {
         // gameObject.SetActive (false);
         // yield return null;
 
-        yield return new WaitForSeconds (5);
+        yield return new WaitForSeconds (2);
         Vector3 targetLoc = transform.position + (Vector3.down * 5);
         while ((transform.position - targetLoc).magnitude > 0.01f){
             Vector3.Lerp (transform.position, targetLoc, Time.deltaTime);

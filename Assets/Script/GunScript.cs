@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using VRTK;
 using UnityEngine.UI;
 using Valve.VR.InteractionSystem;
+using VRTK;
 
 public class GunScript : MonoBehaviour {
 
-    public delegate void OppEvents(Operator _opp);
+    public delegate void OppEvents (Operator _opp);
     public OppEvents OnOppChanged;
 
     public static GunScript _GunScript;
 
-    [Header("Setup")]
+    [Header ("Setup")]
     public int playerHand = 0; // 0 Left | 1 Right
     public UnityEvent<Operator, int> HitEvent;
     public Operator opp;
@@ -24,12 +24,13 @@ public class GunScript : MonoBehaviour {
     public GameObject Trail;
     private GameObjectPool TrailsPool;
     public GameObject otherController;
-    public int ShootVibrations =10,DurationToVibrate =10;
+    public int ShootVibrations = 10, DurationToVibrate = 10;
 
+    public GameObject HitParticle;
 
     public int CurrentAmmo;
 
-    [Header("UI")]
+    [Header ("UI")]
     public Text _operatorText;
 
     VRTK_ControllerEvents _VRTK_ControllerEvents;
@@ -37,7 +38,7 @@ public class GunScript : MonoBehaviour {
     RaycastHit hit;
     GameObject lastHit;
 
-    [Header("Rotary")]
+    [Header ("Rotary")]
     public CircularDriveModded _CircularDriveModded;
     public bool gripPressed = false;
     public LinearMapping _linearMapping;
@@ -46,39 +47,37 @@ public class GunScript : MonoBehaviour {
     private void Shoot () {
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
+
             if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
                 lastHit = hit.transform.gameObject;
-                Zombie _zombie = hit.transform.GetComponent<Zombie>();
-                Scoring._scoring.UpdateScore(opp, _zombie.Value);
-                _zombie.Die();
-                StartCoroutine(BulletTrail(hit.transform.position));
+                Zombie _zombie = hit.transform.GetComponent<Zombie> ();
+                Scoring._scoring.UpdateScore (opp, _zombie.Value);
+                _zombie.Die ();
+                Instantiate (HitParticle, hit.transform.position, Quaternion.identity);
+                StartCoroutine (BulletTrail (hit.point));
             }
-        } else
-        {
+        } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
-            StartCoroutine(BulletTrail(pointer.position + pointer.forward * 100));
+            StartCoroutine (BulletTrail (pointer.position + pointer.forward * 100));
         }
         CurrentAmmo--;
-        StartCoroutine(VibateOverFrames(DurationToVibrate));
+        StartCoroutine (VibateOverFrames (DurationToVibrate));
     }
-
-
 
     private void Awake () {
         _GunScript = this;
-        _audioSource = GetComponent<AudioSource>();
-        if (GetComponent<VRTK_ControllerEvents>() == null)
-        {
-            VRTK_Logger.Error(VRTK_Logger.GetCommonMessage(VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
+        _audioSource = GetComponent<AudioSource> ();
+        if (GetComponent<VRTK_ControllerEvents> () == null) {
+            VRTK_Logger.Error (VRTK_Logger.GetCommonMessage (VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
             return;
         }
 
-        _VRTK_ControllerEvents = GetComponent<VRTK_ControllerEvents>();
+        _VRTK_ControllerEvents = GetComponent<VRTK_ControllerEvents> ();
     }
 
     void Start () {
-        if (OnOppChanged != null) OnOppChanged(opp);
-        TrailsPool = new GameObjectPool(Trail);
+        if (OnOppChanged != null) OnOppChanged (opp);
+        TrailsPool = new GameObjectPool (Trail);
     }
 
     private void OnEnable () {
@@ -90,23 +89,21 @@ public class GunScript : MonoBehaviour {
     }
 
     private void OnDisable () {
-        _VRTK_ControllerEvents.TouchpadAxisChanged -= new ControllerInteractionEventHandler(OperatorChange);
-        _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler(Shoot);
+        _VRTK_ControllerEvents.TouchpadAxisChanged -= new ControllerInteractionEventHandler (OperatorChange);
+        _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler (Shoot);
         _VRTK_ControllerEvents.TriggerAxisChanged -= new ControllerInteractionEventHandler (GunTrigger);
         _VRTK_ControllerEvents.GripPressed -= new ControllerInteractionEventHandler (GripPressed);
         _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
     }
 
     void Update () {
-        if (gripPressed && _CircularDriveModded != null)
-        {
-            _CircularDriveModded.HandGripPressed();
+        if (gripPressed && _CircularDriveModded != null) {
+            _CircularDriveModded.HandGripPressed ();
             rotaryValue = _linearMapping.value;
-            int _multiplier = Mathf.Clamp(Mathf.FloorToInt(rotaryValue * 10), 1, 9);
-            if (Scoring._scoring.multiplier != _multiplier)
-            {
-                Scoring._scoring.UpdateMultiplier(_multiplier);
-                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
+            int _multiplier = Mathf.Clamp (Mathf.FloorToInt (rotaryValue * 10), 1, 9);
+            if (Scoring._scoring.multiplier != _multiplier) {
+                Scoring._scoring.UpdateMultiplier (_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController), _multiplier);
             }
         }
     }
@@ -114,18 +111,16 @@ public class GunScript : MonoBehaviour {
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
         float _X = _args.touchpadAxis.x;
         float _Y = _args.touchpadAxis.y;
-        if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
-            if (opp == Operator.minus)
-            {
-                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), 0.1f);
+        if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/ ) {
+            if (opp == Operator.minus) {
+                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
             }
             opp = Operator.plus;
             _operatorText.text = "+";
         }
-        if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/) {
-            if (opp == Operator.plus)
-            {
-                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), 0.1f);
+        if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/ ) {
+            if (opp == Operator.plus) {
+                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
             }
             opp = Operator.minus;
             _operatorText.text = "-";
@@ -138,50 +133,46 @@ public class GunScript : MonoBehaviour {
         //    opp = Operator.divide;
         //    _operatorText.text = "/";
         //}
-        if (OnOppChanged != null) OnOppChanged(opp);
+        if (OnOppChanged != null) OnOppChanged (opp);
         Debug.Log ("Operator Submit " + opp + (playerHand == 1 ? "Right Hand" : "Left Hand"));
     }
 
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
         //Shoot
-        _anim.SetTrigger("Shoot");
-        Debug.Log("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
-        if(CurrentAmmo >0)
-        {
-            Shoot();
+        _anim.SetTrigger ("Shoot");
+        Debug.Log ("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
+        if (CurrentAmmo > 0) {
+            Shoot ();
             //_audioSource.PlayOneShot(clip);
-            switch (opp)
-            {
+            switch (opp) {
                 case Operator.plus:
-                    _audioSource.PlayOneShot(Player._player.Clips_Plus.WeaponFire);
+                    _audioSource.PlayOneShot (Player._player.Clips_Plus.WeaponFire);
                     break;
                 case Operator.minus:
-                    _audioSource.PlayOneShot(Player._player.Clips_Minus.WeaponFire);
+                    _audioSource.PlayOneShot (Player._player.Clips_Minus.WeaponFire);
                     break;
                 case Operator.multiply:
-                    _audioSource.PlayOneShot(Player._player.Clips_Mul.WeaponFire);
+                    _audioSource.PlayOneShot (Player._player.Clips_Mul.WeaponFire);
                     break;
                 case Operator.divide:
-                    _audioSource.PlayOneShot(Player._player.Clips_Div.WeaponFire);
+                    _audioSource.PlayOneShot (Player._player.Clips_Div.WeaponFire);
                     break;
                 default:
                     break;
             }
-        } else
-        {
-            switch (opp)
-            {
+        } else {
+            switch (opp) {
                 case Operator.plus:
-                    _audioSource.PlayOneShot(Player._player.Clips_Plus.ClipEmpty);
+                    _audioSource.PlayOneShot (Player._player.Clips_Plus.ClipEmpty);
                     break;
                 case Operator.minus:
-                    _audioSource.PlayOneShot(Player._player.Clips_Minus.ClipEmpty);
+                    _audioSource.PlayOneShot (Player._player.Clips_Minus.ClipEmpty);
                     break;
                 case Operator.multiply:
-                    _audioSource.PlayOneShot(Player._player.Clips_Mul.ClipEmpty);
+                    _audioSource.PlayOneShot (Player._player.Clips_Mul.ClipEmpty);
                     break;
                 case Operator.divide:
-                    _audioSource.PlayOneShot(Player._player.Clips_Div.ClipEmpty);
+                    _audioSource.PlayOneShot (Player._player.Clips_Div.ClipEmpty);
                     break;
                 default:
                     break;
@@ -189,79 +180,71 @@ public class GunScript : MonoBehaviour {
         }
     }
 
-    public void Reload()
-    {
-        Debug.Log("Reloading");
+    public void Reload () {
+        Debug.Log ("Reloading");
         CurrentAmmo = 16;
-        switch (opp)
-        {
+        switch (opp) {
             case Operator.plus:
-                _audioSource.PlayOneShot(Player._player.Clips_Plus.Reload);
+                _audioSource.PlayOneShot (Player._player.Clips_Plus.Reload);
                 break;
             case Operator.minus:
-                _audioSource.PlayOneShot(Player._player.Clips_Minus.Reload);
+                _audioSource.PlayOneShot (Player._player.Clips_Minus.Reload);
                 break;
             case Operator.multiply:
-                _audioSource.PlayOneShot(Player._player.Clips_Mul.Reload);
+                _audioSource.PlayOneShot (Player._player.Clips_Mul.Reload);
                 break;
             case Operator.divide:
-                _audioSource.PlayOneShot(Player._player.Clips_Div.Reload);
+                _audioSource.PlayOneShot (Player._player.Clips_Div.Reload);
                 break;
             default:
                 break;
         }
     }
 
-    void GunTrigger(object sender, ControllerInteractionEventArgs _args)
-    {
-        Debug.Log("Trigger: " + _args.buttonPressure);
-        _anim.Play("Trigger", -1, _args.buttonPressure);
+    void GunTrigger (object sender, ControllerInteractionEventArgs _args) {
+        Debug.Log ("Trigger: " + _args.buttonPressure);
+        _anim.Play ("Trigger", -1, _args.buttonPressure);
     }
 
-    void GripPressed(object sender, ControllerInteractionEventArgs _args)
-    {
+    void GripPressed (object sender, ControllerInteractionEventArgs _args) {
         gripPressed = true;
         //Get position of controller relative to watch center
         //Rotate around watch center
-        if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed();
-        Debug.Log("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed ();
+        Debug.Log ("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
 
     }
 
-    void GripReleased(object sender, ControllerInteractionEventArgs _args)
-    {
+    void GripReleased (object sender, ControllerInteractionEventArgs _args) {
         gripPressed = false;
-        if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased();
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased ();
         //Submit multiplier
     }
 
-    IEnumerator BulletTrail(Vector3 _Dest)
-    {
+    IEnumerator BulletTrail (Vector3 _Dest) {
         Vector3 _Origin = pointer.position;
 
-        GameObject trail = Instantiate(Trail, _Origin, Quaternion.identity) as GameObject;
+        GameObject trail = Instantiate (Trail, _Origin, Quaternion.identity) as GameObject;
         trail.transform.position = _Origin;
 
         yield return 0;
-        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0);
+        trail.transform.position = Vector3.Lerp (_Origin, _Dest, 0);
         yield return 0;
-        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.25f);
+        trail.transform.position = Vector3.Lerp (_Origin, _Dest, 0.25f);
         yield return 0;
-        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.5f);
+        trail.transform.position = Vector3.Lerp (_Origin, _Dest, 0.5f);
         yield return 0;
-        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 0.75f);
+        trail.transform.position = Vector3.Lerp (_Origin, _Dest, 0.75f);
         yield return 0;
-        trail.transform.position = Vector3.Lerp(_Origin, _Dest, 1);
+        trail.transform.position = Vector3.Lerp (_Origin, _Dest, 1);
 
-        yield return new WaitForSeconds(0.0125f);
-        Destroy(trail);
+        yield return new WaitForSeconds (0.0125f);
+        Destroy (trail);
     }
-    IEnumerator VibateOverFrames(int FrameDuration)
-    {
-        for (int i = 0; i < FrameDuration; i++)
-        {
-            VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(gameObject), ShootVibrations);
-            yield return new WaitForEndOfFrame();
+    IEnumerator VibateOverFrames (int FrameDuration) {
+        for (int i = 0; i < FrameDuration; i++) {
+            VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), ShootVibrations);
+            yield return new WaitForEndOfFrame ();
         }
     }
 }
