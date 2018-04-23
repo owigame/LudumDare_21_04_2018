@@ -10,12 +10,12 @@ public class Zombie : MonoBehaviour {
     public float speed;
 
     public bool imExploding;
+    public GameObject ZombieMesh;
 
     Explosion explosion;
     NavMeshAgent _agent;
     Animator _anim;
     Rigidbody _rBody;
-    
 
     private void Start () {
         _agent = GetComponent<NavMeshAgent> ();
@@ -25,14 +25,13 @@ public class Zombie : MonoBehaviour {
         _agent.speed = speed * 2;
         _anim.speed = speed * 2;
 
-        explosion = new Explosion();
+        explosion = new Explosion ();
     }
 
     public void Die () {
         StartCoroutine (DoDie ());
-        if (Value == 0)
-        {
-            explosion.Explode(transform.position);
+        if (Value == 0) {
+            explosion.Explode (transform.position);
         }
     }
 
@@ -46,17 +45,19 @@ public class Zombie : MonoBehaviour {
         _rBody.isKinematic = true;
         // gameObject.SetActive (false);
         // yield return null;
-
+        foreach (Collider col in ZombieMesh.GetComponents<Collider> ()) {
+            col.enabled = false;
+        }
         yield return new WaitForSeconds (5);
-        
+
         Vector3 targetLoc = transform.position + (Vector3.down * 5);
-        while ((transform.position - targetLoc).magnitude > 0.01f){
-            transform.Translate(-Vector3.up * speed * Time.deltaTime);
-            Debug.Log("In Will Loop");
+        while ((transform.position - targetLoc).magnitude > 0.01f) {
+            transform.Translate (-Vector3.up * speed * Time.deltaTime);
+            Debug.Log ("In Will Loop");
             yield return null;
         }
 
-        Destroy(gameObject); //TEMP
+        Destroy (gameObject); //TEMP
 
     }
 
