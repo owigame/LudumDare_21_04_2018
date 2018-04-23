@@ -15,6 +15,7 @@ public class Zombie : MonoBehaviour {
     NavMeshAgent _agent;
     Animator _anim;
     Rigidbody _rBody;
+    
 
     private void Start () {
         _agent = GetComponent<NavMeshAgent> ();
@@ -23,6 +24,7 @@ public class Zombie : MonoBehaviour {
         _agent.destination = Player._player.transform.position;
         _agent.speed = speed * 2;
         _anim.speed = speed * 2;
+        
     }
 
     public void Die () {
