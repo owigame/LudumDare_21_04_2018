@@ -29,6 +29,8 @@ public class GunScript : MonoBehaviour {
     public GameObject _plusGunObject;
     public GameObject _minusGunObject;
 
+    float StartRotGripped;
+
     [Header ("Output")]
     public int CurrentAmmo;
 
@@ -91,6 +93,12 @@ public class GunScript : MonoBehaviour {
                 Scoring._scoring.UpdateMultiplier(_multiplier);
                 VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
             }
+
+            if(gripPressed == true)
+            {
+                multiplier();
+            }
+
         }
     }
     #endregion /Controller setup
@@ -247,12 +255,25 @@ public class GunScript : MonoBehaviour {
         if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed ();
         Debug.Log ("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
 
+        StartRotGripped = transform.forward.y;
+
     }
 
     void GripReleased (object sender, ControllerInteractionEventArgs _args) {
         gripPressed = false;
         if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased ();
         //Submit multiplier
+    }
+
+    void multiplier()
+    {
+        
+        
+        if(StartRotGripped > transform.forward.y)
+        {
+
+        }
+
     }
 
     #endregion /Input
