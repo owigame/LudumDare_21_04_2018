@@ -1,9 +1,10 @@
-﻿Shader "Custom/VertexColorsStandard" {
+﻿Shader "Custom/VertexColorsStandardEmissive" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		_Metallic ("Metallic", Range(0,1)) = 0.0
+		_Glossiness("Smoothness", Range(0,1)) = 0.5
+		_Metallic("Metallic", Range(0,1)) = 0.0
+		_Emission("Emission", Range(0,1)) = 0.0
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -23,14 +24,17 @@
 			float4 color : COLOR;
 		};
 
+		float4 _Color;
 		half _Glossiness;
 		half _Metallic;
+		half _Emission;
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			o.Albedo = IN.color.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
+			o.Emission = _Emission * _Color;
 			//o.Alpha = IN.color.a;
 		}
 		ENDCG

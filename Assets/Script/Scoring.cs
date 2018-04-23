@@ -22,12 +22,17 @@ public class Scoring : MonoBehaviour {
 
     public UnityEvent RequiredReached;
 
+    [Header("Audio")]
+    AudioSource _audio;
+    public AudioClip _onScoreUpdateClip;
+
     private void Awake()
     {
         _scoring = this;
     }
 
     void Start () {
+        _audio = GetComponent<AudioSource>();
         ResetRequiredScore ();
         GunScript[] AllGuns = FindObjectsOfType<GunScript> ();
         foreach (var gun in AllGuns) {
@@ -62,6 +67,7 @@ public class Scoring : MonoBehaviour {
             score++;
             highestScore = score > highestScore ? score : highestScore;
             if (onScoreUpdated != null) onScoreUpdated(score);
+            _audio.PlayOneShot(_onScoreUpdateClip);
         } else
         {
             if (onCurrentValueUpdated != null) onCurrentValueUpdated(currentValue);
