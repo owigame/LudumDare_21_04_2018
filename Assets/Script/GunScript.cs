@@ -96,7 +96,7 @@ public class GunScript : MonoBehaviour {
 
             if(gripPressed == true)
             {
-                multiplier();
+                AdjustMultiplier();
             }
 
         }
@@ -265,14 +265,44 @@ public class GunScript : MonoBehaviour {
         //Submit multiplier
     }
 
-    void multiplier()
+    void AdjustMultiplier()
     {
-        
-        
-        if(StartRotGripped > transform.forward.y)
-        {
+        float CurrentRotation = transform.forward.y,rotAmo;
+        rotAmo = CurrentRotation - StartRotGripped;
 
+        if(rotAmo >= 10)
+        {
+            StartRotGripped = CurrentRotation;
+            int _multiplier = Scoring._scoring.multiplier++;
+            //check if larger than 9 then set to 1
+            if (Scoring._scoring.multiplier != _multiplier)
+            {
+                Scoring._scoring.UpdateMultiplier(_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
+            }
+
+            if(_multiplier > 9)
+            {
+                _multiplier = 1;
+            }
         }
+        if (rotAmo <= -10)
+        {
+            StartRotGripped = CurrentRotation;
+            int _multiplier = Scoring._scoring.multiplier--;
+            //check if larger than 9 then set to 1
+            if (Scoring._scoring.multiplier != _multiplier)
+            {
+                Scoring._scoring.UpdateMultiplier(_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
+            }
+
+            if (_multiplier > 9)
+            {
+                _multiplier = 1;
+            }
+        }
+
 
     }
 
