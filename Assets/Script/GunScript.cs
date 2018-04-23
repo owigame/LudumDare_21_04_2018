@@ -53,7 +53,7 @@ public class GunScript : MonoBehaviour {
                 Zombie _zombie = hit.transform.GetComponent<Zombie> ();
                 Scoring._scoring.UpdateScore (opp, _zombie.Value);
                 _zombie.Die ();
-                Instantiate (HitParticle, hit.transform.position, Quaternion.identity);
+                if (HitParticle != null) Instantiate (HitParticle, hit.transform.position, Quaternion.identity);
                 StartCoroutine (BulletTrail (hit.point));
             }
         } else {
