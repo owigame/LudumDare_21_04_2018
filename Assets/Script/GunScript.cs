@@ -91,6 +91,7 @@ public class GunScript : MonoBehaviour {
     }
 
     private void Shoot () {
+        (opp == Operator.plus ? _plusGunObject.GetComponent<Animator> () : _minusGunObject.GetComponent<Animator> ()).SetTrigger("Firing");
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
 
@@ -114,14 +115,14 @@ public class GunScript : MonoBehaviour {
         if (opp == Operator.minus) {
             VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
             opp = Operator.plus;
-            _plusGunObject.SetActive(true);
-            _minusGunObject.SetActive(false);
+            _plusGunObject.SetActive (true);
+            _minusGunObject.SetActive (false);
             //switch gun model
         } else if (opp == Operator.plus) {
             VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
             opp = Operator.minus;
-            _plusGunObject.SetActive(false);
-            _minusGunObject.SetActive(true);
+            _plusGunObject.SetActive (false);
+            _minusGunObject.SetActive (true);
         }
 
         // float _X = _args.touchpadAxis.x;
