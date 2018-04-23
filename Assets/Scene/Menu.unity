@@ -11044,7 +11044,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointer: {fileID: 69187514}
-  TagName: Start
+  start: Start
+  quit: Quit
   LoadLevelNumber: 1
 --- !u!1001 &1227092501
 Prefab:
@@ -12461,7 +12462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointer: {fileID: 593264147}
-  TagName: Start
+  start: Start
+  quit: Quit
   LoadLevelNumber: 1
 --- !u!1001 &1354935367
 Prefab:
