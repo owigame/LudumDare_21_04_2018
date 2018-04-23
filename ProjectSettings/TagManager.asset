@@ -9,6 +9,8 @@ TagManager:
   - ExcludeTeleport
   - Reload
   - Gun
+  - StartGame
+  - QuitGame
   layers:
   - Default
   - TransparentFX
