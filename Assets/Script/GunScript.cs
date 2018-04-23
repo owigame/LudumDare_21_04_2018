@@ -46,6 +46,7 @@ public class GunScript : MonoBehaviour {
     public LinearMapping _linearMapping;
     public float rotaryValue;
 
+    #region Controller setup
     private void Awake () {
         _GunScript = this;
         _audioSource = GetComponent<AudioSource> ();
@@ -78,18 +79,23 @@ public class GunScript : MonoBehaviour {
         _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
     }
 
-    void Update () {
-        if (gripPressed && _CircularDriveModded != null) {
-            _CircularDriveModded.HandGripPressed ();
+    void Update()
+    {
+        if (gripPressed && _CircularDriveModded != null)
+        {
+            _CircularDriveModded.HandGripPressed();
             rotaryValue = _linearMapping.value;
-            int _multiplier = Mathf.Clamp (Mathf.FloorToInt (rotaryValue * 10), 1, 9);
-            if (Scoring._scoring.multiplier != _multiplier) {
-                Scoring._scoring.UpdateMultiplier (_multiplier);
-                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController), _multiplier);
+            int _multiplier = Mathf.Clamp(Mathf.FloorToInt(rotaryValue * 10), 1, 9);
+            if (Scoring._scoring.multiplier != _multiplier)
+            {
+                Scoring._scoring.UpdateMultiplier(_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
             }
         }
     }
+    #endregion /Controller setup
 
+    #region Shoot
     private void Shoot () {
         (opp == Operator.plus ? _plusGunObject.GetComponent<Animator> () : _minusGunObject.GetComponent<Animator> ()).SetTrigger("Firing");
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
@@ -110,7 +116,9 @@ public class GunScript : MonoBehaviour {
         CurrentAmmo--;
         StartCoroutine (VibateOverFrames (DurationToVibrate));
     }
+    #endregion/Shoot
 
+    #region Change gun
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
         if (opp == Operator.minus) {
             VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
@@ -152,6 +160,9 @@ public class GunScript : MonoBehaviour {
         if (OnOppChanged != null) OnOppChanged (opp);
         Debug.Log ("Operator Submit " + opp + (playerHand == 1 ? "Right Hand" : "Left Hand"));
     }
+    #endregion/Change gun
+
+    #region Audio
 
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
         //Shoot
@@ -221,6 +232,9 @@ public class GunScript : MonoBehaviour {
         }
     }
 
+    #endregion /Audio
+
+    #region Input
     void GunTrigger (object sender, ControllerInteractionEventArgs _args) {
         Debug.Log ("Trigger: " + _args.buttonPressure);
         _anim.Play ("Trigger", -1, _args.buttonPressure);
@@ -241,6 +255,9 @@ public class GunScript : MonoBehaviour {
         //Submit multiplier
     }
 
+    #endregion /Input
+
+    #region Trail
     IEnumerator BulletTrail (Vector3 _Dest) {
         Vector3 _Origin = pointer.position;
 
@@ -267,4 +284,5 @@ public class GunScript : MonoBehaviour {
             yield return new WaitForEndOfFrame ();
         }
     }
+    #endregion /Trail
 }
