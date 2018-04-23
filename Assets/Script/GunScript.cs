@@ -24,14 +24,14 @@ public class GunScript : MonoBehaviour {
     public AudioClip clip;
     public GameObject Trail;
     private GameObjectPool TrailsPool;
-    public GunScript otherController;
+    public GameObject otherController;
     public int ShootVibrations = 10, DurationToVibrate = 10;
     public GameObject HitParticle;
     public GameObject _plusGunObject;
     public GameObject _minusGunObject;
-    public GameObject handUI;
 
-    public GameObject _rocketPrefab;
+    public GameObject BulletPlus, BulletMinus;
+
 
     float StartRotGripped;
     public float rotaryTickRate = 5;
@@ -86,6 +86,7 @@ public class GunScript : MonoBehaviour {
         _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
     }
 
+<<<<<<< HEAD
     void Update () {
         if (gripPressed) {
             // _CircularDriveModded.HandGripPressed ();
@@ -99,32 +100,62 @@ public class GunScript : MonoBehaviour {
             // if (gripPressed == true) {
             AdjustMultiplier ();
             // }
+=======
+    void Update()
+    {
+        if (gripPressed && _CircularDriveModded != null)
+        {
+            _CircularDriveModded.HandGripPressed();
+            rotaryValue = _linearMapping.value;
+            int _multiplier = Mathf.Clamp(Mathf.FloorToInt(rotaryValue * 10), 1, 9);
+            if (Scoring._scoring.multiplier != _multiplier)
+            {
+                Scoring._scoring.UpdateMultiplier(_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
+            }
+
+            if(gripPressed == true)
+            {
+                AdjustMultiplier();
+            }
+>>>>>>> 525eb6e68f3e181f9f820777a166188a9f3ff512
 
         }
-        if (Input.GetKeyDown (KeyCode.BackQuote)) {
-            Application.LoadLevel (Application.loadedLevel);
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
+            Application.LoadLevel(Application.loadedLevel);
         }
     }
     #endregion /Controller setup
 
     #region Shoot
     private void Shoot () {
-        (opp == Operator.plus ? _plusGunObject.GetComponent<Animator> () : _minusGunObject.GetComponent<Animator> ()).SetTrigger ("Firing");
+        (opp == Operator.plus ? _plusGunObject.GetComponent<Animator> () : _minusGunObject.GetComponent<Animator> ()).SetTrigger("Firing");
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
 
             if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
                 lastHit = hit.transform.gameObject;
-                // Zombie _zombie = hit.transform.GetComponent<Zombie> ();
-                // Scoring._scoring.UpdateScore (opp, _zombie.Value);
-                // _zombie.Die ();
+                Zombie _zombie = hit.transform.GetComponent<Zombie> ();
+                Scoring._scoring.UpdateScore (opp, _zombie.Value);
+                _zombie.Die ();
                 if (HitParticle != null) Instantiate (HitParticle, hit.transform.position, Quaternion.identity);
-                // StartCoroutine (BulletTrail (hit.point));
+                StartCoroutine (BulletTrail (hit.point));
 
+                switch (opp)
+                {
+                    case Operator.plus:
+                        Instantiate(BulletPlus, transform.position, transform.rotation);
+                        break;
+                    case Operator.minus:
+                        Instantiate(BulletMinus, transform.position, transform.rotation);
+                        break;
+                    
+                }
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
-            // StartCoroutine (BulletTrail (pointer.position + pointer.forward * 100));
+            StartCoroutine (BulletTrail (pointer.position + pointer.forward * 100));
         }
         CurrentAmmo--;
         StartCoroutine (VibateOverFrames (DurationToVibrate));
@@ -181,14 +212,12 @@ public class GunScript : MonoBehaviour {
         //Shoot
         _anim.SetTrigger ("Shoot");
         Debug.Log ("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
-        if (CurrentAmmo > 0) {
+        if (CurrentAmmo > 0) 
+        {
             Shoot ();
             //_audioSource.PlayOneShot(clip);
             float fPich = Random.Range (0.85f, 1f);
             _audioSource.pitch = fPich;
-            GameObject _rocket = Instantiate (_rocketPrefab, pointer.position, Quaternion.identity);
-            _rocket.transform.eulerAngles = pointer.eulerAngles;
-            _rocket.GetComponent<Rocket> ().SetRocket (opp);
             switch (opp) {
                 case Operator.plus:
                     _audioSource.PlayOneShot (Player._player.Clips_Plus.WeaponFire);
@@ -252,7 +281,7 @@ public class GunScript : MonoBehaviour {
 
     #region Input
     void GunTrigger (object sender, ControllerInteractionEventArgs _args) {
-        // Debug.Log ("Trigger: " + _args.buttonPressure);
+        Debug.Log ("Trigger: " + _args.buttonPressure);
         _anim.Play ("Trigger", -1, _args.buttonPressure);
     }
 
@@ -260,21 +289,26 @@ public class GunScript : MonoBehaviour {
         gripPressed = true;
         //Get position of controller relative to watch center
         //Rotate around watch center
-        // if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed ();
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed ();
         Debug.Log ("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
 
+<<<<<<< HEAD
         Vector3 targetDir = -otherController.handUI.transform.up;
         float angle = Vector3.Angle (targetDir, transform.forward);
         StartRotGripped = angle;
+=======
+        StartRotGripped = transform.forward.y;
+>>>>>>> 525eb6e68f3e181f9f820777a166188a9f3ff512
 
     }
 
     void GripReleased (object sender, ControllerInteractionEventArgs _args) {
         gripPressed = false;
-        // if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased ();
+        if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased ();
         //Submit multiplier
     }
 
+<<<<<<< HEAD
     void AdjustMultiplier () {
         Vector3 targetDir = -otherController.handUI.transform.up;
         float angle = Vector3.Angle (targetDir, transform.forward);
@@ -304,16 +338,46 @@ public class GunScript : MonoBehaviour {
             int _multiplier = Mathf.Clamp ((angle > StartRotGripped) ? Scoring._scoring.multiplier-1 : Scoring._scoring.multiplier+1, 1, 9);
             StartRotGripped = angle;
             Debug.Log ("**** MULTI: " + _multiplier);
+=======
+    void AdjustMultiplier()
+    {
+        float CurrentRotation = transform.forward.y,rotAmo;
+        rotAmo = CurrentRotation - StartRotGripped;
+
+        if(rotAmo >= -17.5)
+        {
+            StartRotGripped = CurrentRotation;
+            int _multiplier = Scoring._scoring.multiplier++;
             //check if larger than 9 then set to 1
-            if (Scoring._scoring.multiplier != _multiplier) {
-                Scoring._scoring.UpdateMultiplier (_multiplier);
-                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
+            if (Scoring._scoring.multiplier != _multiplier)
+            {
+                Scoring._scoring.UpdateMultiplier(_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
             }
 
-            if (_multiplier > 9) {
+            if(_multiplier > 9)
+            {
                 _multiplier = 1;
             }
         }
+        if (rotAmo <= 17.5)
+        {
+            StartRotGripped = CurrentRotation;
+            int _multiplier = Scoring._scoring.multiplier--;
+>>>>>>> 525eb6e68f3e181f9f820777a166188a9f3ff512
+            //check if larger than 9 then set to 1
+            if (Scoring._scoring.multiplier != _multiplier)
+            {
+                Scoring._scoring.UpdateMultiplier(_multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(otherController), _multiplier);
+            }
+
+            if (_multiplier > 9)
+            {
+                _multiplier = 1;
+            }
+        }
+
 
     }
 
