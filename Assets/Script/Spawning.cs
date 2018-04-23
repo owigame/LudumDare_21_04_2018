@@ -7,7 +7,7 @@ public class Spawning : MonoBehaviour {
 
     public GameObject SpawnPosition;
     public List<GameObject> SpawnOBJ = new List<GameObject> ();
-    public int EnemySpawnAmount, SpawnEveryxSeconds = 2;
+    public float EnemySpawnAmount, SpawnEveryxSeconds = 2;
     private float TimeSinceLastSpawn;
 
     private void Start () {
