@@ -963,6 +963,10 @@ Prefab:
       propertyPath: _linearMapping
       value: 
       objectReference: {fileID: 717792713}
+    - target: {fileID: 1142666899365008, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
   m_IsPrefabParent: 0
