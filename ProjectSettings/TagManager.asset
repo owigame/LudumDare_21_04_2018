@@ -9,6 +9,8 @@ TagManager:
   - ExcludeTeleport
   - Reload
   - Gun
+  - StartGame
+  - QuitGame
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Enemies
   - Trigger
   - Gun
-  - 
+  - Rocket
   - 
   - 
   - 

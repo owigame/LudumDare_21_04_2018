@@ -1186,13 +1186,14 @@ MonoBehaviour:
   Value: 7
   speed: 0.4
   imExploding: 0
+  ZombieMesh: {fileID: 1631033251260376}
 --- !u!136 &136727068945867612
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1631033251260376}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3aeb7dadc0c69d54d9e5777e9d5631f1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.28
