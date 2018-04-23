@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Valve.VR.InteractionSystem;
@@ -28,6 +29,9 @@ public class GunScript : MonoBehaviour {
     public GameObject HitParticle;
     public GameObject _plusGunObject;
     public GameObject _minusGunObject;
+
+    public GameObject BulletPlus, BulletMinus;
+
 
     float StartRotGripped;
 
@@ -99,6 +103,10 @@ public class GunScript : MonoBehaviour {
                 AdjustMultiplier();
             }
 
+        }
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
+            Application.LoadLevel(Application.loadedLevel);
         }
     }
     #endregion /Controller setup
