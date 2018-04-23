@@ -124,6 +124,17 @@ public class GunScript : MonoBehaviour {
                 _zombie.Die ();
                 if (HitParticle != null) Instantiate (HitParticle, hit.transform.position, Quaternion.identity);
                 StartCoroutine (BulletTrail (hit.point));
+
+                switch (opp)
+                {
+                    case Operator.plus:
+                        Instantiate(BulletPlus, transform.position, transform.rotation);
+                        break;
+                    case Operator.minus:
+                        Instantiate(BulletMinus, transform.position, transform.rotation);
+                        break;
+                    
+                }
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
