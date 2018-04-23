@@ -1894,6 +1894,7 @@ MonoBehaviour:
   HitParticle: {fileID: 0}
   _plusGunObject: {fileID: 1142666899365008}
   _minusGunObject: {fileID: 1813429052199450}
+  handUI: {fileID: 1008110025037728}
   _rocketPrefab: {fileID: 1496989125538966, guid: d7dbd22e2d7a8d6408b11599be94881d,
     type: 2}
   CurrentAmmo: 16

@@ -24,11 +24,12 @@ public class GunScript : MonoBehaviour {
     public AudioClip clip;
     public GameObject Trail;
     private GameObjectPool TrailsPool;
-    public GameObject otherController;
+    public GunScript otherController;
     public int ShootVibrations = 10, DurationToVibrate = 10;
     public GameObject HitParticle;
     public GameObject _plusGunObject;
     public GameObject _minusGunObject;
+    public GameObject handUI;
 
     public GameObject _rocketPrefab;
 
@@ -91,7 +92,7 @@ public class GunScript : MonoBehaviour {
             int _multiplier = Mathf.Clamp (Mathf.FloorToInt (rotaryValue * 10), 1, 9);
             if (Scoring._scoring.multiplier != _multiplier) {
                 Scoring._scoring.UpdateMultiplier (_multiplier);
-                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController), _multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
             }
 
             if (gripPressed == true) {
@@ -186,7 +187,7 @@ public class GunScript : MonoBehaviour {
             _audioSource.pitch = fPich;
             GameObject _rocket = Instantiate (_rocketPrefab, pointer.position, Quaternion.identity);
             _rocket.transform.eulerAngles = pointer.eulerAngles;
-            _rocket.GetComponent<Rocket>().SetRocket(opp);
+            _rocket.GetComponent<Rocket> ().SetRocket (opp);
             switch (opp) {
                 case Operator.plus:
                     _audioSource.PlayOneShot (Player._player.Clips_Plus.WeaponFire);
@@ -258,21 +259,28 @@ public class GunScript : MonoBehaviour {
         gripPressed = true;
         //Get position of controller relative to watch center
         //Rotate around watch center
-        if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed ();
+        // if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed ();
         Debug.Log ("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
 
-        StartRotGripped = transform.forward.y;
+        // Vector3 targetDir = -otherController.handUI.transform.up;
+        // float angle = Vector3.Angle (targetDir, transform.forward);
+        // StartRotGripped = angle;
 
     }
 
     void GripReleased (object sender, ControllerInteractionEventArgs _args) {
         gripPressed = false;
-        if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased ();
+        // if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased ();
         //Submit multiplier
     }
 
     void AdjustMultiplier () {
-        float CurrentRotation = transform.forward.y, rotAmo;
+        Vector3 targetDir = -otherController.handUI.transform.up;
+        float angle = Vector3.Angle (targetDir, transform.forward);
+
+        Debug.Log ("*** ANGLE: " + angle);
+
+        float CurrentRotation = transform.up.y, rotAmo;
         rotAmo = CurrentRotation - StartRotGripped;
 
         if (rotAmo >= -17.5) {
@@ -281,7 +289,7 @@ public class GunScript : MonoBehaviour {
             //check if larger than 9 then set to 1
             if (Scoring._scoring.multiplier != _multiplier) {
                 Scoring._scoring.UpdateMultiplier (_multiplier);
-                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController), _multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
             }
 
             if (_multiplier > 9) {
@@ -294,7 +302,7 @@ public class GunScript : MonoBehaviour {
             //check if larger than 9 then set to 1
             if (Scoring._scoring.multiplier != _multiplier) {
                 Scoring._scoring.UpdateMultiplier (_multiplier);
-                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController), _multiplier);
+                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
             }
 
             if (_multiplier > 9) {
