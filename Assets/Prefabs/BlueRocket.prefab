@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4117117095151652}
+  - component: {fileID: 114418102470589658}
   m_Layer: 0
   m_Name: BlueRocket
   m_TagString: Untagged
@@ -66,12 +67,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1289338293760032}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 42.7138, y: 0.1933, z: 2.2878}
-  m_LocalScale: {x: 0.07089749, y: 0.070897505, z: 0.14179501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.253, z: -0.1113}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_Children:
-  - {fileID: 4700553600444634}
   - {fileID: 4266108987810660}
+  - {fileID: 4700553600444634}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -81,25 +82,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332430861355996}
-  m_LocalRotation: {x: -0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: 0.7125299, y: -1.033, z: -1.206}
-  m_LocalScale: {x: 0.066506065, y: 0.06650608, z: 0.13301216}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.025199998}
+  m_LocalScale: {x: 0.08686404, y: 0.086863995, z: 0.086863995}
   m_Children: []
   m_Father: {fileID: 4117117095151652}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -180, y: -180, z: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!4 &4700553600444634
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1614350412265842}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.71933, y: -1.0381182, z: -1.0620964}
-  m_LocalScale: {x: 44.86653, y: 44.866547, z: 22.433273}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0253}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4117117095151652}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23442690693067590
 MeshRenderer:
@@ -142,6 +143,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1614350412265842}
   m_Mesh: {fileID: 4300000, guid: 2a5b9a959e83bc54fa0642a01967b1a9, type: 3}
+--- !u!114 &114418102470589658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289338293760032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6a8b5741687b045ba21debb28636e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rate: 30
 --- !u!198 &198822806174361136
 ParticleSystem:
   m_ObjectHideFlags: 1
