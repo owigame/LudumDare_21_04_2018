@@ -144,6 +144,8 @@ public class GunScript : MonoBehaviour {
         if (CurrentAmmo > 0) {
             Shoot ();
             //_audioSource.PlayOneShot(clip);
+            float fPich = Random.Range(0.85f, 1.25f);
+            _audioSource.pitch = fPich;
             switch (opp) {
                 case Operator.plus:
                     _audioSource.PlayOneShot (Player._player.Clips_Plus.WeaponFire);
@@ -183,6 +185,8 @@ public class GunScript : MonoBehaviour {
     public void Reload () {
         Debug.Log ("Reloading");
         CurrentAmmo = 16;
+         float fPich = Random.Range(0.85f, 1.25f);
+        _audioSource.pitch = fPich;
         switch (opp) {
             case Operator.plus:
                 _audioSource.PlayOneShot (Player._player.Clips_Plus.Reload);
