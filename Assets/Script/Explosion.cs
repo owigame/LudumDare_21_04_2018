@@ -5,17 +5,12 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
 
-    public float radius = 50.0F;
-    //public float power = 100.0F;
-    private Vector3 explosionPos;
+    public float radius = 20.0F;
     public GameObject ExplosionPrefabEffect;
 
     public void Explode(Vector3 explosionPosition)
     {
-        explosionPos = explosionPosition;
-        Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
-
-        Debug.Log(colliders.Length);
+        Collider[] colliders = Physics.OverlapSphere(explosionPosition, radius);
 
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -25,6 +20,6 @@ public class Explosion : MonoBehaviour
             }
         }
 
-        Instantiate(ExplosionPrefabEffect, explosionPos, Quaternion.identity);
+        Instantiate(ExplosionPrefabEffect, explosionPosition, Quaternion.identity);
     }
 }
