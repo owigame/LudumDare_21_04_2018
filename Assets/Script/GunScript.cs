@@ -54,7 +54,7 @@ public class GunScript : MonoBehaviour {
                 Scoring._scoring.UpdateScore (opp, _zombie.Value);
                 _zombie.Die ();
                 Instantiate (HitParticle, hit.transform.position, Quaternion.identity);
-                StartCoroutine (BulletTrail (hit.transform.position));
+                StartCoroutine (BulletTrail (hit.point));
             }
         } else {
             Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
@@ -71,19 +71,14 @@ public class GunScript : MonoBehaviour {
             VRTK_Logger.Error (VRTK_Logger.GetCommonMessage (VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
             return;
         }
-        //HitParticle = GetComponent<Particle System>();
+
         _VRTK_ControllerEvents = GetComponent<VRTK_ControllerEvents> ();
     }
 
     void Start () {
         if (OnOppChanged != null) OnOppChanged (opp);
         TrailsPool = new GameObjectPool (Trail);
-
-        
-
     }
-
-    #region controller
 
     private void OnEnable () {
         _VRTK_ControllerEvents.TouchpadAxisChanged += new ControllerInteractionEventHandler (OperatorChange);
@@ -100,8 +95,6 @@ public class GunScript : MonoBehaviour {
         _VRTK_ControllerEvents.GripPressed -= new ControllerInteractionEventHandler (GripPressed);
         _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
     }
-
-    #endregion/controller
 
     void Update () {
         if (gripPressed && _CircularDriveModded != null) {
