@@ -20,7 +20,7 @@ public class Rocket : MonoBehaviour {
 	}
 
 	public void SetRocket (Operator _opp) {
-		_opp = _opp;
+		opp = _opp;
 		switch (_opp) {
 			case Operator.minus:
 				_blueRocket.SetActive (true);
