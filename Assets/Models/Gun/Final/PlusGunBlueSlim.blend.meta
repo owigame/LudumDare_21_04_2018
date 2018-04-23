@@ -1,15 +1,13 @@
 fileFormatVersion: 2
 guid: 805e8e28496535149bd613c0d96c7203
-timeCreated: 1524480779
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: AddGunBlueSlim
+    100000: AddGunBlueSlim
+    100002: //RootNode
     100004: SpinningPiece
-    400000: //RootNode
-    400002: AddGunBlueSlim
+    400000: AddGunBlueSlim
+    400002: //RootNode
     400004: SpinningPiece
     2100000: GunMetal
     2100002: Gem
@@ -17,17 +15,11 @@ ModelImporter:
     2100006: Gun_Rocks
     2300000: SpinningPiece
     3300000: SpinningPiece
-    4300000: AddGun
-    4300002: SpinningPiece
-    4300004: AddGunBlueSlim
+    4300000: SpinningPiece
+    4300002: AddGunBlueSlim
     7400000: Default Take
     9500000: //RootNode
-    13700000: //RootNode
-<<<<<<< HEAD
-    13700002: AddGunBlueSlim
-    13700004: SpinningPiece
-  externalObjects: {}
-=======
+    13700000: AddGunBlueSlim
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -49,7 +41,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Gun_Rocks
     second: {fileID: 2100000, guid: fe8ee25ea95ae3944a617efa57e3f5d6, type: 2}
->>>>>>> 0a6df49f86e1e3babf7a73c0904882c11843fbcb
   materials:
     importMaterials: 1
     materialName: 0
