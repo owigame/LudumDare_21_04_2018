@@ -11,22 +11,26 @@ public class tGunMenu : MonoBehaviour
     public Transform pointer;
     RaycastHit hit;
 
-    public string TagName;
+    public string start;
+    public string quit;
     public int LoadLevelNumber;
 
     bool OnStartEnter = false;
-
+    bool OnQuitEnter = false;
 
     private void Update()
     {
         if (Physics.Raycast(transform.position, pointer.forward, out hit, Mathf.Infinity))
         {
 
-            if (hit.transform.tag == TagName)
+            if (hit.transform.tag == start)
             {
                 OnStartEnter = true;
             }
-
+            if (hit.transform.tag == quit)
+            {
+                OnQuitEnter = true;
+            }
         }
     }
 
@@ -36,6 +40,10 @@ public class tGunMenu : MonoBehaviour
         if(OnStartEnter == true)
         {
             SceneManager.LoadScene(LoadLevelNumber);
+        }
+        if(OnQuitEnter == true)
+        {
+            Application.Quit();
         }
 
     }
