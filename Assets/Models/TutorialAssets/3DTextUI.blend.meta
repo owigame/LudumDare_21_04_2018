@@ -16,6 +16,9 @@ ModelImporter:
     100016: 7
     100018: 8
     100020: 9
+    100022: QUIT
+    100024: START_GAME
+    100026: START
     400000: 1
     400002: 2
     400004: //RootNode
@@ -27,6 +30,9 @@ ModelImporter:
     400016: 7
     400018: 8
     400020: 9
+    400022: QUIT
+    400024: START_GAME
+    400026: START
     2100000: unnamed
     2100002: 0
     2100004: 3
@@ -43,6 +49,9 @@ ModelImporter:
     2300014: 7
     2300016: 8
     2300018: 9
+    2300020: QUIT
+    2300022: START_GAME
+    2300024: START
     3300000: 1
     3300002: 2
     3300004: 0
@@ -53,6 +62,9 @@ ModelImporter:
     3300014: 7
     3300016: 8
     3300018: 9
+    3300020: QUIT
+    3300022: START_GAME
+    3300024: START
     4300000: 2
     4300002: 1
     4300004: 0
@@ -63,9 +75,17 @@ ModelImporter:
     4300014: 5
     4300016: 4
     4300018: 3
+    4300020: QUIT
+    4300022: START_GAME
+    4300024: START
     7400000: Default Take
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Numbers_MAT
+    second: {fileID: 2100000, guid: 252c44e641a56b84dada1abdb3b6f95b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
