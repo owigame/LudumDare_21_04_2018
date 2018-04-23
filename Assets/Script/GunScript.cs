@@ -44,6 +44,7 @@ public class GunScript : MonoBehaviour {
     public LinearMapping _linearMapping;
     public float rotaryValue;
 
+    #region When you Shoot
     private void Shoot () {
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
             Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
@@ -63,6 +64,7 @@ public class GunScript : MonoBehaviour {
         CurrentAmmo--;
         StartCoroutine (VibateOverFrames (DurationToVibrate));
     }
+    #endregion/When you Shoot
 
     private void Awake () {
         _GunScript = this;
@@ -108,6 +110,8 @@ public class GunScript : MonoBehaviour {
         }
     }
 
+    #region Change between + and - guns
+
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
         float _X = _args.touchpadAxis.x;
         float _Y = _args.touchpadAxis.y;
@@ -136,7 +140,9 @@ public class GunScript : MonoBehaviour {
         if (OnOppChanged != null) OnOppChanged (opp);
         Debug.Log ("Operator Submit " + opp + (playerHand == 1 ? "Right Hand" : "Left Hand"));
     }
+    #endregion/Change between + and - guns
 
+    #region auidio
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
         //Shoot
         _anim.SetTrigger ("Shoot");
@@ -204,7 +210,9 @@ public class GunScript : MonoBehaviour {
                 break;
         }
     }
+    #endregion/auidio
 
+    #region Controller buttons
     void GunTrigger (object sender, ControllerInteractionEventArgs _args) {
         Debug.Log ("Trigger: " + _args.buttonPressure);
         _anim.Play ("Trigger", -1, _args.buttonPressure);
@@ -224,7 +232,9 @@ public class GunScript : MonoBehaviour {
         if (_CircularDriveModded != null) _CircularDriveModded.HandGripReleased ();
         //Submit multiplier
     }
+    #endregion/controller buttons
 
+    #region Bullet Trail
     IEnumerator BulletTrail (Vector3 _Dest) {
         Vector3 _Origin = pointer.position;
 
@@ -251,4 +261,5 @@ public class GunScript : MonoBehaviour {
             yield return new WaitForEndOfFrame ();
         }
     }
+    #endregion/Bullet Trail
 }
