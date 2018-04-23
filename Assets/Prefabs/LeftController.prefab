@@ -1893,7 +1893,7 @@ MonoBehaviour:
   DurationToVibrate: 10
   HitParticle: {fileID: 0}
   _plusGunObject: {fileID: 1142666899365008}
-  _minusGunObject: {fileID: 0}
+  _minusGunObject: {fileID: 1813429052199450}
   CurrentAmmo: 16
   _operatorText: {fileID: 114760428836062210}
   _CircularDriveModded: {fileID: 0}
