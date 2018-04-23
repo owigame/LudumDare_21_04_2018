@@ -24,12 +24,16 @@ public class Zombie : MonoBehaviour {
         _agent.destination = Player._player.transform.position;
         _agent.speed = speed * 2;
         _anim.speed = speed * 2;
-        
+
+        explosion = new Explosion();
     }
 
     public void Die () {
         StartCoroutine (DoDie ());
-
+        if (Value == 0)
+        {
+            explosion.Explode(transform.position);
+        }
     }
 
     IEnumerator DoDie () {
