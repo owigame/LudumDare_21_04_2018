@@ -43,7 +43,7 @@ public class Zombie : MonoBehaviour {
         // gameObject.SetActive (false);
         // yield return null;
 
-        yield return new WaitForSeconds (2);
+        yield return new WaitForSeconds (5);
         
         Vector3 targetLoc = transform.position + (Vector3.down * 5);
         while ((transform.position - targetLoc).magnitude > 0.01f){
