@@ -6,16 +6,49 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: AddGun
+    100004: Cone
     400000: //RootNode
+    400002: AddGun
+    400004: Cone
     2100000: GunMetal
     2100002: Gem
     2100004: Gun
     2100006: Gun_Rocks
+    2300000: Cone
+    3300000: Cone
     4300000: AddGun
+    4300002: Cone
     7400000: Default Take
     9500000: //RootNode
     13700000: //RootNode
-  externalObjects: {}
+    13700002: AddGun
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gem
+    second: {fileID: 2100000, guid: 508fff03d600d454b9af80cf9c6613d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun
+    second: {fileID: 2100000, guid: 82adcfbbbe7fd7a448bb80cc87a8a3dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GunMetal
+    second: {fileID: 2100000, guid: 37d0a127b2dbe924087d40b832db11e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Rocks
+    second: {fileID: 2100000, guid: fe8ee25ea95ae3944a617efa57e3f5d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: unnamed
+    second: {fileID: 2100000, guid: b9c8ed2671b21684287b1eb0d356a877, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
