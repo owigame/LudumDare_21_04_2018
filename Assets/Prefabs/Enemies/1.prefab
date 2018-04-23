@@ -1173,6 +1173,7 @@ MonoBehaviour:
   Value: 1
   speed: 0.9
   imExploding: 0
+  ZombieMesh: {fileID: 1602821483666448}
 --- !u!136 &136271345461761272
 CapsuleCollider:
   m_ObjectHideFlags: 1

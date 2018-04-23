@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Valve.VR.InteractionSystem;
 using VRTK;
@@ -34,6 +34,7 @@ public class GunScript : MonoBehaviour {
     public GameObject _rocketPrefab;
 
     float StartRotGripped;
+    public float rotaryTickRate = 5;
 
     [Header ("Output")]
     public int CurrentAmmo;
@@ -86,18 +87,18 @@ public class GunScript : MonoBehaviour {
     }
 
     void Update () {
-        if (gripPressed && _CircularDriveModded != null) {
-            _CircularDriveModded.HandGripPressed ();
-            rotaryValue = _linearMapping.value;
-            int _multiplier = Mathf.Clamp (Mathf.FloorToInt (rotaryValue * 10), 1, 9);
-            if (Scoring._scoring.multiplier != _multiplier) {
-                Scoring._scoring.UpdateMultiplier (_multiplier);
-                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
-            }
+        if (gripPressed) {
+            // _CircularDriveModded.HandGripPressed ();
+            // // rotaryValue = _linearMapping.value;
+            // int _multiplier = Mathf.Clamp (Mathf.FloorToInt (rotaryValue * 10), 1, 9);
+            // if (Scoring._scoring.multiplier != _multiplier) {
+            //     Scoring._scoring.UpdateMultiplier (_multiplier);
+            //     VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
+            // }
 
-            if (gripPressed == true) {
-                AdjustMultiplier ();
-            }
+            // if (gripPressed == true) {
+            AdjustMultiplier ();
+            // }
 
         }
         if (Input.GetKeyDown (KeyCode.BackQuote)) {
@@ -262,9 +263,9 @@ public class GunScript : MonoBehaviour {
         // if (_CircularDriveModded != null) _CircularDriveModded.HandGripPressed ();
         Debug.Log ("Grip Pressed " + (playerHand == 0 ? "Left" : "Right"));
 
-        // Vector3 targetDir = -otherController.handUI.transform.up;
-        // float angle = Vector3.Angle (targetDir, transform.forward);
-        // StartRotGripped = angle;
+        Vector3 targetDir = -otherController.handUI.transform.up;
+        float angle = Vector3.Angle (targetDir, transform.forward);
+        StartRotGripped = angle;
 
     }
 
@@ -278,27 +279,31 @@ public class GunScript : MonoBehaviour {
         Vector3 targetDir = -otherController.handUI.transform.up;
         float angle = Vector3.Angle (targetDir, transform.forward);
 
-        Debug.Log ("*** ANGLE: " + angle);
+        Debug.Log ("*** ANGLE: " + angle + " STARTROT: " + StartRotGripped);
 
         float CurrentRotation = transform.up.y, rotAmo;
         rotAmo = CurrentRotation - StartRotGripped;
 
-        if (rotAmo >= -17.5) {
-            StartRotGripped = CurrentRotation;
-            int _multiplier = Scoring._scoring.multiplier++;
-            //check if larger than 9 then set to 1
-            if (Scoring._scoring.multiplier != _multiplier) {
-                Scoring._scoring.UpdateMultiplier (_multiplier);
-                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
-            }
-
-            if (_multiplier > 9) {
-                _multiplier = 1;
-            }
-        }
-        if (rotAmo <= 17.5) {
-            StartRotGripped = CurrentRotation;
-            int _multiplier = Scoring._scoring.multiplier--;
+        // if (rotAmo >= -17.5)
+        // {
+        //     StartRotGripped = CurrentRotation;
+        //     int _multiplier = Scoring._scoring.multiplier++;
+        //     //check if larger than 9 then set to 1
+        //     if (Scoring._scoring.multiplier != _multiplier) 
+        //     {
+        //         Scoring._scoring.UpdateMultiplier (_multiplier);
+        //         VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
+        //     }
+        // 
+        //     if (_multiplier > 9) 
+        //     {
+        //         _multiplier = 1;
+        //     }
+        // }
+        if (Mathf.Abs (angle - StartRotGripped) > rotaryTickRate) {
+            int _multiplier = Mathf.Clamp ((angle > StartRotGripped) ? Scoring._scoring.multiplier-1 : Scoring._scoring.multiplier+1, 1, 9);
+            StartRotGripped = angle;
+            Debug.Log ("**** MULTI: " + _multiplier);
             //check if larger than 9 then set to 1
             if (Scoring._scoring.multiplier != _multiplier) {
                 Scoring._scoring.UpdateMultiplier (_multiplier);
