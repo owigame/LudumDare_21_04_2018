@@ -25,9 +25,11 @@ public class GunScript : MonoBehaviour {
     private GameObjectPool TrailsPool;
     public GameObject otherController;
     public int ShootVibrations = 10, DurationToVibrate = 10;
-
     public GameObject HitParticle;
+    public GameObject _plusGunObject;
+    public GameObject _minusGunObject;
 
+    [Header ("Output")]
     public int CurrentAmmo;
 
     [Header ("UI")]
@@ -44,6 +46,7 @@ public class GunScript : MonoBehaviour {
     public LinearMapping _linearMapping;
     public float rotaryValue;
 
+<<<<<<< HEAD
     #region When you Shoot
     private void Shoot () {
         if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
@@ -66,6 +69,8 @@ public class GunScript : MonoBehaviour {
     }
     #endregion/When you Shoot
 
+=======
+>>>>>>> 6678cb8e7953e748c19de088568efeefd6697af6
     private void Awake () {
         _GunScript = this;
         _audioSource = GetComponent<AudioSource> ();
@@ -83,7 +88,7 @@ public class GunScript : MonoBehaviour {
     }
 
     private void OnEnable () {
-        _VRTK_ControllerEvents.TouchpadAxisChanged += new ControllerInteractionEventHandler (OperatorChange);
+        _VRTK_ControllerEvents.TouchpadPressed += new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
         _VRTK_ControllerEvents.TriggerAxisChanged += new ControllerInteractionEventHandler (GunTrigger);
         _VRTK_ControllerEvents.GripPressed += new ControllerInteractionEventHandler (GripPressed);
@@ -91,7 +96,7 @@ public class GunScript : MonoBehaviour {
     }
 
     private void OnDisable () {
-        _VRTK_ControllerEvents.TouchpadAxisChanged -= new ControllerInteractionEventHandler (OperatorChange);
+        _VRTK_ControllerEvents.TouchpadPressed -= new ControllerInteractionEventHandler (OperatorChange);
         _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler (Shoot);
         _VRTK_ControllerEvents.TriggerAxisChanged -= new ControllerInteractionEventHandler (GunTrigger);
         _VRTK_ControllerEvents.GripPressed -= new ControllerInteractionEventHandler (GripPressed);
@@ -110,6 +115,7 @@ public class GunScript : MonoBehaviour {
         }
     }
 
+<<<<<<< HEAD
     #region Change between + and - guns
 
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
@@ -118,17 +124,59 @@ public class GunScript : MonoBehaviour {
         if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/ ) {
             if (opp == Operator.minus) {
                 VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
+=======
+    private void Shoot () {
+        (opp == Operator.plus ? _plusGunObject.GetComponent<Animator> () : _minusGunObject.GetComponent<Animator> ()).SetTrigger("Firing");
+        if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
+            Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
+
+            if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
+                lastHit = hit.transform.gameObject;
+                Zombie _zombie = hit.transform.GetComponent<Zombie> ();
+                Scoring._scoring.UpdateScore (opp, _zombie.Value);
+                _zombie.Die ();
+                if (HitParticle != null) Instantiate (HitParticle, hit.transform.position, Quaternion.identity);
+                StartCoroutine (BulletTrail (hit.point));
+>>>>>>> 6678cb8e7953e748c19de088568efeefd6697af6
             }
+        } else {
+            Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
+            StartCoroutine (BulletTrail (pointer.position + pointer.forward * 100));
+        }
+        CurrentAmmo--;
+        StartCoroutine (VibateOverFrames (DurationToVibrate));
+    }
+
+    public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
+        if (opp == Operator.minus) {
+            VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
             opp = Operator.plus;
-            _operatorText.text = "+";
-        }
-        if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/ ) {
-            if (opp == Operator.plus) {
-                VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
-            }
+            _plusGunObject.SetActive (true);
+            _minusGunObject.SetActive (false);
+            //switch gun model
+        } else if (opp == Operator.plus) {
+            VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
             opp = Operator.minus;
-            _operatorText.text = "-";
+            _plusGunObject.SetActive (false);
+            _minusGunObject.SetActive (true);
         }
+
+        // float _X = _args.touchpadAxis.x;
+        // float _Y = _args.touchpadAxis.y;
+        // if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/ ) {
+        //     if (opp == Operator.minus) {
+        //         VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
+        //     }
+        //     opp = Operator.plus;
+        //     _operatorText.text = "+";
+        // }
+        // if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/ ) {
+        //     if (opp == Operator.plus) {
+        //         VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
+        //     }
+        //     opp = Operator.minus;
+        //     _operatorText.text = "-";
+        // }
         //if (_Y > 0 && Mathf.Abs (_X) < 0.3f) {
         //    opp = Operator.multiply;
         //    _operatorText.text = "*";
@@ -150,7 +198,7 @@ public class GunScript : MonoBehaviour {
         if (CurrentAmmo > 0) {
             Shoot ();
             //_audioSource.PlayOneShot(clip);
-            float fPich = Random.Range(0.85f, 1.25f);
+            float fPich = Random.Range (0.85f, 1f);
             _audioSource.pitch = fPich;
             switch (opp) {
                 case Operator.plus:
@@ -191,7 +239,7 @@ public class GunScript : MonoBehaviour {
     public void Reload () {
         Debug.Log ("Reloading");
         CurrentAmmo = 16;
-         float fPich = Random.Range(0.85f, 1.25f);
+        float fPich = Random.Range (0.85f, 1f);
         _audioSource.pitch = fPich;
         switch (opp) {
             case Operator.plus:
