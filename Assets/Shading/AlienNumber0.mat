@@ -84,11 +84,11 @@ Material:
     - _Emission2: 0
     - _FlowSpeed2: 0.25
     - _GlossMapScale: 1
-    - _Glossiness: 0.552
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _HeightBasedTransparency2: 0.5
     - _HeightmapFactor2: 0.5
-    - _Metallic: 0.389
+    - _Metallic: 0
     - _Metallic2: 0
     - _Mode: 0
     - _Occlusion: 1

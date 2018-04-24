@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 4712487512875446}
   - component: {fileID: 33164989759724060}
   - component: {fileID: 23343191349251612}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 137763929459038452}
   - component: {fileID: 95549975506845862}
   - component: {fileID: 64521615279383720}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlusGunBlueSlim
   m_TagString: Gun
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 4543555164476378}
   - component: {fileID: 33342411623117016}
   - component: {fileID: 23442912867413636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpinningPiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
