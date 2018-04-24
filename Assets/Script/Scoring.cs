@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using VRTK;
 
 public class Scoring : MonoBehaviour {
@@ -45,7 +46,7 @@ public class Scoring : MonoBehaviour {
         if (onCurrentValueUpdated != null) onCurrentValueUpdated (currentValue);
         if (onTargetValueUpdated != null) onTargetValueUpdated (targetValue);
         timeRemaining = timeDuration;
-        StartCoroutine (CountDown());
+        StartCoroutine (CountDown ());
     }
 
     private void Update () {
@@ -60,12 +61,11 @@ public class Scoring : MonoBehaviour {
             yield return _wait;
         }
         Debug.Log ("GAME OVER");
-        Time.timeScale = 0;
         DoGameOver ();
     }
 
     void DoGameOver () {
-
+        SceneManager.LoadScene (0);
     }
 
     void ResetRequiredScore () {

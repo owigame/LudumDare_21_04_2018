@@ -10,7 +10,8 @@ public class UIFetchScore : MonoBehaviour {
         currentValue,
         targetValue,
         multiplier,
-        time
+        time,
+        highScore
     }
 
     public scoreTypes _scoreType;
@@ -34,5 +35,11 @@ public class UIFetchScore : MonoBehaviour {
 
     void ValueUpdated (int _value, string _suffix = "") {
         _scoreText.text = _value.ToString () + _suffix;
+    }
+
+    private void Start () {
+        if (_scoreType == scoreTypes.highScore) {
+            _scoreText.text = PlayerPrefs.GetInt ("highScore", 0).ToString();
+        }
     }
 }
