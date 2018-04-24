@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RocketTrigger : MonoBehaviour {
 
@@ -15,6 +16,14 @@ public class RocketTrigger : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter (Collider other) {
-		_rocket.OnExplode (other.transform.gameObject.layer == 8, (other.transform.gameObject.layer == 8 ? other.attachedRigidbody.gameObject : other.gameObject));
+        if (other.tag == "Start")
+        {
+            SceneManager.LoadScene(1);
+        }
+        if (other.tag == "Quite")
+        {
+            Application.Quit();
+        }
+        _rocket.OnExplode (other.transform.gameObject.layer == 8, (other.transform.gameObject.layer == 8 ? other.attachedRigidbody.gameObject : other.gameObject));
 	}
 }
