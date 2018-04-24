@@ -34,12 +34,12 @@ public class UIFetchScore : MonoBehaviour {
     }
 
     void ValueUpdated (int _value, string _suffix = "") {
-        _scoreText.text = _value.ToString () + _suffix;
+        if (_scoreText != null) _scoreText.text = _value.ToString () + _suffix;
     }
 
     private void Start () {
         if (_scoreType == scoreTypes.highScore) {
-            _scoreText.text = PlayerPrefs.GetInt ("highScore", 0).ToString();
+            _scoreText.text = PlayerPrefs.GetInt ("highScore", 0).ToString ();
         }
     }
 }

@@ -116,6 +116,6 @@ public class Scoring : MonoBehaviour {
 
     public void UpdateMultiplier (int _multiplier) {
         multiplier = _multiplier;
-        onMultiplierUpdated (_multiplier, "x");
+        if (onMultiplierUpdated != null) onMultiplierUpdated (_multiplier, "x");
     }
 }

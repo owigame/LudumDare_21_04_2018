@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.0001
   m_LinearFogStart: 4
   m_LinearFogEnd: 15
-  m_AmbientSkyColor: {r: 0.4508474, g: 0.55672973, b: 0.73333335, a: 1}
+  m_AmbientSkyColor: {r: 0.45046026, g: 0.5563426, b: 0.73333335, a: 1}
   m_AmbientEquatorColor: {r: 0.8980393, g: 0.9568628, b: 0.9686275, a: 1}
-  m_AmbientGroundColor: {r: 0.3587658, g: 0.30941042, b: 0.27395323, a: 1}
+  m_AmbientGroundColor: {r: 0.36972296, g: 0.32224315, b: 0.28836536, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -3037,7 +3037,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4666142853518578, guid: a2a538e9d0115ce4bbadc17eea59a4f3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4666142853518578, guid: a2a538e9d0115ce4bbadc17eea59a4f3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3061,7 +3061,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4666142853518578, guid: a2a538e9d0115ce4bbadc17eea59a4f3, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2a538e9d0115ce4bbadc17eea59a4f3, type: 2}
@@ -10673,7 +10673,7 @@ MonoBehaviour:
   targetValue: 0
   highestScore: 0
   multiplier: 1
-  timeDuration: 180
+  timeDuration: 120
   timeRemaining: 0
   RequiredReached:
     m_PersistentCalls:
@@ -12489,6 +12489,7 @@ GameObject:
   - component: {fileID: 1148959913}
   - component: {fileID: 1148959912}
   - component: {fileID: 1148959911}
+  - component: {fileID: 1148959915}
   m_Layer: 0
   m_Name: '[CameraRig]'
   m_TagString: Untagged
@@ -12582,6 +12583,87 @@ MonoBehaviour:
   right: {fileID: 971927915}
   objects: []
   assignAllBeforeIdentified: 0
+--- !u!82 &1148959915
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148959910}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 9809321067e2a2743897bc036d57da9f,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 71c5868520a016e4ba46af04fd80a4bf, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 210
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &1150911151
 Prefab:
   m_ObjectHideFlags: 0
@@ -16753,7 +16835,7 @@ Prefab:
     - target: {fileID: 114272981305417062, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: timeline
-      value: 17.5
+      value: 17.15
       objectReference: {fileID: 0}
     - target: {fileID: 4295343559269956, guid: b1bb2fa3ada00c243b7497b96bbc77a3, type: 2}
       propertyPath: m_LocalRotation.x
@@ -16765,26 +16847,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4625935479864302, guid: b1bb2fa3ada00c243b7497b96bbc77a3, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.99785894
+      value: 0.99231964
       objectReference: {fileID: 0}
     - target: {fileID: 4625935479864302, guid: b1bb2fa3ada00c243b7497b96bbc77a3, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.06540319
+      value: 0.11086812
       objectReference: {fileID: 0}
     - target: {fileID: 114272981305417062, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: equatorPos.evaluateTime
-      value: 0.7291667
+      value: 0.71458334
       objectReference: {fileID: 0}
     - target: {fileID: 108272791496815524, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: m_Color.g
-      value: 0.63604724
+      value: 0.7129838
       objectReference: {fileID: 0}
     - target: {fileID: 108272791496815524, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: m_Color.b
-      value: 0.41412053
+      value: 0.516288
       objectReference: {fileID: 0}
     - target: {fileID: 108272791496815524, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
@@ -16837,12 +16919,12 @@ Prefab:
     - target: {fileID: 114272981305417062, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: moonXRot.evaluateTime
-      value: 0.7291667
+      value: 0.71458334
       objectReference: {fileID: 0}
     - target: {fileID: 114272981305417062, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: moonYRot.evaluateTime
-      value: 0.7291667
+      value: 0.71458334
       objectReference: {fileID: 0}
     - target: {fileID: 114272981305417062, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
@@ -16852,57 +16934,57 @@ Prefab:
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: wavelengthR.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: wavelengthG.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: wavelengthB.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: atmosphereThickness.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: dayAtmosphereTint.evaluateTime
-      value: 0.13397461
+      value: 0.78063107
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: nightAtmosphereTint.evaluateTime
-      value: 1.8660254
+      value: 1.2193689
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: sunBrightness.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: mie.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: sunMieColor.evaluateTime
-      value: 0.13397461
+      value: 0.78063107
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: sunMieAnisotropy.evaluateTime
-      value: 0.13397461
+      value: 0.78063107
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: sunMieScattering.evaluateTime
-      value: 0.13397461
+      value: 0.78063107
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
@@ -16922,17 +17004,17 @@ Prefab:
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: moonMieMultiplier.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: sunDiscSize.evaluateTime
-      value: 0.13397461
+      value: 0.78063107
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: sunDiscColor.evaluateTime
-      value: 0.13397461
+      value: 0.78063107
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
@@ -16952,47 +17034,47 @@ Prefab:
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: moonMultiplier.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: starsColor.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: starsIntensity.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: starsScintillation.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: nebulaColor.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: nebulaIntensity.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: exposure.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: sunLightColor.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: sunLightIntensity.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
@@ -17007,22 +17089,22 @@ Prefab:
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: moonLightMultiplier.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: ambientSkyColor.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: ambientEquatorColor.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
       propertyPath: ambientGroundColor.evaluateTime
-      value: 0.066987306
+      value: 0.39031553
       objectReference: {fileID: 0}
     - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
         type: 2}
@@ -17033,6 +17115,34 @@ Prefab:
         type: 2}
       propertyPath: atmosphereThickness.inputValue
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272981305417062, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
+        type: 2}
+      propertyPath: equatorPos.inputValue
+      value: 6.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625935479864302, guid: b1bb2fa3ada00c243b7497b96bbc77a3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.006091737
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625935479864302, guid: b1bb2fa3ada00c243b7497b96bbc77a3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.054523792
+      objectReference: {fileID: 0}
+    - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
+        type: 2}
+      propertyPath: dayAtmosphereTint.inputColor.r
+      value: 0.3602941
+      objectReference: {fileID: 0}
+    - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
+        type: 2}
+      propertyPath: dayAtmosphereTint.inputColor.g
+      value: 0.735294
+      objectReference: {fileID: 0}
+    - target: {fileID: 114066142701604874, guid: b1bb2fa3ada00c243b7497b96bbc77a3,
+        type: 2}
+      propertyPath: dayAtmosphereTint.inputColor.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1bb2fa3ada00c243b7497b96bbc77a3, type: 2}
