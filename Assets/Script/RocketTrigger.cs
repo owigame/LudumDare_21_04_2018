@@ -16,11 +16,11 @@ public class RocketTrigger : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter (Collider other) {
-        if (other.tag == "Start")
+        if (other.tag == "StartGame")
         {
             SceneManager.LoadScene(1);
         }
-        if (other.tag == "Quite")
+        if (other.tag == "QuiteGame")
         {
             Application.Quit();
         }
