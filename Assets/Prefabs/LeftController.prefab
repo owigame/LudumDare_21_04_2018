@@ -1801,7 +1801,8 @@ MonoBehaviour:
   otherController: {fileID: 0}
   ShootVibrations: 10
   DurationToVibrate: 10
-  HitParticle: {fileID: 0}
+  HitParticle: {fileID: 1402943767596722, guid: cea6fe64abd9a29429604a230f37f07f,
+    type: 2}
   _plusGunObject: {fileID: 1142666899365008}
   _minusGunObject: {fileID: 1813429052199450}
   handUI: {fileID: 1008110025037728}
