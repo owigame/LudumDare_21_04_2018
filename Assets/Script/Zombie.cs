@@ -53,7 +53,7 @@ public class Zombie : MonoBehaviour {
         Vector3 targetLoc = transform.position + (Vector3.down * 5);
         while ((transform.position - targetLoc).magnitude > 0.01f) {
             transform.Translate (-Vector3.up * speed * Time.deltaTime);
-            Debug.Log ("In Will Loop");
+            // Debug.Log ("In Will Loop");
             yield return null;
         }
 

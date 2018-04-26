@@ -34,6 +34,7 @@ public class MouseLook : MonoBehaviour {
 	//From http://wiki.unity3d.com/index.php/SmoothMouseLook
 
 	public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
+	public Transform _lookXOverride;
 	public RotationAxes axes = RotationAxes.MouseXAndY;
 	public float sensitivityX = 15F;
 	public float sensitivityY = 15F;
@@ -56,6 +57,32 @@ public class MouseLook : MonoBehaviour {
 	public float frameCounter = 20;
 
 	Quaternion originalRotation;
+	Quaternion originalRotationX;
+
+	[Header ("Aim")]
+	public LayerMask _mask;
+	public Transform[] aimObjects;
+	public Transform headCamera;
+	public Transform fallbackAim;
+	public Vector3 lastHitPoint;
+
+	public bool hideMouse = true;
+
+	void Start () {
+		if (_lookXOverride == null) {
+			_lookXOverride = transform;
+		}
+		Rigidbody rb = GetComponent<Rigidbody> ();
+		if (rb)
+			rb.freezeRotation = true;
+		originalRotation = transform.localRotation;
+		originalRotationX = _lookXOverride.localRotation;
+
+		if (hideMouse){
+			Cursor.lockState = CursorLockMode.Confined;
+			Cursor.visible = false;
+		}
+	}
 
 	void Update () {
 		if (axes == RotationAxes.MouseXAndY) {
@@ -91,7 +118,8 @@ public class MouseLook : MonoBehaviour {
 			Quaternion yQuaternion = Quaternion.AngleAxis (rotAverageY, Vector3.left);
 			Quaternion xQuaternion = Quaternion.AngleAxis (rotAverageX, Vector3.up);
 
-			transform.localRotation = originalRotation * xQuaternion * yQuaternion;
+			transform.localRotation = originalRotation * xQuaternion;
+			_lookXOverride.localRotation = originalRotationX * yQuaternion;
 		} else if (axes == RotationAxes.MouseX) {
 			rotAverageX = 0f;
 
@@ -131,13 +159,13 @@ public class MouseLook : MonoBehaviour {
 			Quaternion yQuaternion = Quaternion.AngleAxis (rotAverageY, Vector3.left);
 			transform.localRotation = originalRotation * yQuaternion;
 		}
+
 	}
 
-	void Start () {
-		Rigidbody rb = GetComponent<Rigidbody> ();
-		if (rb)
-			rb.freezeRotation = true;
-		originalRotation = transform.localRotation;
+	void LateUpdate () {
+		foreach (Transform gun in aimObjects) {
+			gun.LookAt (fallbackAim, Vector3.up);
+		}
 	}
 
 	public static float ClampAngle (float angle, float min, float max) {
@@ -151,6 +179,16 @@ public class MouseLook : MonoBehaviour {
 			}
 		}
 		return Mathf.Clamp (angle, min, max);
+	}
+
+	//Raycast for aiming guns
+	void FixedUpdate () {
+		RaycastHit _hit;
+		if (Physics.Raycast (headCamera.position, headCamera.forward, out _hit, 200, _mask)) {
+			fallbackAim.position = _hit.point;
+		} else {
+			fallbackAim.localPosition = Vector3.zero;
+		}
 	}
 
 }

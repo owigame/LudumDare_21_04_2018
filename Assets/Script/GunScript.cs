@@ -13,6 +13,13 @@ public class GunScript : MonoBehaviour {
 
     public static GunScript _GunScript;
 
+    [Header ("Platform")]
+    public Platform _platform;
+    public enum Platform {
+        VR,
+        Desktop
+    }
+
     [Header ("Setup")]
     public int playerHand = 0; // 0 Left | 1 Right
     public UnityEvent<Operator, int> HitEvent;
@@ -20,6 +27,7 @@ public class GunScript : MonoBehaviour {
     public LayerMask _mask;
     public Transform pointer;
     public Animator _anim;
+    public Animator _animParent;
     private AudioSource _audioSource;
     public AudioClip clip;
     public GameObject Trail;
@@ -38,9 +46,7 @@ public class GunScript : MonoBehaviour {
 
     [Header ("Output")]
     public int CurrentAmmo;
-
-    [Header ("UI")]
-    public Text _operatorText;
+    Vector3 lastAimPoint;
 
     VRTK_ControllerEvents _VRTK_ControllerEvents;
 
@@ -48,10 +54,7 @@ public class GunScript : MonoBehaviour {
     GameObject lastHit;
 
     [Header ("Rotary")]
-    public CircularDriveModded _CircularDriveModded;
     public bool gripPressed = false;
-    public LinearMapping _linearMapping;
-    public float rotaryValue;
 
     #region Controller setup
     private void Awake () {
@@ -68,6 +71,8 @@ public class GunScript : MonoBehaviour {
     void Start () {
         if (OnOppChanged != null) OnOppChanged (opp);
         TrailsPool = new GameObjectPool (Trail);
+        _animParent = transform.parent.GetComponent<Animator> ();
+        _animParent.SetBool("Left", playerHand == 0);
     }
 
     private void OnEnable () {
@@ -88,51 +93,44 @@ public class GunScript : MonoBehaviour {
 
     void Update () {
         if (gripPressed) {
-            // _CircularDriveModded.HandGripPressed ();
-            // // rotaryValue = _linearMapping.value;
-            // int _multiplier = Mathf.Clamp (Mathf.FloorToInt (rotaryValue * 10), 1, 9);
-            // if (Scoring._scoring.multiplier != _multiplier) {
-            //     Scoring._scoring.UpdateMultiplier (_multiplier);
-            //     VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (otherController.gameObject), _multiplier);
-            // }
-
-            // if (gripPressed == true) {
             AdjustMultiplier ();
-            // }
-
         }
-        if (Input.GetKeyDown (KeyCode.BackQuote)) {
-            Application.LoadLevel (Application.loadedLevel);
-        }
-    }
-    #endregion /Controller setup
 
-    #region Shoot
-    private void Shoot () {
-        (opp == Operator.plus ? _plusGunObject.GetComponent<Animator> () : _minusGunObject.GetComponent<Animator> ()).SetTrigger ("Firing");
-        if (Physics.Raycast (transform.position, pointer.forward, out hit, Mathf.Infinity, _mask)) {
-            Debug.DrawLine (transform.position, hit.transform.position, Color.green, 10);
-
-            if (hit.transform.tag == "Enemy" && lastHit != hit.transform.gameObject) {
-                lastHit = hit.transform.gameObject;
-                // Zombie _zombie = hit.transform.GetComponent<Zombie> ();
-                // Scoring._scoring.UpdateScore (opp, _zombie.Value);
-                // _zombie.Die ();
-                if (HitParticle != null) Instantiate (HitParticle, hit.transform.position, Quaternion.identity);
-                // StartCoroutine (BulletTrail (hit.point));
-
+        if (_platform == Platform.Desktop) {
+            if (Input.GetMouseButtonDown (0) && playerHand == 0) {
+                PullTrigger ();
             }
-        } else {
-            Debug.DrawLine (transform.position, transform.position + transform.forward * 10, Color.red, 10);
-            // StartCoroutine (BulletTrail (pointer.position + pointer.forward * 100));
+            if (Input.GetMouseButtonDown (1) && playerHand == 1) {
+                PullTrigger ();
+            }
+
+            //Operator Change
+            if (Input.GetKeyDown (KeyCode.A) && playerHand == 0) {
+                //Left Operator Change
+                DoOperatorChange ();
+            }
+            if (Input.GetKeyDown (KeyCode.D) && playerHand == 1) {
+                //Right Operator Change
+                DoOperatorChange ();
+            }
+
+            //Wrist Look
+            if (Input.GetKeyDown (KeyCode.Q) && playerHand == 0) {
+                _animParent.SetBool ("WristLook", true);
+            }
+            if (Input.GetKeyDown (KeyCode.E) && playerHand == 1) {
+                _animParent.SetBool ("WristLook", true);
+            }
         }
-        CurrentAmmo--;
-        StartCoroutine (VibateOverFrames (DurationToVibrate));
     }
-    #endregion/Shoot
+
+    #endregion /Controller setup
 
     #region Change gun
     public void OperatorChange (object sender, ControllerInteractionEventArgs _args) {
+        DoOperatorChange ();
+    }
+    void DoOperatorChange () {
         if (opp == Operator.minus) {
             VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
             opp = Operator.plus;
@@ -146,63 +144,42 @@ public class GunScript : MonoBehaviour {
             _minusGunObject.SetActive (true);
         }
 
-        // float _X = _args.touchpadAxis.x;
-        // float _Y = _args.touchpadAxis.y;
-        // if (_X > 0 /*&& Mathf.Abs (_Y) < 0.3f*/ ) {
-        //     if (opp == Operator.minus) {
-        //         VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
-        //     }
-        //     opp = Operator.plus;
-        //     _operatorText.text = "+";
-        // }
-        // if (_X < 0 /*&& Mathf.Abs (_Y) < 0.3f*/ ) {
-        //     if (opp == Operator.plus) {
-        //         VRTK_ControllerHaptics.TriggerHapticPulse (VRTK_ControllerReference.GetControllerReference (gameObject), 0.1f);
-        //     }
-        //     opp = Operator.minus;
-        //     _operatorText.text = "-";
-        // }
-        //if (_Y > 0 && Mathf.Abs (_X) < 0.3f) {
-        //    opp = Operator.multiply;
-        //    _operatorText.text = "*";
-        //}
-        //if (_Y < 0 && Mathf.Abs (_X) < 0.3f) {
-        //    opp = Operator.divide;
-        //    _operatorText.text = "/";
-        //}
         if (OnOppChanged != null) OnOppChanged (opp);
         Debug.Log ("Operator Submit " + opp + (playerHand == 1 ? "Right Hand" : "Left Hand"));
     }
+
     #endregion/Change gun
+
+    #region Shoot
+    private void FireBullet () {
+        (opp == Operator.plus ? _plusGunObject.GetComponent<Animator> () : _minusGunObject.GetComponent<Animator> ()).SetTrigger ("Firing");
+        CurrentAmmo--;
+        StartCoroutine (VibateOverFrames (DurationToVibrate));
+        GameObject _rocket = Instantiate (_rocketPrefab, pointer.position, Quaternion.identity);
+        _rocket.transform.eulerAngles = pointer.eulerAngles;
+        _rocket.GetComponent<Rocket> ().SetRocket (opp);
+    }
+    #endregion/Shoot
 
     #region Audio
 
     public void Shoot (object sender, ControllerInteractionEventArgs _args) {
+        PullTrigger ();
+    }
+    public void PullTrigger () {
         //Shoot
         _anim.SetTrigger ("Shoot");
         Debug.Log ("Shoot " + (playerHand == 1 ? "Right Hand" : "Left Hand") + gameObject.name);
         if (CurrentAmmo > 0) {
-            Shoot ();
-            //_audioSource.PlayOneShot(clip);
+            FireBullet ();
             float fPich = Random.Range (0.85f, 1f);
             _audioSource.pitch = fPich;
-            GameObject _rocket = Instantiate (_rocketPrefab, pointer.position, Quaternion.identity);
-            _rocket.transform.eulerAngles = pointer.eulerAngles;
-            _rocket.GetComponent<Rocket> ().SetRocket (opp);
             switch (opp) {
                 case Operator.plus:
                     _audioSource.PlayOneShot (Player._player.Clips_Plus.WeaponFire);
                     break;
                 case Operator.minus:
                     _audioSource.PlayOneShot (Player._player.Clips_Minus.WeaponFire);
-                    break;
-                case Operator.multiply:
-                    _audioSource.PlayOneShot (Player._player.Clips_Mul.WeaponFire);
-                    break;
-                case Operator.divide:
-                    _audioSource.PlayOneShot (Player._player.Clips_Div.WeaponFire);
-                    break;
-                default:
                     break;
             }
         } else {
@@ -212,14 +189,6 @@ public class GunScript : MonoBehaviour {
                     break;
                 case Operator.minus:
                     _audioSource.PlayOneShot (Player._player.Clips_Minus.ClipEmpty);
-                    break;
-                case Operator.multiply:
-                    _audioSource.PlayOneShot (Player._player.Clips_Mul.ClipEmpty);
-                    break;
-                case Operator.divide:
-                    _audioSource.PlayOneShot (Player._player.Clips_Div.ClipEmpty);
-                    break;
-                default:
                     break;
             }
         }
@@ -236,14 +205,6 @@ public class GunScript : MonoBehaviour {
                 break;
             case Operator.minus:
                 _audioSource.PlayOneShot (Player._player.Clips_Minus.Reload);
-                break;
-            case Operator.multiply:
-                _audioSource.PlayOneShot (Player._player.Clips_Mul.Reload);
-                break;
-            case Operator.divide:
-                _audioSource.PlayOneShot (Player._player.Clips_Div.Reload);
-                break;
-            default:
                 break;
         }
     }
@@ -301,7 +262,7 @@ public class GunScript : MonoBehaviour {
         //     }
         // }
         if (Mathf.Abs (angle - StartRotGripped) > rotaryTickRate) {
-            int _multiplier = Mathf.Clamp ((angle > StartRotGripped) ? Scoring._scoring.multiplier-1 : Scoring._scoring.multiplier+1, 1, 9);
+            int _multiplier = Mathf.Clamp ((angle > StartRotGripped) ? Scoring._scoring.multiplier - 1 : Scoring._scoring.multiplier + 1, 1, 9);
             StartRotGripped = angle;
             Debug.Log ("**** MULTI: " + _multiplier);
             //check if larger than 9 then set to 1
