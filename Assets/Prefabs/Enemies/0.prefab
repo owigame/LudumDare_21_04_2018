@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 114077872471664100}
   - component: {fileID: 54965672693965290}
   - component: {fileID: 195639781524087702}
+  - component: {fileID: 114275858431472062}
   m_Layer: 8
   m_Name: 0
   m_TagString: Enemy
@@ -1174,6 +1175,22 @@ MonoBehaviour:
   speed: 1
   imExploding: 0
   ZombieMesh: {fileID: 1167621942667590}
+--- !u!114 &114275858431472062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1811647056066904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afede69198ac0384087fc842b9e34050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 20
+  expandRate: 1
+  ExplosionPrefabEffect: {fileID: 1119506540132268, guid: a29a5d35fd65cad42bb1b662e30b5990,
+    type: 2}
+  explodeValue: 0
 --- !u!136 &136029655339737826
 CapsuleCollider:
   m_ObjectHideFlags: 1

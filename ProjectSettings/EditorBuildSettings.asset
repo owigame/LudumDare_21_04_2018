@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scene/ControlSelection.unity
+    guid: 077ce6e4c618e644cac166e7f6295f9e
+  - enabled: 1
+    path: Assets/Scene/Menu - PC.unity
+    guid: ec3a8accf787f9a42b3b2cbd2996f2f2
+  - enabled: 1
+    path: Assets/Scene/Gameplay - PC.unity
+    guid: 6e1a4a5ab1ab43a4c98857aa56d72f5d
+  - enabled: 1
     path: Assets/Scene/Menu.unity
     guid: e914915d5deb0c440840efd4f4e5667f
   - enabled: 1

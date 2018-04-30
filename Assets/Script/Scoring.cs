@@ -19,7 +19,7 @@ public class Scoring : MonoBehaviour {
     public int score; //Overall Score
     public int currentValue; //Dynamic value
     public int targetValue; //Value needed to increase score
-    public int highestScore;
+    public float highestScore;
     public int multiplier;
     public int timeDuration = 180;
     public int timeRemaining;
@@ -35,7 +35,8 @@ public class Scoring : MonoBehaviour {
     }
 
     void Start () {
-        highestScore = PlayerPrefs.GetInt ("highScore", 0);
+        highestScore = PlayerPrefs.GetFloat ("highestScore", 0);
+        Debug.Log ("Highest Score: " + highestScore);
         _audio = GetComponent<AudioSource> ();
         ResetRequiredScore ();
         GunScript[] AllGuns = FindObjectsOfType<GunScript> ();
@@ -65,7 +66,7 @@ public class Scoring : MonoBehaviour {
     }
 
     void DoGameOver () {
-        SceneManager.LoadScene (0);
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex == 2 ? 1 : 3);
     }
 
     void ResetRequiredScore () {
@@ -90,11 +91,13 @@ public class Scoring : MonoBehaviour {
                 break;
         }
         if (currentValue == targetValue) {
+            if (onCurrentValueUpdated != null) onCurrentValueUpdated (currentValue);
             RequiredReached.Invoke ();
             ResetRequiredScore ();
             score++;
             highestScore = score > highestScore ? score : highestScore;
-            PlayerPrefs.SetInt ("highScore", highestScore);
+            PlayerPrefs.SetFloat ("highestScore", highestScore);
+            Debug.Log ("New Highscore: " + PlayerPrefs.GetFloat ("highestScore", highestScore));
             if (onScoreUpdated != null) onScoreUpdated (score);
             _audio.PlayOneShot (_onScoreUpdateClip);
         } else {

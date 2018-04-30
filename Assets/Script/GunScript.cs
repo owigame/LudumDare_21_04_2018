@@ -55,40 +55,49 @@ public class GunScript : MonoBehaviour {
 
     [Header ("Rotary")]
     public bool gripPressed = false;
+    bool wristLook = false;
 
     #region Controller setup
     private void Awake () {
         _GunScript = this;
         _audioSource = GetComponent<AudioSource> ();
-        if (GetComponent<VRTK_ControllerEvents> () == null) {
-            VRTK_Logger.Error (VRTK_Logger.GetCommonMessage (VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
-            return;
-        }
+        if (_platform == Platform.VR) {
+            if (GetComponent<VRTK_ControllerEvents> () == null) {
+                VRTK_Logger.Error (VRTK_Logger.GetCommonMessage (VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
+                return;
+            }
 
-        _VRTK_ControllerEvents = GetComponent<VRTK_ControllerEvents> ();
+            _VRTK_ControllerEvents = GetComponent<VRTK_ControllerEvents> ();
+        }
     }
 
     void Start () {
         if (OnOppChanged != null) OnOppChanged (opp);
         TrailsPool = new GameObjectPool (Trail);
         _animParent = transform.parent.GetComponent<Animator> ();
-        _animParent.SetBool("Left", playerHand == 0);
+        _animParent.SetBool ("Left", playerHand == 0);
     }
 
     private void OnEnable () {
-        _VRTK_ControllerEvents.TouchpadPressed += new ControllerInteractionEventHandler (OperatorChange);
-        _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
-        _VRTK_ControllerEvents.TriggerAxisChanged += new ControllerInteractionEventHandler (GunTrigger);
-        _VRTK_ControllerEvents.GripPressed += new ControllerInteractionEventHandler (GripPressed);
-        _VRTK_ControllerEvents.GripReleased += new ControllerInteractionEventHandler (GripReleased);
+        if (_platform == Platform.VR) {
+            _VRTK_ControllerEvents.TouchpadPressed += new ControllerInteractionEventHandler (OperatorChange);
+            _VRTK_ControllerEvents.TriggerClicked += new ControllerInteractionEventHandler (Shoot);
+            _VRTK_ControllerEvents.TriggerAxisChanged += new ControllerInteractionEventHandler (GunTrigger);
+            _VRTK_ControllerEvents.GripPressed += new ControllerInteractionEventHandler (GripPressed);
+            _VRTK_ControllerEvents.GripReleased += new ControllerInteractionEventHandler (GripReleased);
+            _VRTK_ControllerEvents.StartMenuReleased += new ControllerInteractionEventHandler (ReturnToMenu);
+        }
     }
 
     private void OnDisable () {
-        _VRTK_ControllerEvents.TouchpadPressed -= new ControllerInteractionEventHandler (OperatorChange);
-        _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler (Shoot);
-        _VRTK_ControllerEvents.TriggerAxisChanged -= new ControllerInteractionEventHandler (GunTrigger);
-        _VRTK_ControllerEvents.GripPressed -= new ControllerInteractionEventHandler (GripPressed);
-        _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
+        if (_platform == Platform.VR) {
+            _VRTK_ControllerEvents.TouchpadPressed -= new ControllerInteractionEventHandler (OperatorChange);
+            _VRTK_ControllerEvents.TriggerClicked -= new ControllerInteractionEventHandler (Shoot);
+            _VRTK_ControllerEvents.TriggerAxisChanged -= new ControllerInteractionEventHandler (GunTrigger);
+            _VRTK_ControllerEvents.GripPressed -= new ControllerInteractionEventHandler (GripPressed);
+            _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
+            _VRTK_ControllerEvents.StartMenuReleased -= new ControllerInteractionEventHandler (ReturnToMenu);
+        }
     }
 
     void Update () {
@@ -97,30 +106,52 @@ public class GunScript : MonoBehaviour {
         }
 
         if (_platform == Platform.Desktop) {
-            if (Input.GetMouseButtonDown (0) && playerHand == 0) {
-                PullTrigger ();
-            }
-            if (Input.GetMouseButtonDown (1) && playerHand == 1) {
+            if (((Input.GetMouseButtonDown (0) && playerHand == 0) || (Input.GetMouseButtonDown (1) && playerHand == 1)) && !wristLook) {
                 PullTrigger ();
             }
 
             //Operator Change
-            if (Input.GetKeyDown (KeyCode.A) && playerHand == 0) {
-                //Left Operator Change
-                DoOperatorChange ();
-            }
-            if (Input.GetKeyDown (KeyCode.D) && playerHand == 1) {
-                //Right Operator Change
+            if ((Input.GetKeyDown (KeyCode.A) && playerHand == 0) || (Input.GetKeyDown (KeyCode.D) && playerHand == 1)) {
                 DoOperatorChange ();
             }
 
+            //Multiplier Change
+            if (Input.GetKeyDown (KeyCode.W) && playerHand == 0) {
+                DoMultiplierChange (true);
+            }
+            if (Input.GetKeyDown (KeyCode.S) && playerHand == 0) {
+                DoMultiplierChange (false);
+            }
+
             //Wrist Look
-            if (Input.GetKeyDown (KeyCode.Q) && playerHand == 0) {
-                _animParent.SetBool ("WristLook", true);
+            if ((Input.GetKeyDown (KeyCode.Q) && playerHand == 0) || (Input.GetKeyDown (KeyCode.E) && playerHand == 1)) {
+                wristLook = !wristLook;
+                _animParent.SetBool ("WristLook", wristLook);
             }
-            if (Input.GetKeyDown (KeyCode.E) && playerHand == 1) {
-                _animParent.SetBool ("WristLook", true);
+
+            //Quit
+            if (Input.GetKeyDown (KeyCode.Escape) && playerHand == 0) {
+                DoReturnToMenu ();
             }
+
+        }
+    }
+
+    void ReturnToMenu (object sender, ControllerInteractionEventArgs _args) {
+        DoReturnToMenu ();
+    }
+
+    void DoReturnToMenu () {
+        StartCoroutine (LoadYourAsyncScene ());
+    }
+
+    IEnumerator LoadYourAsyncScene () {
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync (SceneManager.GetActiveScene ().buildIndex == 2 ? 1 : 3);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone) {
+            yield return null;
         }
     }
 
@@ -276,6 +307,18 @@ public class GunScript : MonoBehaviour {
             }
         }
 
+    }
+
+    void DoMultiplierChange (bool _up) {
+        int _multiplier = Mathf.Clamp ((_up) ? Scoring._scoring.multiplier + 1 : Scoring._scoring.multiplier - 1, 1, 9);
+        Debug.Log ("**** MULTI: " + _multiplier);
+        //check if larger than 9 then set to 1
+        if (_multiplier > 9) {
+            _multiplier = 1;
+        }
+        if (Scoring._scoring.multiplier != _multiplier) {
+            Scoring._scoring.UpdateMultiplier (_multiplier);
+        }
     }
 
     #endregion /Input

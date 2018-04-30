@@ -17,14 +17,17 @@ public class RocketTrigger : MonoBehaviour {
 
 	private void OnTriggerEnter (Collider other) {
 		if (other.tag == "StartGame") {
-			SceneManager.LoadScene (1);
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex == 1 ? 2 : 4);
 		}
 		if (other.tag == "QuitGame") {
 			Application.Quit ();
 		}
-		if (other.tag == "Menue") {
-			SceneManager.LoadScene (0);
-		}
-		_rocket.OnExplode (other.transform.gameObject.layer == 8, (other.transform.gameObject.layer == 8 ? other.attachedRigidbody.gameObject : other.gameObject));
+		bool zombieLayer = other.transform.gameObject.layer == 8;
+		GameObject _object = (other.transform.gameObject.layer == 8 ? other.attachedRigidbody.gameObject : other.transform.gameObject);
+
+		Debug.Log ("Explode: " + other.transform.gameObject);
+		Debug.Log ("Layer: " + other.transform.gameObject.layer);
+		Debug.Log ("GameObject: " + (other.transform.gameObject.layer == 8 ? other.attachedRigidbody.gameObject : other.transform.gameObject));
+		_rocket.OnExplode (zombieLayer, _object);
 	}
 }

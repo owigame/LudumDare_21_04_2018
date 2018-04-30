@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 114800683271355564}
   - component: {fileID: 114738804897828162}
   - component: {fileID: 114354059362490402}
+  - component: {fileID: 114912922308233624}
   m_Layer: 11
   m_Name: Explosion
   m_TagString: Untagged
@@ -207,7 +208,7 @@ GameObject:
   - component: {fileID: 4802581902557034}
   - component: {fileID: 54444200900535674}
   - component: {fileID: 135162971497642878}
-  - component: {fileID: 114346002323995984}
+  - component: {fileID: 114524516941662294}
   m_Layer: 11
   m_Name: Rocket
   m_TagString: Untagged
@@ -647,7 +648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51570b105acf2d94db0a629bceca9efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rocket: {fileID: 114346002323995984}
+  _rocket: {fileID: 114524516941662294}
 --- !u!114 &114302520328477256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -659,22 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51570b105acf2d94db0a629bceca9efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rocket: {fileID: 114346002323995984}
---- !u!114 &114346002323995984
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1496989125538966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 465c56662bef7e4428721e9a61cd5caf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _redRocket: {fileID: 1232115194839836}
-  _blueRocket: {fileID: 1060331175381392}
-  _explosion: {fileID: 1436942059575964}
-  Rate: 50
+  _rocket: {fileID: 114524516941662294}
 --- !u!114 &114354059362490402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -688,6 +674,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDuration: 1
   maxDuration: 3
+--- !u!114 &114524516941662294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1496989125538966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a106048f0559fdb4893c2d5a61ad0933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _redRocket: {fileID: 1232115194839836}
+  _blueRocket: {fileID: 1060331175381392}
+  _explosion: {fileID: 1436942059575964}
+  Rate: 50
 --- !u!114 &114738804897828162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -712,6 +713,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionForce: 100
+--- !u!114 &114912922308233624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1436942059575964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afede69198ac0384087fc842b9e34050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 1
+  expandRate: 50
+  ExplosionPrefabEffect: {fileID: 1119506540132268, guid: b25f238c13d47ba4bb4f1b70262f4158,
+    type: 2}
+  explodeValue: 0
 --- !u!135 &135162971497642878
 SphereCollider:
   m_ObjectHideFlags: 1

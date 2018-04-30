@@ -25,14 +25,14 @@ public class Zombie : MonoBehaviour {
         _agent.speed = speed * 2;
         _anim.speed = speed * 2;
 
-        explosion = new Explosion ();
+        explosion = GetComponent<Explosion>();
     }
 
-    public void Die () {
-        StartCoroutine (DoDie ());
+    public void Die (Operator opp = Operator.plus) {
         if (Value == 0) {
-            explosion.Explode (transform.position);
+            explosion.Explode (transform.position, opp);
         }
+        StartCoroutine (DoDie ());
     }
 
     IEnumerator DoDie () {
@@ -57,7 +57,7 @@ public class Zombie : MonoBehaviour {
             yield return null;
         }
 
-        Destroy (gameObject); //TEMP
+        Destroy (gameObject);
 
     }
 
@@ -69,10 +69,10 @@ public class Zombie : MonoBehaviour {
     }
 
     private void OnTriggerEnter (Collider other) {
-        if (other.tag == "Player") {
-            Destroy (gameObject);
-            Scoring._scoring.TakeDamage ();
-        }
+        // if (other.tag == "Player") {
+        //     Destroy (gameObject);
+        //     Scoring._scoring.TakeDamage ();
+        // }
     }
 
 }

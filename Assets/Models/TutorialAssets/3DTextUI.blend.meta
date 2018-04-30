@@ -19,6 +19,7 @@ ModelImporter:
     100022: QUIT
     100024: START_GAME
     100026: START
+    100028: START_001
     400000: 1
     400002: 2
     400004: //RootNode
@@ -33,6 +34,7 @@ ModelImporter:
     400022: QUIT
     400024: START_GAME
     400026: START
+    400028: START_001
     2100000: unnamed
     2100002: 0
     2100004: 3
@@ -52,6 +54,7 @@ ModelImporter:
     2300020: QUIT
     2300022: START_GAME
     2300024: START
+    2300026: START_001
     3300000: 1
     3300002: 2
     3300004: 0
@@ -65,6 +68,7 @@ ModelImporter:
     3300020: QUIT
     3300022: START_GAME
     3300024: START
+    3300026: START_001
     4300000: 2
     4300002: 1
     4300004: 0
@@ -78,6 +82,7 @@ ModelImporter:
     4300020: QUIT
     4300022: START_GAME
     4300024: START
+    4300026: START_001
     7400000: Default Take
     9500000: //RootNode
   externalObjects:

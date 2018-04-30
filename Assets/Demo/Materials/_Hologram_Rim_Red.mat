@@ -19,7 +19,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9cc8695b5aa1b6b44ac8886c1101f418, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -31,6 +31,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -62,6 +66,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -78,13 +86,22 @@ Material:
         m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ShapeTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - SHAPE: 0
+    - SHAPEX: 0
     - _Alpha: 0.371
     - _Brightness: 1.08
+    - _BumpAmt: 20
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Distort: 0.2
     - _DstBlend: 0
+    - _Edge: 1
     - _Flicker: 0
     - _FlickerSpeed: 4
     - _Fold: 35
@@ -96,9 +113,13 @@ Material:
     - _GlossyReflections: 1
     - _GlowSpeed: 5.7
     - _GlowTiling: 0.119
+    - _Hard: 30
+    - _Height: 1
     - _Metallic: 0
     - _Mode: 0
+    - _ORTHO: 0
     - _OcclusionStrength: 1
+    - _Offset: 1
     - _Parallax: 0.02
     - _RimFallness: 0.537
     - _RimPower: 1.92
@@ -108,6 +129,8 @@ Material:
     - _Scanline: 0
     - _ScanlineSpeed: -0.15
     - _ScanlineTiling: 8.5
+    - _ScrollX: 1
+    - _ScrollY: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -115,7 +138,11 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorA: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorB: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 1, g: 0, b: 0.453, a: 1}
     - _RimColor: {r: 1, g: 0.066176474, b: 0.066176474, a: 1}
     - _ScanlineColor: {r: 0, g: 0, b: 1, a: 1}
+    - _TintA: {r: 1, g: 1, b: 1, a: 1}
+    - _TintB: {r: 1, g: 1, b: 1, a: 1}

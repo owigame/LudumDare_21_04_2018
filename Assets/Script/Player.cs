@@ -13,7 +13,6 @@ public class Player : MonoBehaviour {
 
     public static Player _player;
 
-    public GameObject playerObject;
 
     [Header("Hand References")]
     public GunScript _leftHand;
@@ -21,8 +20,8 @@ public class Player : MonoBehaviour {
 
     public ClipSet Clips_Plus;
     public ClipSet Clips_Minus;
-    public ClipSet Clips_Mul;
-    public ClipSet Clips_Div;
+    // public ClipSet Clips_Mul;
+    // public ClipSet Clips_Div;
 
     void Awake () {
         _player = this;

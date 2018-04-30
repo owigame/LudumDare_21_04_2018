@@ -39,7 +39,9 @@ public class UIFetchScore : MonoBehaviour {
 
     private void Start () {
         if (_scoreType == scoreTypes.highScore) {
-            _scoreText.text = PlayerPrefs.GetInt ("highScore", 0).ToString ();
+            float highestScore = PlayerPrefs.GetFloat ("highestScore");
+            Debug.Log ("Highest Score: " + highestScore);
+            _scoreText.text = highestScore.ToString();
         }
     }
 }

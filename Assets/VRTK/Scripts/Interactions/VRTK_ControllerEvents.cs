@@ -990,7 +990,8 @@ namespace VRTK {
         }
 
         protected virtual void OnDestroy () {
-            VRTK_SDKManager.instance.RemoveBehaviourToToggleOnLoadedSetupChange (this);
+            if (VRTK_SDKManager.instance != null)
+                VRTK_SDKManager.instance.RemoveBehaviourToToggleOnLoadedSetupChange (this);
         }
 
         protected virtual void Update () {

@@ -16,6 +16,7 @@ ModelImporter:
     2100004: Gun
     2100006: Gun_Rocks
     2100008: unnamed
+    2100010: GunEmissive
     2300000: Cone
     2300002: SpinningPiece
     3300000: Cone
@@ -38,6 +39,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Gun
     second: {fileID: 2100000, guid: 82adcfbbbe7fd7a448bb80cc87a8a3dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GunEmissive
+    second: {fileID: 2100000, guid: 5c0a80c0727eaeb48948bc56c6034dfb, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

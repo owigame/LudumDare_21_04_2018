@@ -13,6 +13,8 @@ ModelImporter:
     100010: Text
     100012: Text_001
     100014: Text_002
+    100016: Cube_003
+    100018: Text_003
     400000: //RootNode
     400002: Cube
     400004: Cube_001
@@ -21,6 +23,8 @@ ModelImporter:
     400010: Text
     400012: Text_001
     400014: Text_002
+    400016: Cube_003
+    400018: Text_003
     2100000: Buttons_MAT
     2100002: Vive_Base_MAT
     2300000: //RootNode
@@ -31,6 +35,8 @@ ModelImporter:
     2300010: Text
     2300012: Text_001
     2300014: Text_002
+    2300016: Cube_003
+    2300018: Text_003
     3300000: //RootNode
     3300002: Cube
     3300004: Cube_001
@@ -39,6 +45,8 @@ ModelImporter:
     3300010: Text
     3300012: Text_001
     3300014: Text_002
+    3300016: Cube_003
+    3300018: Text_003
     4300000: HTCVIVE_Controller
     4300002: Cube_002
     4300004: Text_002
@@ -46,6 +54,8 @@ ModelImporter:
     4300008: Cube_001
     4300010: Cube
     4300012: Text
+    4300014: Text_003
+    4300016: Cube_003
     7400000: Default TakeRotation_Controller
     9500000: //RootNode
   externalObjects:
