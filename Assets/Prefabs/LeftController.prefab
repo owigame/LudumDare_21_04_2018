@@ -788,7 +788,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1215586855442336}
   m_LocalRotation: {x: 0.48098874, y: 0, z: 0, w: 0.8767268}
-  m_LocalPosition: {x: 0, y: 0.198, z: -0.179}
+  m_LocalPosition: {x: 0.02, y: -0.249, z: 0.127}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4282049922548980}
@@ -1789,6 +1789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcc3a9c496015d4e83f9d067665e816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _platform: 0
   playerHand: 1
   opp: 0
   _mask:
@@ -1796,6 +1797,7 @@ MonoBehaviour:
     m_Bits: 256
   pointer: {fileID: 4415987329757946}
   _anim: {fileID: 95988139349376060}
+  _animParent: {fileID: 0}
   clip: {fileID: 8300000, guid: 6c850d3129961c04789b77cbc89d5dd0, type: 3}
   Trail: {fileID: 1335755978058318, guid: d0a160b95d48e3a45b7dd629ce3e708b, type: 2}
   otherController: {fileID: 0}
@@ -1810,11 +1812,7 @@ MonoBehaviour:
     type: 2}
   rotaryTickRate: 5
   CurrentAmmo: 16
-  _operatorText: {fileID: 0}
-  _CircularDriveModded: {fileID: 0}
   gripPressed: 0
-  _linearMapping: {fileID: 0}
-  rotaryValue: 1
 --- !u!136 &136194557483827310
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1844,6 +1842,8 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 37d0a127b2dbe924087d40b832db11e2, type: 2}
   - {fileID: 2100000, guid: 508fff03d600d454b9af80cf9c6613d2, type: 2}
+  - {fileID: 2100000, guid: 82adcfbbbe7fd7a448bb80cc87a8a3dc, type: 2}
+  - {fileID: 2100000, guid: 82adcfbbbe7fd7a448bb80cc87a8a3dc, type: 2}
   - {fileID: 2100000, guid: 82adcfbbbe7fd7a448bb80cc87a8a3dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

@@ -11040,11 +11040,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114933562527917836, guid: cdf1973ae808aab47a64c936acd7438f, type: 2}
-    - {fileID: 114267134775733596, guid: cdf1973ae808aab47a64c936acd7438f, type: 2}
-    - {fileID: 114925836122980740, guid: cdf1973ae808aab47a64c936acd7438f, type: 2}
-    - {fileID: 114721182052294670, guid: cdf1973ae808aab47a64c936acd7438f, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cdf1973ae808aab47a64c936acd7438f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1868810947

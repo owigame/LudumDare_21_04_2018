@@ -10,6 +10,7 @@ public class Explosion : MonoBehaviour {
     public float expandRate = 1;
     public GameObject ExplosionPrefabEffect;
     GameObject _explosion;
+    public GameObject _numberPopUpPrefab;
 
     [Header ("Output")]
     public int explodeValue = 0;
@@ -33,6 +34,7 @@ public class Explosion : MonoBehaviour {
         Material _mat = GetComponent<MeshRenderer> ().material;
         _mat.EnableKeyword ("_BumpAmt");
         _mat.SetFloat ("_BumpAmt", 20);
+        CameraShake._CameraShake.DoCameraShake (transform.position, 2, true);
         while (transform.localScale.x < radius) {
             _scale += new Vector3 (Time.deltaTime * expandRate, Time.deltaTime * expandRate, Time.deltaTime * expandRate);
             transform.localScale = _scale;
@@ -40,7 +42,13 @@ public class Explosion : MonoBehaviour {
 
             yield return null;
         }
-        Scoring._scoring.UpdateScore (opp, explodeValue);
+        if (Scoring._scoring != null && explodeValue > 0) {
+            Scoring._scoring.UpdateScore (opp, explodeValue);
+            GameObject _number = Instantiate (_numberPopUpPrefab, transform.position, Quaternion.identity);
+            _number.transform.LookAt (Scoring._scoring.transform);
+            _number.transform.localEulerAngles = new Vector3 (0, _number.transform.localEulerAngles.y, 0);
+            _number.GetComponent<UIPopUpNumber> ().SetNumber (explodeValue, opp);
+        }
         Destroy (gameObject);
     }
 

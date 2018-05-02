@@ -15,11 +15,11 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
   m_Fog: 0
-  m_FogColor: {r: 1, g: 1, b: 1, a: 1}
+  m_FogColor: {r: 0.03137255, g: 0.16862746, b: 0.3372549, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.0001
-  m_LinearFogStart: 4
-  m_LinearFogEnd: 15
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 303
   m_AmbientSkyColor: {r: 0.45046026, g: 0.5563426, b: 0.73333335, a: 1}
   m_AmbientEquatorColor: {r: 0.8980393, g: 0.9568628, b: 0.9686275, a: 1}
   m_AmbientGroundColor: {r: 0.36972296, g: 0.32224315, b: 0.28836536, a: 1}
@@ -6666,11 +6666,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4415987329757946, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.004
+      value: -0.254
       objectReference: {fileID: 0}
     - target: {fileID: 4415987329757946, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.007
+      value: 0.119
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsActive
@@ -6747,6 +6747,10 @@ Prefab:
     - target: {fileID: 1882222001095338, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415987329757946, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
@@ -9192,16 +9196,6 @@ Prefab:
       propertyPath: otherController
       value: 
       objectReference: {fileID: 1351653591}
-    - target: {fileID: 114837607822745440, guid: 8d867631b1b1eab46bf840e4fcd8c731,
-        type: 2}
-      propertyPath: _CircularDriveModded
-      value: 
-      objectReference: {fileID: 717792714}
-    - target: {fileID: 114837607822745440, guid: 8d867631b1b1eab46bf840e4fcd8c731,
-        type: 2}
-      propertyPath: _linearMapping
-      value: 
-      objectReference: {fileID: 717792713}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
   m_IsPrefabParent: 0
@@ -10691,6 +10685,7 @@ GameObject:
   - component: {fileID: 993490429}
   - component: {fileID: 993490428}
   - component: {fileID: 993490427}
+  - component: {fileID: 993490431}
   - component: {fileID: 993490430}
   m_Layer: 0
   m_Name: GameManager
@@ -10852,6 +10847,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &993490431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 993490426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b239039ef49fdd8408ae5efa4c3b7983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 1753781348}
+  shakeDuration: 0.5
+  shakeAmount: 0.005
+  decreaseFactor: 1
+  maxDistance: 15
 --- !u!1 &996374004
 GameObject:
   m_ObjectHideFlags: 0

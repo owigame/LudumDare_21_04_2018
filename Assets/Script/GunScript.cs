@@ -142,7 +142,9 @@ public class GunScript : MonoBehaviour {
     }
 
     void DoReturnToMenu () {
-        StartCoroutine (LoadYourAsyncScene ());
+        if (SceneManager.GetActiveScene ().buildIndex == 2 || SceneManager.GetActiveScene ().buildIndex == 4){
+            StartCoroutine (LoadYourAsyncScene ());
+        }
     }
 
     IEnumerator LoadYourAsyncScene () {

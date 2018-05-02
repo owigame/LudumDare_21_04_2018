@@ -98,6 +98,8 @@ MonoBehaviour:
   radius: 4
   expandRate: 15
   ExplosionPrefabEffect: {fileID: 0}
+  _numberPopUpPrefab: {fileID: 1438584881943310, guid: 5221f07887736264f97d129b8f58d762,
+    type: 2}
   explodeValue: 0
 --- !u!135 &135045281692744790
 SphereCollider:

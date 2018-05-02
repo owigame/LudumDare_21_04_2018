@@ -37,6 +37,7 @@ public class Rocket : MonoBehaviour {
 		_explosion.SetActive (true);
 		_explosion.transform.parent = null;
 		_explosion.GetComponent<Explosion>().Explode(transform.position, opp);
+		CameraShake._CameraShake.DoCameraShake(_explosion.transform.position);
 		if (enemy) {
 			Debug.Log (other.GetComponent<Zombie> ());	
 			Zombie _zombie = other.GetComponent<Zombie> ();
