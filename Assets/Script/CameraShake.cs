@@ -36,6 +36,11 @@ public class CameraShake : MonoBehaviour {
 			_duration = duration;
 		}
 	}
+	public void DoCameraShakeExplicit (float duration, float multiplier) {
+		_shake = multiplier * shakeAmount;
+		if (duration == 0) duration = shakeDuration;
+		_duration = duration;
+	}
 
 	void Update () {
 		if (_duration > 0) {

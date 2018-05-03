@@ -74,8 +74,6 @@ public class GunScript : MonoBehaviour {
     void Start () {
         if (OnOppChanged != null) OnOppChanged (opp);
         TrailsPool = new GameObjectPool (Trail);
-        _animParent = transform.parent.GetComponent<Animator> ();
-        _animParent.SetBool ("Left", playerHand == 0);
     }
 
     private void OnEnable () {
@@ -87,6 +85,8 @@ public class GunScript : MonoBehaviour {
             _VRTK_ControllerEvents.GripReleased += new ControllerInteractionEventHandler (GripReleased);
             _VRTK_ControllerEvents.StartMenuReleased += new ControllerInteractionEventHandler (ReturnToMenu);
         }
+        _animParent = transform.parent.GetComponent<Animator> ();
+        if (_animParent != null) _animParent.SetBool ("Left", playerHand == 0);
     }
 
     private void OnDisable () {

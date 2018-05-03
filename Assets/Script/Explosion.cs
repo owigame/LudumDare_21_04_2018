@@ -42,12 +42,13 @@ public class Explosion : MonoBehaviour {
 
             yield return null;
         }
+        Debug.Log("### Explode Value: " + explodeValue);
         if (Scoring._scoring != null && explodeValue > 0) {
             Scoring._scoring.UpdateScore (opp, explodeValue);
             GameObject _number = Instantiate (_numberPopUpPrefab, transform.position, Quaternion.identity);
             _number.transform.LookAt (Scoring._scoring.transform);
             _number.transform.localEulerAngles = new Vector3 (0, _number.transform.localEulerAngles.y, 0);
-            _number.GetComponent<UIPopUpNumber> ().SetNumber (explodeValue, opp);
+            _number.GetComponent<UIPopUpNumber> ().SetNumber (explodeValue * Scoring._scoring.multiplier, opp);
         }
         Destroy (gameObject);
     }

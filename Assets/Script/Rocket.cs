@@ -38,14 +38,14 @@ public class Rocket : MonoBehaviour {
 		_explosion.transform.parent = null;
 		_explosion.GetComponent<Explosion>().Explode(transform.position, opp);
 		CameraShake._CameraShake.DoCameraShake(_explosion.transform.position);
-		if (enemy) {
-			Debug.Log (other.GetComponent<Zombie> ());	
-			Zombie _zombie = other.GetComponent<Zombie> ();
-			Debug.Log ("Rocket Hit Enemy: " + _zombie.transform.name);
-			Scoring._scoring.UpdateScore (opp, _zombie.Value);
-			Debug.Log("Zommbie killed " + opp + " value " + _zombie.Value);
-			_zombie.Die (opp);
-		}
+		// if (enemy) {
+		// 	Debug.Log (other.GetComponent<Zombie> ());	
+		// 	Zombie _zombie = other.GetComponent<Zombie> ();
+		// 	Debug.Log ("Rocket Hit Enemy: " + _zombie.transform.name);
+		// 	Scoring._scoring.UpdateScore (opp, _zombie.Value);
+		// 	Debug.Log("Zombie killed " + opp + " value " + _zombie.Value);
+		// 	_zombie.Die (opp);
+		// }
 		Destroy (gameObject);
 	}
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIPopUpNumber : MonoBehaviour {
 
 	Animator _anim;
-	bool alive;
+	public bool alive;
 
 	public Text numberText;
 
@@ -16,12 +16,14 @@ public class UIPopUpNumber : MonoBehaviour {
 
 	void Update () {
 		if (_anim.GetCurrentAnimatorStateInfo (-1).IsName ("Destroy") && alive) {
-			Destroy (gameObject);
+			// Destroy (gameObject);
+			Debug.Log("-- Popup number dead --");
 			alive = false;
 		}
 	}
 
 	public void SetNumber (int number, Operator opp) {
+		Debug.Log("-- Popup number set --");
 		numberText.text = (opp == Operator.plus ? "+" : "-") + number.ToString ();
 	}
 }

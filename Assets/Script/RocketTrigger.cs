@@ -22,12 +22,15 @@ public class RocketTrigger : MonoBehaviour {
 		if (other.tag == "QuitGame") {
 			Application.Quit ();
 		}
+		if (other.gameObject.layer == 12) {
+			Scoring._scoring.DoResetGame();
+		}
 		bool zombieLayer = other.transform.gameObject.layer == 8;
 		GameObject _object = (other.transform.gameObject.layer == 8 ? other.attachedRigidbody.gameObject : other.transform.gameObject);
 
 		Debug.Log ("Explode: " + other.transform.gameObject);
-		Debug.Log ("Layer: " + other.transform.gameObject.layer);
-		Debug.Log ("GameObject: " + (other.transform.gameObject.layer == 8 ? other.attachedRigidbody.gameObject : other.transform.gameObject));
+		// Debug.Log ("Layer: " + other.transform.gameObject.layer);
+		// Debug.Log ("GameObject: " + (other.transform.gameObject.layer == 8 ? other.attachedRigidbody.gameObject : other.transform.gameObject));
 		_rocket.OnExplode (zombieLayer, _object);
 	}
 }

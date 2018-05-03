@@ -23,6 +23,8 @@ public class Scoring : MonoBehaviour {
     public int multiplier;
     public int timeDuration = 180;
     public int timeRemaining;
+    public GameObject gameOverPrefab;
+    bool gameOver = false;
 
     public UnityEvent RequiredReached;
 
@@ -66,42 +68,52 @@ public class Scoring : MonoBehaviour {
     }
 
     void DoGameOver () {
+        gameOver = true;
+        gameOverPrefab.SetActive (true);
+        //SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex == 2 ? 1 : 3);
+    }
+
+    public void DoResetGame () {
         SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex == 2 ? 1 : 3);
     }
 
     void ResetRequiredScore () {
-        targetValue = Mathf.RoundToInt (Random.Range (99, 999));
-        if (onTargetValueUpdated != null) onTargetValueUpdated (targetValue);
-        timeRemaining = timeDuration;
+        if (gameOver == false) {
+            targetValue = Mathf.RoundToInt (Random.Range (99, 999));
+            if (onTargetValueUpdated != null) onTargetValueUpdated (targetValue);
+            timeRemaining = timeDuration;
+        }
     }
 
     public void UpdateScore (Operator Operator, int value) {
-        switch (Operator) {
-            case Operator.plus:
-                currentValue += value * multiplier;
-                break;
-            case Operator.minus:
-                currentValue -= value * multiplier;
-                break;
-            case Operator.multiply:
-                currentValue *= value;
-                break;
-            case Operator.divide:
-                currentValue /= value;
-                break;
-        }
-        if (currentValue == targetValue) {
-            if (onCurrentValueUpdated != null) onCurrentValueUpdated (currentValue);
-            RequiredReached.Invoke ();
-            ResetRequiredScore ();
-            score++;
-            highestScore = score > highestScore ? score : highestScore;
-            PlayerPrefs.SetFloat ("highestScore", highestScore);
-            Debug.Log ("New Highscore: " + PlayerPrefs.GetFloat ("highestScore", highestScore));
-            if (onScoreUpdated != null) onScoreUpdated (score);
-            _audio.PlayOneShot (_onScoreUpdateClip);
-        } else {
-            if (onCurrentValueUpdated != null) onCurrentValueUpdated (currentValue);
+        if (gameOver == false) {
+            switch (Operator) {
+                case Operator.plus:
+                    currentValue += value * multiplier;
+                    break;
+                case Operator.minus:
+                    currentValue -= value * multiplier;
+                    break;
+                case Operator.multiply:
+                    currentValue *= value;
+                    break;
+                case Operator.divide:
+                    currentValue /= value;
+                    break;
+            }
+            if (currentValue == targetValue) {
+                if (onCurrentValueUpdated != null) onCurrentValueUpdated (currentValue);
+                RequiredReached.Invoke ();
+                ResetRequiredScore ();
+                score++;
+                highestScore = score > highestScore ? score : highestScore;
+                PlayerPrefs.SetFloat ("highestScore", highestScore);
+                Debug.Log ("New Highscore: " + PlayerPrefs.GetFloat ("highestScore", highestScore));
+                if (onScoreUpdated != null) onScoreUpdated (score);
+                _audio.PlayOneShot (_onScoreUpdateClip);
+            } else {
+                if (onCurrentValueUpdated != null) onCurrentValueUpdated (currentValue);
+            }
         }
     }
 
