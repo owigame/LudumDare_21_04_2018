@@ -56,6 +56,7 @@ public class GunScript : MonoBehaviour {
     [Header ("Rotary")]
     public bool gripPressed = false;
     bool wristLook = false;
+    float lastTick;
 
     #region Controller setup
     private void Awake () {
@@ -271,7 +272,7 @@ public class GunScript : MonoBehaviour {
 
     void AdjustMultiplier () {
         Vector3 targetDir = -otherController.handUI.transform.up;
-        float angle = Vector3.Angle (targetDir, transform.forward);
+        float angle = Vector3.Angle (targetDir, transform.right);
 
         Debug.Log ("*** ANGLE: " + angle + " STARTROT: " + StartRotGripped);
 
@@ -295,7 +296,7 @@ public class GunScript : MonoBehaviour {
         //     }
         // }
         if (Mathf.Abs (angle - StartRotGripped) > rotaryTickRate) {
-            int _multiplier = Mathf.Clamp ((angle > StartRotGripped) ? Scoring._scoring.multiplier - 1 : Scoring._scoring.multiplier + 1, 1, 9);
+            int _multiplier = Mathf.Clamp (angle > StartRotGripped ? Scoring._scoring.multiplier - 1 : Scoring._scoring.multiplier + 1, 1, 9);
             StartRotGripped = angle;
             Debug.Log ("**** MULTI: " + _multiplier);
             //check if larger than 9 then set to 1
