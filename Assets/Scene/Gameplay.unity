@@ -11187,7 +11187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b239039ef49fdd8408ae5efa4c3b7983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camTransform: {fileID: 1753781347}
+  camTransform: {fileID: 1753781348}
   shakeDuration: 0.2
   shakeAmount: 0.001
   decreaseFactor: 1
