@@ -14,15 +14,15 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.03137255, g: 0.16862746, b: 0.3372549, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.0001
   m_LinearFogStart: 0
   m_LinearFogEnd: 303
-  m_AmbientSkyColor: {r: 0.44810283, g: 0.5539852, b: 0.73333335, a: 1}
+  m_AmbientSkyColor: {r: 0.45046026, g: 0.5563426, b: 0.73333335, a: 1}
   m_AmbientEquatorColor: {r: 0.8980393, g: 0.9568628, b: 0.9686275, a: 1}
-  m_AmbientGroundColor: {r: 0.4364503, g: 0.40039226, b: 0.37613285, a: 1}
+  m_AmbientGroundColor: {r: 0.36972296, g: 0.32224315, b: 0.28836536, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -10736,16 +10736,6 @@ Prefab:
       propertyPath: otherController
       value: 
       objectReference: {fileID: 1351653591}
-    - target: {fileID: 114837607822745440, guid: 8d867631b1b1eab46bf840e4fcd8c731,
-        type: 2}
-      propertyPath: _CircularDriveModded
-      value: 
-      objectReference: {fileID: 717792714}
-    - target: {fileID: 114837607822745440, guid: 8d867631b1b1eab46bf840e4fcd8c731,
-        type: 2}
-      propertyPath: _linearMapping
-      value: 
-      objectReference: {fileID: 717792713}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d867631b1b1eab46bf840e4fcd8c731, type: 2}
   m_IsPrefabParent: 0

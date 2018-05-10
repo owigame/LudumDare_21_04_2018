@@ -84,7 +84,7 @@ public class GunScript : MonoBehaviour {
             _VRTK_ControllerEvents.TriggerAxisChanged += new ControllerInteractionEventHandler (GunTrigger);
             _VRTK_ControllerEvents.GripPressed += new ControllerInteractionEventHandler (GripPressed);
             _VRTK_ControllerEvents.GripReleased += new ControllerInteractionEventHandler (GripReleased);
-            _VRTK_ControllerEvents.StartMenuReleased += new ControllerInteractionEventHandler (ReturnToMenu);
+            _VRTK_ControllerEvents.ButtonTwoReleased += new ControllerInteractionEventHandler (ReturnToMenu);
         }
         _animParent = transform.parent.GetComponent<Animator> ();
         if (_animParent != null) _animParent.SetBool ("Left", playerHand == 0);
@@ -97,7 +97,7 @@ public class GunScript : MonoBehaviour {
             _VRTK_ControllerEvents.TriggerAxisChanged -= new ControllerInteractionEventHandler (GunTrigger);
             _VRTK_ControllerEvents.GripPressed -= new ControllerInteractionEventHandler (GripPressed);
             _VRTK_ControllerEvents.GripReleased -= new ControllerInteractionEventHandler (GripReleased);
-            _VRTK_ControllerEvents.StartMenuReleased -= new ControllerInteractionEventHandler (ReturnToMenu);
+            _VRTK_ControllerEvents.ButtonTwoReleased -= new ControllerInteractionEventHandler (ReturnToMenu);
         }
     }
 
