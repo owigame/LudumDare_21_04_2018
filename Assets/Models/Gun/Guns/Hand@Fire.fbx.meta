@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 452f1f4f8bcc85d4cb2cd4c225c0cabb
-timeCreated: 1524341779
-licenseType: Free
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: b_Hand
     100002: b_Hand_end
@@ -63,6 +61,7 @@ ModelImporter:
     7400000: Hand_Fire
     9500000: //RootNode
     13700000: VRplayerHand
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -82,6 +81,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -141,6 +141,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

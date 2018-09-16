@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: ff437cffdbe10244fba740793ffe6dcd
-timeCreated: 1524434721
-licenseType: Free
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: AddGun
     100002: //RootNode
@@ -32,6 +30,7 @@ ModelImporter:
     13700000: AddGun
     13700002: //RootNode
     13700004: AddGun_001
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -48,6 +47,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Gun
     second: {fileID: 2100000, guid: 82adcfbbbe7fd7a448bb80cc87a8a3dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GunEmissive
+    second: {fileID: 2100000, guid: a138378ff57e70741a357017cc0fc096, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -81,6 +85,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -112,6 +117,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

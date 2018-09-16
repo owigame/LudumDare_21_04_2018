@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 298e20cc835485248a1045c0733cfe51
-timeCreated: 1524433603
-licenseType: Free
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: b_Hand
     100002: b_Index_01
@@ -50,7 +48,28 @@ ModelImporter:
     7400002: Hand_Root_BoneAction
     9500000: //RootNode
     13700000: VRplayerHand
-  externalObjects: {}
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hand_Gear
+    second: {fileID: 2100000, guid: 8efd0f9016f36ee46b97c74b990e6a0d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hand_Knuckle
+    second: {fileID: 2100000, guid: a78d4249dd3c1d945982255f9aa613af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hand_MAT
+    second: {fileID: 2100000, guid: c818880a1b96f784d8fb6047429a5c63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hand_Pipes
+    second: {fileID: 2100000, guid: 40f9c832a0d8cd848998bedcf6a0fd3a, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -69,6 +88,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -100,6 +120,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

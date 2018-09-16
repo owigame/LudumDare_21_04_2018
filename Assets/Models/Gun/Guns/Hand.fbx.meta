@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 9ae7b0410ab32b74ca045f5f27df22ff
-timeCreated: 1524341779
-licenseType: Free
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: b_Hand
     100002: b_Index_01
@@ -51,7 +49,23 @@ ModelImporter:
     7400000: Hand_Idle
     9500000: //RootNode
     13700000: VRplayerHand
-  externalObjects: {}
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hand_MAT
+    second: {fileID: 2100000, guid: bfdd85a39c5a69741b6151d6ed80045c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RoundScreen_MAT
+    second: {fileID: 2100000, guid: 5f89a15b40731c44b8b70edabbd276c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SquareScreen_MAT
+    second: {fileID: 2100000, guid: d0cb5fcc3f5d6c04c94dbf51e7d588e2, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -70,6 +84,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -129,6 +144,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
